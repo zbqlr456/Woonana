@@ -40,7 +40,7 @@ public class UserService {
         String accessToken = getAccessToken(code);
         String apiUrl = "https://kapi.kakao.com/v2/user/me";
         String headerStr = "Bearer "+accessToken;
-        String res = requestToServer(apiUrl, headerStr);
+        String res = requestToServer(apiUrl, headerStr, "GET");
 
         if(res==null){ // 서버로 사용자 정보를 요청했는데 null이 온 경우
             log.warn("res: ", res);
@@ -90,12 +90,16 @@ public class UserService {
                     .userEmail(kakaoEmail)
                     .userSex(kakaoGender)
                     .userBirthday(kakaoBirthday)
+                    .accessToken(accessToken) // access token 저장
                     .build();
 
             userRepository.save(newUser); // 회원 정보 저장
             user = userRepository.findById(kakaoId); // user 객체 가져오기
         }
         else { // 가입한 경우, 회원 정보 중 바뀐 정보가 있으면 갱신해준다.
+
+            // access 토큰 갱신
+            user.get().setAccessToken(accessToken);
 
             // 사용자 닉네임이 바뀐 경우
             if(!kakaoNickname.equals(user.get().getUserNickname())) {
@@ -182,11 +186,12 @@ public class UserService {
         return accessToken;
     }
 
-    // 서버 통신 메소드
-    private String requestToServer(String apiURL, String headerStr) throws IOException {
+    // 인자로 들어오는 apiUrl을 통해 카카오와 통신하는 메소드
+    private String requestToServer(String apiURL, String headerStr, String requestMethod) throws IOException {
         URL url = new URL(apiURL);
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("GET");
+//        con.setRequestMethod("GET");
+        con.setRequestMethod(requestMethod);
 
         if(headerStr != null && !headerStr.equals("") ) {
             con.setRequestProperty("Authorization", headerStr);
@@ -216,6 +221,34 @@ public class UserService {
             System.out.println(res.toString());
             return null;
         }
+    }
+
+    // 회원 탈퇴시키는 메소드
+    public boolean userDelete(Long loginId){
+
+        User loginUser = userRepository.findById(loginId).get();
+        try {
+            deleteKakaoInfo(loginUser.getAccessToken());
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            return false; // 에러 생기면 회원 정보를 삭제하지 않고 false 리턴한다.
+        }
+
+        userRepository.delete(loginUser); // 회원 정보 삭제
+
+        if(userRepository.findById(loginId).isEmpty()) { // 회원 정보가 없다면 탈퇴 성공
+            return true;
+        }
+
+        return false; // 회원 정보가 있다면 탈퇴 실패함
+    }
+
+    // 카카오에서 사용자와 앱의 연결 해제
+    public void deleteKakaoInfo(String accessToken) throws IOException {
+        String apiUrl = "https://kapi.kakao.com/v1/user/unlink";
+        String headerStr = "Bearer "+accessToken;
+        requestToServer(apiUrl, headerStr, "POST");
     }
 
 }

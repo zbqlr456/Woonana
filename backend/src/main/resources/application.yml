@@ -2,9 +2,9 @@ server:
   port: 8081
 
 spring:
-    mvc:
-      pathmatch:
-        matching-strategy: ant_path_matcher
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 jpa:
   generate-ddl: false
   open-in-view: false

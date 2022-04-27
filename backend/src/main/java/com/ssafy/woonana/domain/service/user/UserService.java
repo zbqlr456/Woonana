@@ -2,6 +2,7 @@ package com.ssafy.woonana.domain.service.user;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.ssafy.woonana.domain.model.dto.user.response.MyPageInfoResponse;
 import com.ssafy.woonana.domain.model.entity.user.User;
 import com.ssafy.woonana.domain.repository.user.UserRepository;
 import com.ssafy.woonana.security.TokenProvider;
@@ -64,14 +65,14 @@ public class UserService {
 
         // 성별 선택 동의: 성별 제공에 동의했다면 저장, 동의 안 한 경우에는 null
         String kakaoGender = null;
-        if(jObj.getJSONObject("kakao_account").getBoolean("has_email")) {
+        if(!jObj.getJSONObject("kakao_account").getBoolean("gender_needs_agreement")) {
             kakaoGender = jObj.getJSONObject("kakao_account").getString("gender");
         }
         log.info("카카오 성별: "+kakaoGender); // 디버깅
 
         // 생일 선택 동의: 생일 제공에 동의했다면 저장, 동의 안 한 경우에는 null
         String kakaoBirthday = null;
-        if(jObj.getJSONObject("kakao_account").getBoolean("has_birthday")) {
+        if(!jObj.getJSONObject("kakao_account").getBoolean("birthday_needs_agreement")) {
             kakaoBirthday = jObj.getJSONObject("kakao_account").getString("birthday");
         }
         log.info("카카오 생일: "+kakaoBirthday); // 디버깅
@@ -249,6 +250,13 @@ public class UserService {
         String apiUrl = "https://kapi.kakao.com/v1/user/unlink";
         String headerStr = "Bearer "+accessToken;
         requestToServer(apiUrl, headerStr, "POST");
+    }
+
+    // 인자로 들어온 회원의 회원 정보 리턴하기
+    public MyPageInfoResponse selectUserInfo(Long userId){
+        User user = userRepository.findById(userId).get();
+        MyPageInfoResponse mypageInfo = new MyPageInfoResponse(user);
+        return mypageInfo;
     }
 
 }

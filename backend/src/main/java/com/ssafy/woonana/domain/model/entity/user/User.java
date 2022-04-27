@@ -5,8 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Data
 @Builder
@@ -35,5 +36,8 @@ public class User {
 
     @Column
     private String userProfileUrl;
+
+    @Column
+    private String accessToken; // 카카오 로그인에 필요한 액세스 토큰
 
 }

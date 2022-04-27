@@ -1,15 +1,13 @@
 package com.ssafy.woonana.controller.user;
 
-import com.ssafy.woonana.domain.model.dto.user.response.DeleteResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.MyPageInfoResponse;
 import com.ssafy.woonana.domain.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -33,10 +31,24 @@ public class UserController {
     }
 
     @DeleteMapping("/mypage")
-    public ResponseEntity<DeleteResponse> userDelete() {
+    public ResponseEntity<HashMap<String, String>> userDelete(@AuthenticationPrincipal Long userId) throws Exception {
 
-        DeleteResponse delMsg = DeleteResponse.builder().delete("번 회원이 탈퇴했습니다.").build();
-        return ResponseEntity.ok().body(delMsg);
+        if(!userService.userDelete(userId)){
+            throw new Exception("회원 정보 삭제에 실패했습니다.");
+        }
+
+        HashMap<String, String> result = new HashMap<>();
+        result.put("delete", userId+"번 회원이 탈퇴했습니다.");
+
+        return ResponseEntity.ok().body(result);
 
     }
+
+    @GetMapping("/mypage")
+    public ResponseEntity<MyPageInfoResponse> getMyPageInformation(@AuthenticationPrincipal Long userId) {
+
+        MyPageInfoResponse result = userService.selectUserInfo(userId);
+        return ResponseEntity.ok().body(result);
+    }
+
 }

@@ -1,27 +1,25 @@
 package com.ssafy.woonana.controller.chat;
 
-import com.ssafy.woonana.domain.model.dto.chat.request.MsgRoom;
-import com.ssafy.woonana.domain.service.chat.MsgService;
+import com.ssafy.woonana.domain.model.dto.chat.request.Message;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/chat")
 public class MsgController {
 
-    private final MsgService msgService;
+    private final SimpMessageSendingOperations sendingOperations;
 
-    @PostMapping
-    public MsgRoom createRoom(@RequestParam String name){
-        return msgService.createRoom(name);
-    }
-
-    @GetMapping
-    public List<MsgRoom> findAllRoom(){
-        return msgService.findAllRoom();
+    @MessageMapping("/comm/message")
+    public void message(Message message){
+        if(Message.MessageType.ENTER.equals(message.getMessageType())){
+            message.setMessage(message.getSender() + "이 입장했습니다.");
+        }
+        sendingOperations.convertAndSend("/sub/comm/room/" + message.getRoomId(),message);
     }
 
 }

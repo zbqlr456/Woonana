@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 // http://localhost:8081/swagger-ui/index.html
+// http://localhost:8081/chat/room
 
 @EnableJpaAuditing
 @SpringBootApplication

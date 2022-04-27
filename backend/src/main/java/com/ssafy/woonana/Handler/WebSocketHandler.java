@@ -2,7 +2,6 @@ package com.ssafy.woonana.Handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.woonana.domain.model.dto.chat.request.Message;
-import com.ssafy.woonana.domain.model.dto.chat.request.MsgRoom;
 import com.ssafy.woonana.domain.service.chat.MsgService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

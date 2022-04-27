@@ -1,9 +1,8 @@
 package com.ssafy.woonana.domain.service.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.woonana.domain.model.dto.chat.request.MsgRoom;
+import com.ssafy.woonana.domain.model.entity.chat.MsgRoom;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;

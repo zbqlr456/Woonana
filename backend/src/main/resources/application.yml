@@ -2,9 +2,14 @@ server:
   port: 8081
 
 spring:
-    mvc:
-      pathmatch:
-        matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:mysql://k6b104.p.ssafy.io:3306/woonana
+    username: root
+    password: woonana123@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 jpa:
   generate-ddl: false
   open-in-view: false

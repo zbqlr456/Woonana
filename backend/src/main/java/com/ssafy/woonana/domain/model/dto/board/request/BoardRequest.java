@@ -14,6 +14,7 @@ public class BoardRequest {
     private LocalDateTime meetEndDate;
     private int maxNumber;
     private Long exerciseId;
+    private Long userId;
 
     public BoardRequest(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, long exerciseId) {
         this.title = title;
@@ -23,5 +24,15 @@ public class BoardRequest {
         this.meetEndDate = meetEndDate;
         this.maxNumber = maxNumber;
         this.exerciseId = exerciseId;
+    }
+    public BoardRequest(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, long exerciseId, long userId) {
+        this.title = title;
+        this.content = content;
+        this.place = place;
+        this.meetStartDate = meetStartDate;
+        this.meetEndDate = meetEndDate;
+        this.maxNumber = maxNumber;
+        this.exerciseId = exerciseId;
+        this.userId = userId;
     }
 }

@@ -2,6 +2,7 @@ package com.ssafy.woonana.domain.model.entity.board;
 
 import com.ssafy.woonana.domain.model.entity.BaseTimeEntity;
 import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
+import com.ssafy.woonana.domain.model.entity.user.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"title", "content", "maxNumber"})
+@Table(name = "boards")
 public class Board extends BaseTimeEntity {
 
     @Id
@@ -44,8 +46,13 @@ public class Board extends BaseTimeEntity {
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
-    // 사진 url, 사용자 추가
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    // 사진 url
+
+    // test용 생성자
     public Board(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, Exercise exercise) {
         this.title = title;
         this.content = content;
@@ -54,7 +61,21 @@ public class Board extends BaseTimeEntity {
         this.meetEndDate = meetEndDate;
         this.maxNumber = maxNumber;
         this.status = "OPEN";
+        if (exercise != null) {
+            changeExercise(exercise);
+        }
+    }
+    public Board(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, Exercise exercise, User user) {
+        this.title = title;
+        this.content = content;
+        this.place = place;
+        this.meetStartDate = meetStartDate;
+        this.meetEndDate = meetEndDate;
+        this.maxNumber = maxNumber;
+        this.status = "OPEN";
+        this.user = user;
 
+        user.getUserBoards().add(this);
         if (exercise != null) {
             changeExercise(exercise);
         }

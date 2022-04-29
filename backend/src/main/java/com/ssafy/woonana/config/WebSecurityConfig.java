@@ -4,6 +4,7 @@ import com.ssafy.woonana.security.JwtAuthenticationFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,6 +16,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Override
+    public void configure(WebSecurity web) throws Exception{
+        web.ignoring().antMatchers("/static/css/**, /static/js/**, *.ico");
+        // swagger
+        web.ignoring().antMatchers(
+                "/v2/api-docs", "/configuration/ui",
+                "/swagger-resources", "/configuration/security",
+                "/swagger-ui.html", "/webjars/**","/swagger/**");
+
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -30,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests() // /account/** 경로는 인증 안 해도 됨
-                .antMatchers("/","/api/accounts/signup/**").permitAll()
+                .antMatchers("/","/api/accounts/signup/**","/swagger-ui/**","/swagger-resources/**","/chat/**","/ws/**","/favicon.ico/**").permitAll()
                 .anyRequest()
                 .authenticated();
 

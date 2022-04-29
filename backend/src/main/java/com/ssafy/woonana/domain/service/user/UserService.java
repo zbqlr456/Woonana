@@ -7,7 +7,6 @@ import com.ssafy.woonana.domain.model.entity.user.User;
 import com.ssafy.woonana.domain.repository.user.UserRepository;
 import com.ssafy.woonana.security.TokenProvider;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Slf4j
@@ -39,9 +37,11 @@ public class UserService {
     public String userAccess(String code) throws Exception {
 
         String accessToken = getAccessToken(code);
+        log.info("userAccess에서 access token check: ", accessToken);
         String apiUrl = "https://kapi.kakao.com/v2/user/me";
         String headerStr = "Bearer "+accessToken;
         String res = requestToServer(apiUrl, headerStr, "GET");
+        log.info("res: ", res);
 
         if(res==null){ // 서버로 사용자 정보를 요청했는데 null이 온 경우
             log.warn("res: ", res);
@@ -159,7 +159,7 @@ public class UserService {
 
             bw.write(sb.toString());
             bw.flush();
-            System.out.println(sb.toString()); // 디버깅
+            log.debug("sb 정보; ", sb.toString());
 
             //  RETURN 값 result 변수에 저장
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -182,6 +182,7 @@ public class UserService {
 
         } catch (IOException e) {
             e.printStackTrace();
+            log.warn("getAccessToken에서 IOException 발생->accessToken이 빈 값이 됨");
         }
 
         return accessToken;

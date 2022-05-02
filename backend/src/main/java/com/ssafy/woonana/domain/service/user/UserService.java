@@ -79,13 +79,13 @@ public class UserService {
 
 
         // 사용자가 기존에 가입했는지 확인
-        Optional<User> user = userRepository.findById(kakaoId);
+        Optional<User> user = userRepository.findByKakaoId(kakaoId);
         User newUser = null;
 
         if (user.isEmpty()) { // 가입하지 않은 경우, 가입시켜준다.
 
             newUser = User.builder()
-                    .userId(kakaoId)
+                    .kakaoId(kakaoId)
                     .userNickname(kakaoNickname)
                     .userProfileUrl(kakaoProfileImg)
                     .userEmail(kakaoEmail)
@@ -95,7 +95,7 @@ public class UserService {
                     .build();
 
             userRepository.save(newUser); // 회원 정보 저장
-            user = userRepository.findById(kakaoId); // user 객체 가져오기
+            user = userRepository.findByKakaoId(kakaoId); // user 객체 가져오기
         }
         else { // 가입한 경우, 회원 정보 중 바뀐 정보가 있으면 갱신해준다.
 

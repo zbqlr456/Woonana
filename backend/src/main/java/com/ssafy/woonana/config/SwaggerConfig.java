@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 @Configuration
 public class SwaggerConfig {
     private String version = "V1";
-    private String title = "Woonana API" + version;
+    private String title = "Woonana API " + version;
 
     @Bean
     public Docket postsApi(){

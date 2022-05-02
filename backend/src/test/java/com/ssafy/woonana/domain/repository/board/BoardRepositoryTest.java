@@ -127,7 +127,7 @@ class BoardRepositoryTest {
         // when
         BoardRequest boardRequest1 = new BoardRequest("제목!!","내용!!","경기도", LocalDateTime.parse("2022-04-25T20:00:00"), LocalDateTime.parse("2022-04-25T22:00:00"),2, 1);
         Exercise exerciseRequest1 = exerciseRepository.findById(boardRequest1.getExerciseId()).get();
-        Board board1 = new Board(boardRequest1.getTitle(), boardRequest1.getContent(), boardRequest1.getPlace(), boardRequest1.getMeetStartDate(), boardRequest1.getMeetEndDate(), boardRequest1.getMaxNumber(), exerciseRequest1, u1);
+        Board board1 = new Board(boardRequest1.getTitle(), boardRequest1.getContent(), boardRequest1.getPlace(), boardRequest1.getMeetStartDate(), boardRequest1.getMeetEndDate(), boardRequest1.getMaxNumber(), 0, exerciseRequest1, u1);
         boardRepository.save(board1);
 
         // then

@@ -2,13 +2,17 @@ package com.ssafy.woonana.domain.model.entity.board;
 
 import com.ssafy.woonana.domain.model.entity.BaseTimeEntity;
 import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
+import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,6 +33,9 @@ public class Board extends BaseTimeEntity {
     @CreatedDate
     @Column(name = "board_created_date")
     private LocalDateTime createdDate;
+    @LastModifiedDate
+    @Column(name = "board_last_modified_date")
+    private LocalDateTime lastModifiedDate;
     @Column(name = "board_place")
     private String place;
     @Column(name = "board_meet_start_date")
@@ -42,6 +49,9 @@ public class Board extends BaseTimeEntity {
     @Convert(converter = StatusAttributeConverter.class)
     private String status; // OPEN, CLOSE, DONE
 
+    @Column(name = "board_participation_option")
+    private int participationOption;    // 승인/거절 방식 : 0, 선착순 방식 : 1
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
@@ -49,6 +59,9 @@ public class Board extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "board")
+    private List<Participation> participations = new ArrayList<>();
 
     // 사진 url
 
@@ -65,7 +78,7 @@ public class Board extends BaseTimeEntity {
             changeExercise(exercise);
         }
     }
-    public Board(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, Exercise exercise, User user) {
+    public Board(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, int participationOption, Exercise exercise, User user) {
         this.title = title;
         this.content = content;
         this.place = place;
@@ -73,6 +86,7 @@ public class Board extends BaseTimeEntity {
         this.meetEndDate = meetEndDate;
         this.maxNumber = maxNumber;
         this.status = "OPEN";
+        this.participationOption = participationOption;
         this.user = user;
 
         user.getUserBoards().add(this);
@@ -81,8 +95,13 @@ public class Board extends BaseTimeEntity {
         }
     }
 
-    private void changeExercise(Exercise exercise) {
+    public void changeExercise(Exercise exercise) {
         this.exercise = exercise;
         exercise.getBoards().add(this);
+    }
+
+    public void addParticipations(Participation participation) {
+        participations.add(participation);
+        participation.setBoard(this);
     }
 }

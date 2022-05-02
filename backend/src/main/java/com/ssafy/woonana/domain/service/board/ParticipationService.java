@@ -1,5 +1,6 @@
 package com.ssafy.woonana.domain.service.board;
 
+import com.ssafy.woonana.domain.model.dto.board.request.ApproveRequest;
 import com.ssafy.woonana.domain.model.dto.board.response.PickListDetail;
 import com.ssafy.woonana.domain.model.dto.board.response.PickListResponse;
 import com.ssafy.woonana.domain.model.entity.board.Board;
@@ -62,5 +63,21 @@ public class ParticipationService {
         }
 
         return response;
+    }
+
+    @Transactional
+    public void approve(Long participationId) {
+
+        Participation findParticipation = participationRepository.findById(participationId).get();
+        findParticipation.setAllowed(true);
+        participationRepository.save(findParticipation);
+    }
+
+    @Transactional
+    public void cancel(Long participationId) {
+
+        // TODO : 신청 거절시 변경할 데이터가 없어서 일단 삭제로 함
+        Participation findParticipation = participationRepository.findById(participationId).get();
+        participationRepository.delete(findParticipation);
     }
 }

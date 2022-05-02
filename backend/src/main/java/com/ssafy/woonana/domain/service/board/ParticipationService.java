@@ -1,5 +1,7 @@
 package com.ssafy.woonana.domain.service.board;
 
+import com.ssafy.woonana.domain.model.dto.board.response.PickListDetail;
+import com.ssafy.woonana.domain.model.dto.board.response.PickListResponse;
 import com.ssafy.woonana.domain.model.entity.board.Board;
 import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
@@ -11,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +32,7 @@ public class ParticipationService {
         Board findBoard = boardRepository.findById(boardId).get();
         User requestUser = userRepository.findById(userId).get();
 
+
         boolean isUserAllowed = false;
         // 모집 옵션이 승인 거절 방법(0)일 때 승인 여부(isUserAllowed)는 false
 
@@ -38,9 +42,25 @@ public class ParticipationService {
 
         Participation participation = new Participation(requestUser, findBoard, isUserAllowed);
         participationRepository.save(participation);
-        System.out.println(participation.getId());
-        System.out.println(participation.getBoard());
-        System.out.println(participation.getLastModifiedDate());
         return participation.getId();
+    }
+
+    public PickListResponse getAppliedList(Long boardId) {
+
+        // boardId에 연관된 participateId 모든 목록 출력
+        List<Participation> findAppliedList = participationRepository.findListByBoardId(boardId);
+        PickListResponse response = new PickListResponse();
+        for (Participation p : findAppliedList) {
+            PickListDetail detail = new PickListDetail();
+            User findUser = userRepository.findById(p.getUser().getUserId()).get();
+            detail.setParticipationId(p.getId());
+            detail.setUserId(findUser.getUserId());
+            detail.setUserNickname(findUser.getUserNickname());
+            detail.setProfileUrl(findUser.getUserProfileUrl());
+            detail.setParticipationAllowed(p.isAllowed());
+            response.addPickListDetail(detail);
+        }
+
+        return response;
     }
 }

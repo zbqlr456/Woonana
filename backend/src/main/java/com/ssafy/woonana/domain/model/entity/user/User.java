@@ -1,6 +1,7 @@
 package com.ssafy.woonana.domain.model.entity.user;
 
 import com.ssafy.woonana.domain.model.entity.board.Board;
+import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,7 @@ import java.util.List;
 public class User {
 
     @Id
+    @Column(name = "user_id")
     private Long userId;
 
     @Column
@@ -46,6 +48,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Board> userBoards = new ArrayList<>();
 
+    @OneToMany(mappedBy = "board")
+    private List<Participation> participations = new ArrayList<>();
+
     public User(Long userId, String userEmail, String userBirthday, String userNickname, String userSex, String userProfileUrl) {
         this.userId = userId;
         this.userEmail = userEmail;
@@ -53,6 +58,11 @@ public class User {
         this.userNickname = userNickname;
         this.userSex = userSex;
         this.userProfileUrl = userProfileUrl;
+    }
+
+    public void addParticipations(Participation participation) {
+        participations.add(participation);
+        participation.setUser(this);
     }
 
 }

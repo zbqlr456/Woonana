@@ -5,6 +5,7 @@ import com.ssafy.woonana.domain.model.dto.board.response.BoardDetailResponse;
 import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
 import com.ssafy.woonana.domain.service.board.BoardService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,7 @@ public class BoardController {
     }
 
     @GetMapping
+    @ApiOperation(value = "신청 가능한 글 전체 목록", notes = "메인 페이지의 글 목록을 무한 스크롤로 보여준다.")
     public ResponseEntity<List<BoardListResponse>> getAllBoards() {
 
         return ResponseEntity.ok(boardService.getAllBoards());

@@ -10,6 +10,8 @@ import com.ssafy.woonana.domain.repository.board.BoardRepository;
 import com.ssafy.woonana.domain.repository.board.ExerciseRepository;
 import com.ssafy.woonana.domain.repository.participation.ParticipationRepository;
 import com.ssafy.woonana.domain.repository.user.UserRepository;
+import com.ssafy.woonana.error.exception.custom.ParticipationDuplicateException;
+import com.ssafy.woonana.error.exception.custom.ParticipationIsFullException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,5 +81,19 @@ public class ParticipationService {
         // TODO : 신청 거절시 변경할 데이터가 없어서 일단 삭제로 함
         Participation findParticipation = participationRepository.findById(participationId).get();
         participationRepository.delete(findParticipation);
+    }
+
+    public void isUserRegistered(Long boardId, Long userId) {
+
+        Participation findParticipation = participationRepository.findParticipation(boardId, userId);
+        if (findParticipation != null)
+            throw new ParticipationDuplicateException();
+
+    }
+
+    public void isStatusDone(Long boardId) {
+        Board findBoard = boardRepository.findById(boardId).get();
+        if (findBoard.getStatus().equals("CLOSE"))
+            throw new ParticipationIsFullException();
     }
 }

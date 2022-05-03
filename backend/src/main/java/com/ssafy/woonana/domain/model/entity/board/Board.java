@@ -100,6 +100,10 @@ public class Board extends BaseTimeEntity {
         exercise.getBoards().add(this);
     }
 
+    public void changeStatus(String status) {
+        this.status = status;
+    }
+
     public void addParticipations(Participation participation) {
         participations.add(participation);
         participation.setBoard(this);

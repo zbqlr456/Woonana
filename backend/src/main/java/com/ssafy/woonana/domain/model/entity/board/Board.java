@@ -45,6 +45,9 @@ public class Board extends BaseTimeEntity {
     @Column(name = "board_max_number")
     private int maxNumber;
 
+    @Column(name = "board_allowed_number")
+    private int allowedNumber;
+
     @Column(name = "board_status")
     @Convert(converter = StatusAttributeConverter.class)
     private String status; // OPEN, CLOSE, DONE
@@ -100,8 +103,18 @@ public class Board extends BaseTimeEntity {
         exercise.getBoards().add(this);
     }
 
+    public void changeStatus(String status) {
+        this.status = status;
+    }
+
     public void addParticipations(Participation participation) {
         participations.add(participation);
         participation.setBoard(this);
+    }
+
+    public void updateAllowedMemberCount() {
+        this.allowedNumber = this.allowedNumber + 1;
+        if (this.allowedNumber == this.maxNumber)
+            this.changeStatus("CLOSE");
     }
 }

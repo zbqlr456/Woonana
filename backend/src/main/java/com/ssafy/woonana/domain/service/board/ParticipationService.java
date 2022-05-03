@@ -78,15 +78,6 @@ public class ParticipationService {
         findParticipation.setAllowed(true);
         findBoard.updateAllowedMemberCount();
 
-        System.out.println("findBoard = " + findBoard.getAllowedNumber());
-        System.out.println("findBoard = " + findBoard.getMaxNumber());
-
-        // 해당 참여자를 마지막으로 모집 인원이 다 찼을 때
-        if (findBoard.getMaxNumber() <= findBoard.getAllowedNumber()){
-            System.out.println("========ewr=wer=we=rw=ree=r=wer=wer========");
-            System.out.println("findBoard = " + findBoard.getStatus());
-        }
-
         participationRepository.save(findParticipation);
     }
 

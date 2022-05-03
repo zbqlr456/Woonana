@@ -26,7 +26,7 @@ public class ParticipationController {
     public ResponseEntity registerParticipation(@PathVariable("boardId") Long boardId, @AuthenticationPrincipal Long userId) {
 
         // 해당 board의 인원이 다 찼으면 종료
-        participationService.isStatusDone(boardId);
+        participationService.isStatusClose(boardId);
         // 해당 user가 이미 board에 참여 신청 되어있으면 종료
         participationService.isUserRegistered(boardId, userId);
 
@@ -43,6 +43,7 @@ public class ParticipationController {
     @PatchMapping("/pick/approve/{participationId}")
     @ApiOperation(value = "글 작성자가 신청자 참여 승인할 때 사용", notes = "신청자 목록에서 해당 참여 정보에 대한 승인 여부를 허용한다.")
     public ResponseEntity approveParticipation(@PathVariable("participationId") Long participationId) {
+
         participationService.approve(participationId);
         return new ResponseEntity(HttpStatus.OK);
     }

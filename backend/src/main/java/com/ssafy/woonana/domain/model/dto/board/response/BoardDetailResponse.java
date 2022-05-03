@@ -14,6 +14,7 @@ public class BoardDetailResponse {
     private LocalDateTime createdDate;
     private LocalDateTime meetStartDate;
     private LocalDateTime meetEndDate;
+    private int allowedNumber;
     private int maxNumber;
     private Long exerciseId;
     private String status;
@@ -37,6 +38,7 @@ public class BoardDetailResponse {
         this.createdDate = board.getCreatedDate();
         this.meetStartDate = board.getMeetStartDate();
         this.meetEndDate = board.getMeetEndDate();
+        this.allowedNumber = board.getAllowedNumber();
         this.maxNumber = board.getMaxNumber();
         this.exerciseId = board.getExercise().getId();
         this.status = board.getStatus();

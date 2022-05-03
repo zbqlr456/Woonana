@@ -35,12 +35,12 @@ public class ParticipationService {
         Board findBoard = boardRepository.findById(boardId).get();
         User requestUser = userRepository.findById(userId).get();
 
-
-        boolean isUserAllowed = false;
         // 모집 옵션이 승인 거절 방법(0)일 때 승인 여부(isUserAllowed)는 false
+        boolean isUserAllowed = false;
 
         if (findBoard.getParticipationOption() == 1) { // 모집 옵션이 선착순(1)일 때
             isUserAllowed = true;
+            findBoard.updateAllowedMemberCount();
         }
 
         Participation participation = new Participation(requestUser, findBoard, isUserAllowed);
@@ -69,9 +69,24 @@ public class ParticipationService {
 
     @Transactional
     public void approve(Long participationId) {
-
         Participation findParticipation = participationRepository.findById(participationId).get();
+        Board findBoard = boardRepository.findById(findParticipation.getBoard().getId()).get();
+
+        // 해당 board의 인원이 다 찼으면 종료
+        this.isStatusClose(findBoard.getId());
+
         findParticipation.setAllowed(true);
+        findBoard.updateAllowedMemberCount();
+
+        System.out.println("findBoard = " + findBoard.getAllowedNumber());
+        System.out.println("findBoard = " + findBoard.getMaxNumber());
+
+        // 해당 참여자를 마지막으로 모집 인원이 다 찼을 때
+        if (findBoard.getMaxNumber() <= findBoard.getAllowedNumber()){
+            System.out.println("========ewr=wer=we=rw=ree=r=wer=wer========");
+            System.out.println("findBoard = " + findBoard.getStatus());
+        }
+
         participationRepository.save(findParticipation);
     }
 
@@ -91,7 +106,7 @@ public class ParticipationService {
 
     }
 
-    public void isStatusDone(Long boardId) {
+    public void isStatusClose(Long boardId) {
         Board findBoard = boardRepository.findById(boardId).get();
         if (findBoard.getStatus().equals("CLOSE"))
             throw new ParticipationIsFullException();

@@ -34,6 +34,7 @@ public class BoardService {
         Exercise exerciseRequest = exerciseRepository.findById(boardRequest.getExerciseId()).get();
         User boardUser = userRepository.findById(userId).get();
         Board board = new Board(boardRequest.getTitle(), boardRequest.getContent(), boardRequest.getPlace(), boardRequest.getMeetStartDate(), boardRequest.getMeetEndDate(), boardRequest.getMaxNumber(), boardRequest.getParticipationOption(), exerciseRequest, boardUser);
+        board.updateAllowedMemberCount();
         boardRepository.save(board);
 
         // 글 작성자는 참여 승인 허가
@@ -49,7 +50,7 @@ public class BoardService {
         List<BoardListResponse> list = new ArrayList<>();
 
         for (Board b : boardList) {
-            list.add(new BoardListResponse(b.getUser().getUserNickname(), b.getTitle(), b.getMaxNumber(), b.getStatus()));
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus()));
         }
 
         return list;
@@ -57,6 +58,7 @@ public class BoardService {
 
     public BoardDetailResponse getOneBoard(Long boardId) {
         Board findBoard = boardRepository.findById(boardId).get();
+        System.out.println("findBoard = " + findBoard.getStatus());
         return new BoardDetailResponse(findBoard);
     }
 

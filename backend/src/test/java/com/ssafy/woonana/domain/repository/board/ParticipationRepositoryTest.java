@@ -35,11 +35,10 @@ class ParticipationRepositoryTest {
         User u1 = new User(123123123L, "dkdk", "dkdk", "닉네임", "sdfks", "dsf");
         userRepository.save(u1);
 
-
         // when
-        Participation participation = participationRepository.findById(12L).get();
-        participation.setAllowed(true);
-        //System.out.println("participation = " + participation);
+        Participation participation = participationRepository.findParticipation(22L, 2220561222L);
+
+        System.out.println("participation = " + participation);
 
         List<Participation> listByBoardId = participationRepository.findListByBoardId(10L);
         for (Participation p : listByBoardId) {
@@ -47,9 +46,16 @@ class ParticipationRepositoryTest {
         }
         //participationRepository.save()
 
-        // 글 작성자는 자동 참가
+    }
 
-        // 참가 신청하는 사용자도 같은 참가 id 갖도록 하기
-
+    @Test
+    public void maxNumberCheck() {
+        Board findBoard = boardRepository.findById(21L).get();
+        List<Participation> findBoardList = participationRepository.findListByBoardId(21L);
+        int memberCnt = 0;
+        for (Participation p : findBoardList) {
+            if (p.isAllowed()) memberCnt++;
+        }
+//        findBoard.updateAllowedMemberCount(memberCnt);
     }
 }

@@ -8,7 +8,7 @@ public class StatusAttributeConverter implements AttributeConverter<String, Inte
 
     @Override
     public Integer convertToDatabaseColumn(String attribute) {
-        if ("ClOSE".equals(attribute)) return 1;
+        if ("CLOSE".equals(attribute)) return 1;
         else if ("DONE".equals(attribute)) return 2;
         return 0;
     }

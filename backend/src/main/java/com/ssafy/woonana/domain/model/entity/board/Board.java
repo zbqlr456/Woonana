@@ -44,14 +44,11 @@ public class Board extends BaseTimeEntity {
     private LocalDateTime meetEndDate;
     @Column(name = "board_max_number")
     private int maxNumber;
-
     @Column(name = "board_allowed_number")
     private int allowedNumber;
-
     @Column(name = "board_status")
     @Convert(converter = StatusAttributeConverter.class)
     private String status; // OPEN, CLOSE, DONE
-
     @Column(name = "board_participation_option")
     private int participationOption;    // 승인/거절 방식 : 0, 선착순 방식 : 1
 
@@ -113,8 +110,15 @@ public class Board extends BaseTimeEntity {
     }
 
     public void updateAllowedMemberCount() {
-        this.allowedNumber = this.allowedNumber + 1;
+        this.allowedNumber += 1;
         if (this.allowedNumber == this.maxNumber)
             this.changeStatus("CLOSE");
     }
+
+    public void afterUserCancel() {
+        this.allowedNumber -= 1;
+        if (this.getStatus().equals("CLOSE"))
+            this.changeStatus("OPEN");
+    }
+
 }

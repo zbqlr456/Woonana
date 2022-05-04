@@ -48,8 +48,15 @@ public class ParticipationController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping (value = {"/pick/refuse/{participationId}", "/{participationId}"})
-    @ApiOperation(value = "글 작성자가 신청자 참여 거절할 때와, 참여 신청자가 참여 취소할 때 사용", notes = "신청자 목록에서 해당 참여자의 참여를 거절 후 신청자 목록에서 삭제한다, 신청자 목록에서 참여 신청 내역을 삭제한다.")
+    @DeleteMapping("/pick/refuse/{participationId}")
+    @ApiOperation(value = "글 작성자가 신청자 참여 거절할 때 사용", notes = "신청자 목록에서 해당 참여자의 참여를 거절 후 신청자 목록에서 삭제한다.")
+    public ResponseEntity refuseParticipation(@PathVariable("participationId") Long participationId) {
+        participationService.refuse(participationId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{participationId}")
+    @ApiOperation(value = "참여 신청자가 참여 취소할 때 사용", notes = "신청자 목록에서 참여 신청 내역을 삭제한다.")
     public ResponseEntity cancelParticipation(@PathVariable("participationId") Long participationId) {
         participationService.cancel(participationId);
         return new ResponseEntity(HttpStatus.OK);

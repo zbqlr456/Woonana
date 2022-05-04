@@ -87,10 +87,19 @@ public class ParticipationService {
     }
 
     @Transactional
-    public void cancel(Long participationId) {
+    public void refuse(Long participationId) {
 
         // TODO : 신청 거절시 변경할 데이터가 없어서 일단 삭제로 함
         Participation findParticipation = participationRepository.findById(participationId).get();
+        participationRepository.delete(findParticipation);
+    }
+    @Transactional
+    public void cancel(Long participationId) {
+
+        Participation findParticipation = participationRepository.findById(participationId).get();
+        Board findBoard = boardRepository.findById(findParticipation.getBoard().getId()).get();
+        findBoard.afterUserCancel();
+
         participationRepository.delete(findParticipation);
     }
 

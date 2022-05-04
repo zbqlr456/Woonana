@@ -15,4 +15,5 @@ public class BoardListResponse {
     private int allowedNumber;
     private int maxNumber;
     private String status;
+    private String imageUrl;
 }

@@ -1,13 +1,12 @@
 package com.ssafy.woonana.domain.service.board;
 
-import com.ssafy.woonana.domain.model.dto.board.request.ApproveRequest;
 import com.ssafy.woonana.domain.model.dto.board.response.PickListDetail;
 import com.ssafy.woonana.domain.model.dto.board.response.PickListResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.UserParticipatedCheck;
 import com.ssafy.woonana.domain.model.entity.board.Board;
 import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
 import com.ssafy.woonana.domain.repository.board.BoardRepository;
-import com.ssafy.woonana.domain.repository.board.ExerciseRepository;
 import com.ssafy.woonana.domain.repository.participation.ParticipationRepository;
 import com.ssafy.woonana.domain.repository.user.UserRepository;
 import com.ssafy.woonana.error.exception.custom.ParticipationDuplicateException;
@@ -16,8 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,7 +25,6 @@ public class ParticipationService {
 
     private final ParticipationRepository participationRepository;
     private final BoardRepository boardRepository;
-    private final ExerciseRepository exerciseRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -39,6 +37,8 @@ public class ParticipationService {
         boolean isUserAllowed = false;
 
         if (findBoard.getParticipationOption() == 1) { // 모집 옵션이 선착순(1)일 때
+            // 이 시간대에 참여 신청된 board가 있으면 종료
+            this.isTimeOverlapped(requestUser.getUserId(), findBoard.getMeetStartDate(), findBoard.getMeetEndDate());
             isUserAllowed = true;
             findBoard.updateAllowedMemberCount();
         }
@@ -74,6 +74,8 @@ public class ParticipationService {
 
         // 해당 board의 인원이 다 찼으면 종료
         this.isStatusClose(findBoard.getId());
+        // 이 시간대에 참여 신청된 board가 있으면 종료
+        this.isTimeOverlapped(findParticipation.getUser().getUserId(), findBoard.getMeetStartDate(), findBoard.getMeetEndDate());
 
         findParticipation.setAllowed(true);
         findBoard.updateAllowedMemberCount();
@@ -82,19 +84,32 @@ public class ParticipationService {
     }
 
     @Transactional
-    public void cancel(Long participationId) {
+    public void refuse(Long participationId) {
 
         // TODO : 신청 거절시 변경할 데이터가 없어서 일단 삭제로 함
         Participation findParticipation = participationRepository.findById(participationId).get();
         participationRepository.delete(findParticipation);
     }
+    @Transactional
+    public void cancel(Long participationId) {
+
+        Participation findParticipation = participationRepository.findById(participationId).get();
+        Board findBoard = boardRepository.findById(findParticipation.getBoard().getId()).get();
+        findBoard.afterUserCancel();
+
+        participationRepository.delete(findParticipation);
+    }
 
     public void isUserRegistered(Long boardId, Long userId) {
-
         Participation findParticipation = participationRepository.findParticipation(boardId, userId);
         if (findParticipation != null)
-            throw new ParticipationDuplicateException();
+            throw new ParticipationDuplicateException("이미 참여 신청된 사용자입니다.");
+    }
 
+    private void isTimeOverlapped(Long userId, LocalDateTime meetStartDate, LocalDateTime meetEndDate) {
+        List<UserParticipatedCheck> participationsByTime = participationRepository.findParticipationsByTime(userId, meetStartDate, meetEndDate);
+        if (participationsByTime.size() != 0)
+            throw new ParticipationDuplicateException("이 시간대에 이미 참여 신청된 운동이 있습니다.");
     }
 
     public void isStatusClose(Long boardId) {

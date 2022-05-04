@@ -65,19 +65,6 @@ public class Board extends BaseTimeEntity {
 
     // 사진 url
 
-    // test용 생성자
-    public Board(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, Exercise exercise) {
-        this.title = title;
-        this.content = content;
-        this.place = place;
-        this.meetStartDate = meetStartDate;
-        this.meetEndDate = meetEndDate;
-        this.maxNumber = maxNumber;
-        this.status = "OPEN";
-        if (exercise != null) {
-            changeExercise(exercise);
-        }
-    }
     public Board(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, int participationOption, Exercise exercise, User user) {
         this.title = title;
         this.content = content;

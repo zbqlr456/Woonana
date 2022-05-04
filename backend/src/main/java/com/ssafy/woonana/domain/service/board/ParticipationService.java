@@ -1,6 +1,5 @@
 package com.ssafy.woonana.domain.service.board;
 
-import com.ssafy.woonana.domain.model.dto.board.request.ApproveRequest;
 import com.ssafy.woonana.domain.model.dto.board.response.PickListDetail;
 import com.ssafy.woonana.domain.model.dto.board.response.PickListResponse;
 import com.ssafy.woonana.domain.model.dto.user.response.UserParticipatedCheck;
@@ -8,7 +7,6 @@ import com.ssafy.woonana.domain.model.entity.board.Board;
 import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
 import com.ssafy.woonana.domain.repository.board.BoardRepository;
-import com.ssafy.woonana.domain.repository.board.ExerciseRepository;
 import com.ssafy.woonana.domain.repository.participation.ParticipationRepository;
 import com.ssafy.woonana.domain.repository.user.UserRepository;
 import com.ssafy.woonana.error.exception.custom.ParticipationDuplicateException;
@@ -19,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)

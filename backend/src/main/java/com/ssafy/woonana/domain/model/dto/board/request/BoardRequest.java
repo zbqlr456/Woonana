@@ -13,9 +13,9 @@ public class BoardRequest {
     private String title;
     private String content;
     private String place;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime meetStartDate;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime meetEndDate;
     private int maxNumber;
     private int participationOption;

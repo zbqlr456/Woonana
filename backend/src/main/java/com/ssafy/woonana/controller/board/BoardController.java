@@ -22,11 +22,6 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "hello";
-    }
-
     @PostMapping
     public ResponseEntity registerBoard(@RequestBody BoardRequest boardRequest, @AuthenticationPrincipal Long userId) {
         boardService.register(boardRequest, userId);

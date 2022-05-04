@@ -3,6 +3,7 @@ package com.ssafy.woonana.domain.service.board;
 import com.ssafy.woonana.domain.model.dto.board.request.BoardRequest;
 import com.ssafy.woonana.domain.model.dto.board.response.BoardDetailResponse;
 import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
+import com.ssafy.woonana.domain.model.dto.board.response.ParticipatedMemberResponse;
 import com.ssafy.woonana.domain.model.dto.user.response.UserParticipatedCheck;
 import com.ssafy.woonana.domain.model.entity.board.Board;
 import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
@@ -37,6 +38,9 @@ public class BoardService {
         Exercise exerciseRequest = exerciseRepository.findById(boardRequest.getExerciseId()).get();
         User boardUser = userRepository.findById(userId).get();
         Board board = new Board(boardRequest.getTitle(), boardRequest.getContent(), boardRequest.getPlace(), boardRequest.getMeetStartDate(), boardRequest.getMeetEndDate(), boardRequest.getMaxNumber(), boardRequest.getParticipationOption(), exerciseRequest, boardUser);
+        // 등록된 사진이 있으면 세팅
+        if (boardRequest.getImageUrl().length() != 0)
+            board.setImageUrl(boardRequest.getImageUrl());
         // 이 시간대에 참여 신청된 board가 있으면 종료
         this.isTimeOverlapped(boardUser.getUserId(), board.getMeetStartDate(), board.getMeetEndDate());
         board.updateAllowedMemberCount();
@@ -55,7 +59,7 @@ public class BoardService {
         List<BoardListResponse> list = new ArrayList<>();
 
         for (Board b : boardList) {
-            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus()));
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
         }
 
         return list;
@@ -63,7 +67,6 @@ public class BoardService {
 
     public BoardDetailResponse getOneBoard(Long boardId) {
         Board findBoard = boardRepository.findById(boardId).get();
-        System.out.println("findBoard = " + findBoard.getStatus());
         return new BoardDetailResponse(findBoard);
     }
 
@@ -77,5 +80,16 @@ public class BoardService {
         List<UserParticipatedCheck> participationsByTime = participationRepository.findParticipationsByTime(userId, meetStartDate, meetEndDate);
         if (participationsByTime.size() != 0)
             throw new ParticipationDuplicateException("이 시간대에 이미 참여 신청된 운동이 있습니다.");
+    }
+
+    public List<ParticipatedMemberResponse> getParticipations(Long boardId) {
+        Board findBoard = boardRepository.findById(boardId).get();
+        List<Participation> findList = findBoard.getParticipations();
+        List<ParticipatedMemberResponse> list = new ArrayList<>();
+        for (Participation p : findList) {
+            User oneUser = p.getUser();
+            list.add(new ParticipatedMemberResponse(oneUser.getUserId(), oneUser.getUserNickname(), oneUser.getUserProfileUrl(), oneUser.getUserRatingScore()));
+        }
+        return list;
     }
 }

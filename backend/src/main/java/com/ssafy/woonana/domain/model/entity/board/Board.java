@@ -51,6 +51,8 @@ public class Board extends BaseTimeEntity {
     private String status; // OPEN, CLOSE, DONE
     @Column(name = "board_participation_option")
     private int participationOption;    // 승인/거절 방식 : 0, 선착순 방식 : 1
+    @Column(name = "board_image_url")
+    private String imageUrl;    // TODO: default 사진 url 등록하기
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
@@ -62,8 +64,6 @@ public class Board extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "board")
     private List<Participation> participations = new ArrayList<>();
-
-    // 사진 url
 
     public Board(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, int participationOption, Exercise exercise, User user) {
         this.title = title;
@@ -80,6 +80,10 @@ public class Board extends BaseTimeEntity {
         if (exercise != null) {
             changeExercise(exercise);
         }
+    }
+
+    public void setImageUrl(String imageurl) {
+        this.imageUrl = imageurl;
     }
 
     public void changeExercise(Exercise exercise) {

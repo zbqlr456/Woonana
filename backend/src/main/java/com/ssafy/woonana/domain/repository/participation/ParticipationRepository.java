@@ -28,9 +28,9 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
     @Query("select b.id as boardId, p.id as participationId " +
     "from Participation p " +
     "join Board b on p.board.id = b.id " +
-    "where p.user.userId = :userId and p.participatedCheck = false " +
-    "and :startDate between b.meetStartDate and b.meetEndDate " +
-    "or :endDate between b.meetStartDate and b.meetEndDate")
+    "where p.user.userId = :userId and p.allowed = true " +
+    "and (:startDate between b.meetStartDate and b.meetEndDate " +
+    "or :endDate between b.meetStartDate and b.meetEndDate)")
     List<UserParticipatedCheck> findParticipationsByTime(@Param("userId") Long userId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
 }

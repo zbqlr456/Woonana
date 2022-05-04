@@ -31,6 +31,9 @@ public class BoardRequest {
     private int participationOption;
     @ApiModelProperty(name = "만나서 할 운동 종류", example="2")
     private Long exerciseId;
+    @ApiModelProperty(name = "사진 등록", example="사진URL~~")
+    private String imageUrl;
+
 
     public BoardRequest(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, int participationOption, long exerciseId) {
         this.title = title;

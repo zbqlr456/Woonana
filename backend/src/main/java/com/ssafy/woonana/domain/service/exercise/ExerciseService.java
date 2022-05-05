@@ -21,9 +21,12 @@ public class ExerciseService {
     @Transactional
     public void register(ExerciseRequest exerciseRequest) {
         String[] exerciseArray = exerciseRequest.getExerciseNames();
+        String[] imageUrl = exerciseRequest.getExerciseImageUrls();
+        String defaultUrl = "defaultURL";
 
         for (int i = 0; i < exerciseArray.length; i++) {
-            Exercise exercise = new Exercise(exerciseArray[i]);
+            String url = imageUrl[i].length() == 0 ? defaultUrl : imageUrl[i];
+            Exercise exercise = new Exercise(exerciseArray[i], url);
             Exercise findOne = exerciseRepository.findExerciseByName(exercise.getName());
             // 등록된 적 없는 운동만 등록하기
             if (findOne == null) exerciseRepository.save(exercise);

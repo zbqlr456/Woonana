@@ -44,16 +44,15 @@ public class Board extends BaseTimeEntity {
     private LocalDateTime meetEndDate;
     @Column(name = "board_max_number")
     private int maxNumber;
-
     @Column(name = "board_allowed_number")
     private int allowedNumber;
-
     @Column(name = "board_status")
     @Convert(converter = StatusAttributeConverter.class)
     private String status; // OPEN, CLOSE, DONE
-
     @Column(name = "board_participation_option")
     private int participationOption;    // 승인/거절 방식 : 0, 선착순 방식 : 1
+    @Column(name = "board_image_url")
+    private String imageUrl;    // TODO: default 사진 url 등록하기
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
@@ -66,21 +65,6 @@ public class Board extends BaseTimeEntity {
     @OneToMany(mappedBy = "board")
     private List<Participation> participations = new ArrayList<>();
 
-    // 사진 url
-
-    // test용 생성자
-    public Board(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, Exercise exercise) {
-        this.title = title;
-        this.content = content;
-        this.place = place;
-        this.meetStartDate = meetStartDate;
-        this.meetEndDate = meetEndDate;
-        this.maxNumber = maxNumber;
-        this.status = "OPEN";
-        if (exercise != null) {
-            changeExercise(exercise);
-        }
-    }
     public Board(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, int participationOption, Exercise exercise, User user) {
         this.title = title;
         this.content = content;
@@ -98,6 +82,10 @@ public class Board extends BaseTimeEntity {
         }
     }
 
+    public void setImageUrl(String imageurl) {
+        this.imageUrl = imageurl;
+    }
+
     public void changeExercise(Exercise exercise) {
         this.exercise = exercise;
         exercise.getBoards().add(this);
@@ -113,8 +101,15 @@ public class Board extends BaseTimeEntity {
     }
 
     public void updateAllowedMemberCount() {
-        this.allowedNumber = this.allowedNumber + 1;
+        this.allowedNumber += 1;
         if (this.allowedNumber == this.maxNumber)
             this.changeStatus("CLOSE");
     }
+
+    public void afterUserCancel() {
+        this.allowedNumber -= 1;
+        if (this.getStatus().equals("CLOSE"))
+            this.changeStatus("OPEN");
+    }
+
 }

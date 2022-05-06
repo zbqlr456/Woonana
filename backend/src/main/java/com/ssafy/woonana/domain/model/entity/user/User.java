@@ -1,6 +1,8 @@
 package com.ssafy.woonana.domain.model.entity.user;
 
 import com.ssafy.woonana.domain.model.entity.board.Board;
+import com.ssafy.woonana.domain.model.entity.evaluation.Evaluation;
+import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +22,12 @@ import java.util.List;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
+
+    @Column(name="kakao_id")
+    private Long kakaoId;
 
     @Column
     private String userEmail;
@@ -40,11 +47,16 @@ public class User {
     @Column
     private String userProfileUrl;
 
-    @Column
+    @Column(name="access_token")
     private String accessToken; // 카카오 로그인에 필요한 액세스 토큰
 
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Board> userBoards = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "board")
+    private List<Participation> participations = new ArrayList<>();
 
     public User(Long userId, String userEmail, String userBirthday, String userNickname, String userSex, String userProfileUrl) {
         this.userId = userId;
@@ -53,6 +65,11 @@ public class User {
         this.userNickname = userNickname;
         this.userSex = userSex;
         this.userProfileUrl = userProfileUrl;
+    }
+
+    public void addParticipations(Participation participation) {
+        participations.add(participation);
+        participation.setUser(this);
     }
 
 }

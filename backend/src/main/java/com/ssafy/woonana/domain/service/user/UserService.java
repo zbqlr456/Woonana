@@ -2,12 +2,23 @@ package com.ssafy.woonana.domain.service.user;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.LikeExcerciseResponse;
 import com.ssafy.woonana.domain.model.dto.user.response.MyPageInfoResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.UserEvaluateResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.UserParticipateResponse;
+import com.ssafy.woonana.domain.model.entity.board.Board;
+import com.ssafy.woonana.domain.model.entity.evaluation.Evaluation;
+import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
+import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
+import com.ssafy.woonana.domain.repository.board.BoardRepository;
+import com.ssafy.woonana.domain.repository.board.ExerciseRepository;
+import com.ssafy.woonana.domain.repository.evaluation.EvaluationRepository;
+import com.ssafy.woonana.domain.repository.participation.ParticipationRepository;
 import com.ssafy.woonana.domain.repository.user.UserRepository;
 import com.ssafy.woonana.security.TokenProvider;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +27,8 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -25,6 +37,15 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EvaluationRepository evaluationRepository;
+
+    @Autowired
+    private ParticipationRepository participationRepository;
+
+    @Autowired
+    private BoardRepository boardRepository;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -39,9 +60,11 @@ public class UserService {
     public String userAccess(String code) throws Exception {
 
         String accessToken = getAccessToken(code);
+        log.info("userAccess에서 access token check: ", accessToken);
         String apiUrl = "https://kapi.kakao.com/v2/user/me";
         String headerStr = "Bearer "+accessToken;
         String res = requestToServer(apiUrl, headerStr, "GET");
+        log.info("res: ", res);
 
         if(res==null){ // 서버로 사용자 정보를 요청했는데 null이 온 경우
             log.warn("res: ", res);
@@ -79,13 +102,13 @@ public class UserService {
 
 
         // 사용자가 기존에 가입했는지 확인
-        Optional<User> user = userRepository.findById(kakaoId);
+        Optional<User> user = userRepository.findByKakaoId(kakaoId);
         User newUser = null;
 
         if (user.isEmpty()) { // 가입하지 않은 경우, 가입시켜준다.
 
             newUser = User.builder()
-                    .userId(kakaoId)
+                    .kakaoId(kakaoId)
                     .userNickname(kakaoNickname)
                     .userProfileUrl(kakaoProfileImg)
                     .userEmail(kakaoEmail)
@@ -95,7 +118,7 @@ public class UserService {
                     .build();
 
             userRepository.save(newUser); // 회원 정보 저장
-            user = userRepository.findById(kakaoId); // user 객체 가져오기
+            user = userRepository.findByKakaoId(kakaoId); // user 객체 가져오기
         }
         else { // 가입한 경우, 회원 정보 중 바뀐 정보가 있으면 갱신해준다.
 
@@ -144,7 +167,8 @@ public class UserService {
         try {
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
+            //헤더셋팅
+            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             //HttpURLConnection 설정 값 셋팅
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
@@ -159,7 +183,7 @@ public class UserService {
 
             bw.write(sb.toString());
             bw.flush();
-            System.out.println(sb.toString()); // 디버깅
+            log.debug("sb 정보; ", sb.toString());
 
             //  RETURN 값 result 변수에 저장
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -182,6 +206,7 @@ public class UserService {
 
         } catch (IOException e) {
             e.printStackTrace();
+            log.warn("getAccessToken에서 IOException 발생->accessToken이 빈 값이 됨");
         }
 
         return accessToken;
@@ -258,5 +283,66 @@ public class UserService {
         MyPageInfoResponse mypageInfo = new MyPageInfoResponse(user);
         return mypageInfo;
     }
+
+    // 인자로 들어온 사용자의 운동 선호도 조회
+    public LikeExcerciseResponse getLikeExcercise(Long userId){
+
+        User user = userRepository.findById(userId).get();
+        
+
+        return null;
+    }
+
+    // 평가하기
+    public void evaluate(Long loginId, Long userId, int rating){
+
+        User loginUser=userRepository.findById(loginId).get(); // 평가한 사람
+        User user = userRepository.findById(userId).get(); // 평가받은 사람
+
+        // 평가 테이블에 추가하기
+        Evaluation eval = Evaluation.builder()
+                .evaluationRatingScore(rating)
+                .evaluationUser(loginUser)
+                .evaluationTarget(user)
+                .build();
+        evaluationRepository.save(eval);
+
+        // 평가받은 유저의 rating score 업데이트
+        user.setUserRatingScore(user.getUserRatingScore()+rating); // 평가 컨셉이 안 잡혀서 일단은 점수를 기존 유저 점수에 더해주도록 함
+    }
+
+    // 특정 유저가 평가한 모든 사용자를 보여준다
+    public List<UserEvaluateResponse> getEvaluationList(Long userId){
+
+        User user = userRepository.findById(userId).get(); // 특정 유저
+        List<Evaluation> evaluations = evaluationRepository.findEvaluationsByEvaluationUser(userId);
+        List<UserEvaluateResponse> result = new ArrayList<>();
+
+        // 사용자 리스트를 dto 형태로 바꿔준다
+        for(Evaluation eval: evaluations){
+            result.add(new UserEvaluateResponse(eval));
+        }
+
+        return result;
+    }
+
+    // userId에 해당하는 유저가 참여한 게시글 정보 리턴
+    public List<UserParticipateResponse> getParticipationList(Long userId){
+
+        User user=userRepository.findById(userId).get();
+
+        // 참여(participation) 조회
+        List<Participation> participations = participationRepository.findParticipationsByUser(user);
+        List<UserParticipateResponse> result = new ArrayList<>();
+
+        for(Participation par: participations){
+            Board participatedBoard = boardRepository.findById(par.getBoard().getId()).get();
+            result.add(new UserParticipateResponse(participatedBoard));
+        }
+
+        return result;
+    }
+
+
 
 }

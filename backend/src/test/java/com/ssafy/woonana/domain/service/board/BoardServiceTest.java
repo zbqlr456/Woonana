@@ -45,7 +45,7 @@ class BoardServiceTest {
         Exercise e1 = createExercise("탁구");
         System.out.println("e1 = " + e1.getId());
         BoardRequest boardRequest1 = new BoardRequest("제목!!","내용!!","경기도", LocalDateTime.parse("2022-04-25T20:00:00"), LocalDateTime.parse("2022-04-25T22:00:00"),2, 1);
-        Long boardId = boardService.registBoard(boardRequest1);
+        //Long boardId = boardService.register(boardRequest1);
 
         System.out.println("boardId = " + boardId);
         // then

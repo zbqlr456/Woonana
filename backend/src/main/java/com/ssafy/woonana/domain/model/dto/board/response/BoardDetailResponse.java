@@ -14,10 +14,11 @@ public class BoardDetailResponse {
     private LocalDateTime createdDate;
     private LocalDateTime meetStartDate;
     private LocalDateTime meetEndDate;
+    private int allowedNumber;
     private int maxNumber;
     private Long exerciseId;
     private String status;
-
+    private String imageUrl;
     public BoardDetailResponse(String title, String content, String place, LocalDateTime createdDate, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, long exerciseId, String status) {
         this.title = title;
         this.content = content;
@@ -37,8 +38,10 @@ public class BoardDetailResponse {
         this.createdDate = board.getCreatedDate();
         this.meetStartDate = board.getMeetStartDate();
         this.meetEndDate = board.getMeetEndDate();
+        this.allowedNumber = board.getAllowedNumber();
         this.maxNumber = board.getMaxNumber();
         this.exerciseId = board.getExercise().getId();
         this.status = board.getStatus();
+        this.imageUrl = board.getImageUrl();
     }
 }

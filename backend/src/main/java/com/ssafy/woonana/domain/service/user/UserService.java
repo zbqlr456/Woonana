@@ -2,8 +2,20 @@ package com.ssafy.woonana.domain.service.user;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.LikeExcerciseResponse;
 import com.ssafy.woonana.domain.model.dto.user.response.MyPageInfoResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.UserEvaluateResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.UserParticipateResponse;
+import com.ssafy.woonana.domain.model.entity.board.Board;
+import com.ssafy.woonana.domain.model.entity.evaluation.Evaluation;
+import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
+import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
+import com.ssafy.woonana.domain.repository.board.BoardRepository;
+import com.ssafy.woonana.domain.repository.board.ExerciseRepository;
+import com.ssafy.woonana.domain.repository.evaluation.EvaluationRepository;
+import com.ssafy.woonana.domain.repository.participation.ParticipationRepository;
 import com.ssafy.woonana.domain.repository.user.UserRepository;
 import com.ssafy.woonana.security.TokenProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +27,8 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -23,6 +37,15 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EvaluationRepository evaluationRepository;
+
+    @Autowired
+    private ParticipationRepository participationRepository;
+
+    @Autowired
+    private BoardRepository boardRepository;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -259,5 +282,66 @@ public class UserService {
         MyPageInfoResponse mypageInfo = new MyPageInfoResponse(user);
         return mypageInfo;
     }
+
+    // 인자로 들어온 사용자의 운동 선호도 조회
+    public LikeExcerciseResponse getLikeExcercise(Long userId){
+
+        User user = userRepository.findById(userId).get();
+        
+
+        return null;
+    }
+
+    // 평가하기
+    public void evaluate(Long loginId, Long userId, int rating){
+
+        User loginUser=userRepository.findById(loginId).get(); // 평가한 사람
+        User user = userRepository.findById(userId).get(); // 평가받은 사람
+
+        // 평가 테이블에 추가하기
+        Evaluation eval = Evaluation.builder()
+                .evaluationRatingScore(rating)
+                .evaluationUser(loginUser)
+                .evaluationTarget(user)
+                .build();
+        evaluationRepository.save(eval);
+
+        // 평가받은 유저의 rating score 업데이트
+        user.setUserRatingScore(user.getUserRatingScore()+rating); // 평가 컨셉이 안 잡혀서 일단은 점수를 기존 유저 점수에 더해주도록 함
+    }
+
+    // 특정 유저가 평가한 모든 사용자를 보여준다
+    public List<UserEvaluateResponse> getEvaluationList(Long userId){
+
+        User user = userRepository.findById(userId).get(); // 특정 유저
+        List<Evaluation> evaluations = evaluationRepository.findEvaluationsByEvaluationUser(userId);
+        List<UserEvaluateResponse> result = new ArrayList<>();
+
+        // 사용자 리스트를 dto 형태로 바꿔준다
+        for(Evaluation eval: evaluations){
+            result.add(new UserEvaluateResponse(eval));
+        }
+
+        return result;
+    }
+
+    // userId에 해당하는 유저가 참여한 게시글 정보 리턴
+    public List<UserParticipateResponse> getParticipationList(Long userId){
+
+        User user=userRepository.findById(userId).get();
+
+        // 참여(participation) 조회
+        List<Participation> participations = participationRepository.findParticipationsByUser(user);
+        List<UserParticipateResponse> result = new ArrayList<>();
+
+        for(Participation par: participations){
+            Board participatedBoard = boardRepository.findById(par.getBoard().getId()).get();
+            result.add(new UserParticipateResponse(participatedBoard));
+        }
+
+        return result;
+    }
+
+
 
 }

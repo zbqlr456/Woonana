@@ -15,7 +15,7 @@ import java.util.List;
 public class Exercise {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "exercise_id")
     private Long id;
     @Column(name = "exercise_name")

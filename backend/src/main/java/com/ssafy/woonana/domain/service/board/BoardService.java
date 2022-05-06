@@ -5,15 +5,18 @@ import com.ssafy.woonana.domain.model.dto.board.response.BoardDetailResponse;
 import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
 import com.ssafy.woonana.domain.model.entity.board.Board;
 import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
+import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
 import com.ssafy.woonana.domain.repository.board.BoardRepository;
 import com.ssafy.woonana.domain.repository.board.ExerciseRepository;
+import com.ssafy.woonana.domain.repository.participation.ParticipationRepository;
 import com.ssafy.woonana.domain.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,23 +27,38 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final ExerciseRepository exerciseRepository;
     private final UserRepository userRepository;
+    private final ParticipationRepository participationRepository;
 
     @Transactional
     public Long register(BoardRequest boardRequest, Long userId) {
         Exercise exerciseRequest = exerciseRepository.findById(boardRequest.getExerciseId()).get();
         User boardUser = userRepository.findById(userId).get();
         Board board = new Board(boardRequest.getTitle(), boardRequest.getContent(), boardRequest.getPlace(), boardRequest.getMeetStartDate(), boardRequest.getMeetEndDate(), boardRequest.getMaxNumber(), boardRequest.getParticipationOption(), exerciseRequest, boardUser);
+        board.updateAllowedMemberCount();
         boardRepository.save(board);
+
+        // 글 작성자는 참여 승인 허가
+        boolean isUserAllowed = true;
+        Participation participation = new Participation(boardUser, board, isUserAllowed);
+        participationRepository.save(participation);
+
         return board.getId();
     }
 
     public List<BoardListResponse> getAllBoards() {
+        List<Board> boardList = boardRepository.findAll();
+        List<BoardListResponse> list = new ArrayList<>();
 
-        return null;
+        for (Board b : boardList) {
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus()));
+        }
+
+        return list;
     }
 
     public BoardDetailResponse getOneBoard(Long boardId) {
         Board findBoard = boardRepository.findById(boardId).get();
+        System.out.println("findBoard = " + findBoard.getStatus());
         return new BoardDetailResponse(findBoard);
     }
 

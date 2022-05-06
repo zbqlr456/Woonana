@@ -35,7 +35,7 @@ logging.level:
 
 kakao.login:
   client_id: 76d85e088d5bb875d6e4493b8eda78fd
-  redirect_url: http://localhost:8081/oauth/callback
+  redirect_url: http://localhost:8080/oauth/callback
 #
 #server:
 #  port: 8081

@@ -119,9 +119,9 @@ export default {
       }
     },
     kakaoLogin: function () {
-      const URLSearch = new URLSearchParams(location.search);
-      const code = URLSearch.get("code"); //쿼리스트링의 값을 받아온다.
-      alert(code);
+      // const URLSearch = new URLSearchParams(location.search);
+      // const code = URLSearch.get("code"); //쿼리스트링의 값을 받아온다.
+      // alert(code);
       window.location.href =
         "https://kauth.kakao.com/oauth/authorize?client_id=76d85e088d5bb875d6e4493b8eda78fd&response_type=code&redirect_uri=http://localhost:8080/oauth/callback";
     },

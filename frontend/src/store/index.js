@@ -1,16 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
         rtl: true,
-        enableRtl:false
+        enableRtl: false,
+        jwtToken: '',
     },  
     mutations: {
         SET_RTL_VALUE:(state, payload) => {
             state.rtl = payload
+        },
+        SET_JWT_TOKEN: (state, payload) => {
+            state.jwtToken = payload
         }
     },
     actions: {

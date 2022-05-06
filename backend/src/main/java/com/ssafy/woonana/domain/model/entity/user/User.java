@@ -1,6 +1,7 @@
 package com.ssafy.woonana.domain.model.entity.user;
 
 import com.ssafy.woonana.domain.model.entity.board.Board;
+import com.ssafy.woonana.domain.model.entity.evaluation.Evaluation;
 import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

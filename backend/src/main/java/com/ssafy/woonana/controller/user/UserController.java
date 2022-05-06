@@ -1,7 +1,12 @@
 package com.ssafy.woonana.controller.user;
 
+import com.ssafy.woonana.domain.model.dto.user.request.UserEvaluateRequest;
+import com.ssafy.woonana.domain.model.dto.user.response.LikeExcerciseResponse;
 import com.ssafy.woonana.domain.model.dto.user.response.MyPageInfoResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.UserEvaluateResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.UserParticipateResponse;
 import com.ssafy.woonana.domain.service.user.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -51,4 +57,34 @@ public class UserController {
         return ResponseEntity.ok().body(result);
     }
 
+    @GetMapping("/likes")
+    @ApiOperation(value="내 운동 선호도 조회", notes = "로그인한 사용자의 운동 선호도 조회")
+    public ResponseEntity<LikeExcerciseResponse> getExcerciseLike(@AuthenticationPrincipal Long userId){
+
+        return null;
+    }
+
+    @PostMapping("/evalue")
+    @ApiOperation(value="평가하기", notes="사용자의 점수를 평가한다.")
+    public void evaluate(@RequestBody UserEvaluateRequest evaluation, @AuthenticationPrincipal Long userId){
+
+        userService.evaluate(userId, evaluation.getUserId(), evaluation.getRating());
+
+    }
+
+    @GetMapping("/evalue")
+    @ApiOperation(value="평가내역", notes="내가 평가한 모든 사용자들의 평가 내역을 보여준다.")
+    public ResponseEntity<List<UserEvaluateResponse>> getEvaluateList(@AuthenticationPrincipal Long userId){
+
+        List<UserEvaluateResponse> result = userService.getEvaluationList(userId);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/participate")
+    @ApiOperation(value="참여내역", notes="사용자가 참여한 게시글을 최신 순으로 보여준다.")
+    public ResponseEntity<List<UserParticipateResponse>> getParticipateList(@AuthenticationPrincipal Long userId){
+
+        List<UserParticipateResponse> result = userService.getParticipationList(userId);
+        return ResponseEntity.ok().body(result);
+    }
 }

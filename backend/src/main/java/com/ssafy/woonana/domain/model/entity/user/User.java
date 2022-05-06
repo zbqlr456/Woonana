@@ -50,9 +50,11 @@ public class User {
     @Column(name="access_token")
     private String accessToken; // 카카오 로그인에 필요한 액세스 토큰
 
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Board> userBoards = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "board")
     private List<Participation> participations = new ArrayList<>();
 

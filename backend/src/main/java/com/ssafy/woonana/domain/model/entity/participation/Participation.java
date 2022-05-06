@@ -46,8 +46,10 @@ public class Participation extends BaseTimeEntity {
     public Participation(User user, Board board, boolean allowed) {
         this.user = user;
         user.addParticipations(this);
+
         this.board = board;
         board.addParticipations(this);
+
         this.allowed = allowed;
     }
 }

@@ -18,14 +18,16 @@ public class Exercise {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "exercise_id")
     private Long id;
-
     @Column(name = "exercise_name")
     private String name;
+    @Column(name = "exercise_image_url")
+    private String imageUrl;
 
     @OneToMany(mappedBy = "exercise")
     private List<Board> boards = new ArrayList<>();
 
-    public Exercise(String name) {
+    public Exercise(String name, String imageUrl) {
         this.name = name;
+        this.imageUrl = imageUrl;
     }
 }

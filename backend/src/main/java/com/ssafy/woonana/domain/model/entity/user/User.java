@@ -21,8 +21,12 @@ import java.util.List;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
+
+    @Column(name="kakao_id")
+    private Long kakaoId;
 
     @Column
     private String userEmail;
@@ -42,12 +46,14 @@ public class User {
     @Column
     private String userProfileUrl;
 
-    @Column
+    @Column(name="access_token")
     private String accessToken; // 카카오 로그인에 필요한 액세스 토큰
 
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Board> userBoards = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "board")
     private List<Participation> participations = new ArrayList<>();
 

@@ -144,7 +144,8 @@ public class UserService {
         try {
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
+            //헤더셋팅
+            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             //HttpURLConnection 설정 값 셋팅
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);

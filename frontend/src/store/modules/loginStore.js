@@ -1,5 +1,4 @@
-import axios from 'axios';
-import url from '../../util/index';
+import http from '../../util/index';
 
 const loginStore = {
 	namespaced: false,
@@ -29,11 +28,11 @@ const loginStore = {
       let result = false;
       let resultErr = null;
       try {
-          let res = await axios.post( url.login +"code=" + code);
+          let res = await http.post( '/api/accounts/signup?' +"code=" + code);
           if (res.status === 200) {
               console.log("로그인되었습니다.");
               
-              commit('SET_JWT_TOKEN', res.data.token);
+            commit('SET_JWT_TOKEN', res.data.token);
               result = true;
           } else {
               console.log("로그인되지 않았습니다.");
@@ -59,7 +58,7 @@ const loginStore = {
   // 로그아웃합니다.
   doLogout({commit}) {
       commit('reset');
-  }
+  },
 	}
 };
 

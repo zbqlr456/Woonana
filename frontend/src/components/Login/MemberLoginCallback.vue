@@ -15,8 +15,9 @@ export default {
     ]),
     callback: function () {
       code = URLSearch.get("code");
-      alert(code);
+      // alert(code);
       this.$store.dispatch("doLogin", code);
+      // window.location.href = "http://localhost:8080";
 
       //백엔드로 코드 전송???
       /*

@@ -1,22 +1,29 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import loginStore from './modules/loginStore'
+// import axios from 'axios';
 
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
+
+    namespace: false,
+    modules: {
+        loginStore : loginStore,
+    },
     state: {
         rtl: true,
         enableRtl: false,
-        jwtToken: '',
     },  
+    getters: {
+       
+    },
     mutations: {
         SET_RTL_VALUE:(state, payload) => {
             state.rtl = payload
         },
-        SET_JWT_TOKEN: (state, payload) => {
-            state.jwtToken = payload
-        }
+        
     },
     actions: {
         rtlHandler: ({ state, commit }, routePath) => {
@@ -37,6 +44,7 @@ export const store = new Vuex.Store({
                 html[0].dir = "";
             }
            
-        }
+        },
+        
     }
 })

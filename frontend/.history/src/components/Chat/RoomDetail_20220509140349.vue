@@ -22,11 +22,19 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
-import http from "@/util/index";
+
 var sock = new SockJS("/ws");
 var ws = Stomp.over(sock);
+=======
+import SockJS from 'sockjs-client'
+import Stomp from 'webstomp-client'
+import http from '@/util/index'
+var sock = new SockJS("/ws")
+var ws = Stomp.over(sock)
+>>>>>>> e468d7d453168c72d717e3e5d1254a7f2a08f296
 
 export default {
   data() {
@@ -46,11 +54,10 @@ export default {
   },
   methods: {
     findRoom: function () {
-      http.get("/chat/room/" + this.roomId).then((response) => {
+      this.$http.get("/chat/room/" + this.roomId).then((response) => {
         this.room = response.data;
       });
     },
-    findRoomMessage: function () {},
     sendMessage: function () {
       ws.send(
         "/pub/chat/message",
@@ -71,7 +78,10 @@ export default {
         message: recv.message,
       });
     },
+
     connect() {
+      const serverURL = "http://localhost:8080";
+      console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`);
       ws.connect(
         {},
         (frame) => {
@@ -94,6 +104,36 @@ export default {
           // 소켓 연결 실패
           console.log("소켓 연결 실패", error);
           alert("error" + error);
+    methods: {
+            findRoom: function() {
+                http.get('/chat/room/'+this.roomId).then(response => { this.room = response.data; });
+            },
+            sendMessage: function() {
+                ws.send("/pub/chat/message", {}, JSON.stringify({type:'TALK', roomId:this.roomId, sender:this.sender, message:this.message}));
+                this.message = '';
+            },
+            recvMessage: function(recv) {
+                this.messages.unshift({"type":recv.type,"sender":recv.type=='ENTER'?'[알림]':recv.sender,"message":recv.message})
+            },
+            connect() {
+            ws.connect({},
+                frame => {
+                // 소켓 연결 성공
+                this.connected = true;
+                console.log('소켓 연결 성공', frame);
+                // 서버의 메시지 전송 endpoint를 구독합니다.
+                // 이런형태를 pub sub 구조라고 합니다.
+                ws.subscribe("/sub/chat/room/" + this.roomId, function(message){
+                    var recv = JSON.parse(message.body);
+                    this.recvMessage(recv);
+                });
+                ws.send("/pub/chat/message", {}, JSON.stringify({type: 'ENTER', roomId: this.roomId, sender: this.sender}))
+                },
+                error => {
+                // 소켓 연결 실패
+                console.log('소켓 연결 실패', error);
+                alert("error"+error);
+>>>>>>> e468d7d453168c72d717e3e5d1254a7f2a08f296
         }
       );
     },

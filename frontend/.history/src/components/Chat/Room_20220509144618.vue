@@ -50,16 +50,12 @@ export default {
         alert("방 제목을 입력해 주십시요.");
         return;
       } else {
-        // var params = new URLSearchParams();
-        // params.append("name", this.room_name);
-        const formData = {
-          name: this.room_name,
-        };
+        var params = new URLSearchParams();
+        params.append("name", JSON.parse(this.room_name));
         http
-          .post("/chat/room", JSON.stringify(formData))
+          .post("/chat/room", params)
           .then((response) => {
-            console.log(response);
-            alert(formData.name + "방 개설에 성공하였습니다.");
+            alert(response.data.name + "방 개설에 성공하였습니다.");
             this.room_name = "";
             this.findAllRoom();
           })
@@ -73,7 +69,7 @@ export default {
       var sender = prompt("대화명을 입력해 주세요.");
       localStorage.setItem("wschat.sender", sender);
       localStorage.setItem("wschat.roomId", roomId);
-      this.$router.push("/chat/detail");
+      location.href = "/chat/room/enter/" + roomId;
     },
   },
 };

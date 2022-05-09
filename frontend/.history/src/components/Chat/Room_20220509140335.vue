@@ -70,8 +70,10 @@ export default {
       localStorage.setItem("wschat.roomId", roomId);
       location.href = "/chat/room/enter/" + roomId;
     },
+
   },
 };
+
     methods:{
         findAllRoom: function() {
                 http.get('/chat/rooms').then(response => { this.chatrooms = response.data; });

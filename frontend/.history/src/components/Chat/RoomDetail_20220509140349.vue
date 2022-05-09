@@ -133,6 +133,7 @@ export default {
                 // 소켓 연결 실패
                 console.log('소켓 연결 실패', error);
                 alert("error"+error);
+>>>>>>> e468d7d453168c72d717e3e5d1254a7f2a08f296
         }
       );
     },

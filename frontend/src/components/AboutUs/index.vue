@@ -118,7 +118,7 @@
 import FooterHomeOne from "../HomeOne/FooterHomeOne.vue";
 import HeaderHomeOne from "../HomeOne/HeaderHomeOne.vue";
 import SidebarHomeOne from "../HomeOne/SidebarHomeOne.vue";
-import SponserHomeTwo from "../HomeTwo/SponserHomeTwo.vue";
+// import SponserHomeTwo from "../HomeTwo/SponserHomeTwo.vue";
 import GetStarted from "./GetStarted.vue";
 import ServiceAboutus from "./ServiceAboutus.vue";
 import TeamAboutus from "./TeamAboutus.vue";
@@ -128,7 +128,7 @@ export default {
     HeaderHomeOne,
     ServiceAboutus,
     TeamAboutus,
-    SponserHomeTwo,
+    // SponserHomeTwo,
     GetStarted,
     FooterHomeOne,
   },
@@ -143,43 +143,12 @@ export default {
             {
               name: "Home 1",
               path: "/",
-            },
-            {
-              name: "Home 2",
-              path: "/home-two",
-            },
-            {
-              name: "Home 3",
-              path: "/home-three",
-            },
-            {
-              name: "Home 4",
-              path: "/home-four",
-            },
-            {
-              name: "Home 5",
-              path: "/home-five",
-            },
-            {
-              name: "Home 6",
-              path: "/home-six",
-            },
-            {
-              name: "Home 7",
-              path: "/home-seven",
-            },
-            {
-              name: "Home 8",
-              path: "/home-eight",
-            },
+            },         
             {
               name: "Home Dark",
               path: "/home-dark",
             },
-            {
-              name: "Home Rtl",
-              path: "/home-rtl",
-            },
+           
           ],
         },
         {
@@ -193,11 +162,6 @@ export default {
               name: "About us",
               path: "/about-us",
             },
-            {
-              name: "About us 2",
-              path: "/about-two",
-            },
-
             {
               name: "Error",
               path: "/error",

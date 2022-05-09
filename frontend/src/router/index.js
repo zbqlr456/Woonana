@@ -18,7 +18,7 @@ import Error from '../views/Error.vue'
 import AboutUs from '../views/About.vue'
 import AboutTwo from '../views/AboutTwo.vue'
 import LoginCallback from '../components/Login/MemberLoginCallback.vue'
-
+import Room from '../components/Chat/Room.vue'
 
 Vue.use(VueRouter)
 
@@ -117,6 +117,11 @@ const routes = [
     path: '/oauth/callback',
     name: 'LoginCallback',
     component: LoginCallback
+  },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: Room
   }
   // {
   //   path: '/about',

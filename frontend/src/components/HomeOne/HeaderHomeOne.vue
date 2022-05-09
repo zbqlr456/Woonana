@@ -62,7 +62,10 @@
                 </span>
               </template>
 
-              <a class="login-btn" @click="kakaoLogin"><i class="fal fa-user"></i> Login</a>
+              <a class="login-btn" @click="kakaoLogin" v-show="loginflag"
+                ><i class="fal fa-user"></i> Login</a
+              >
+              <a class="login-btn" v-show="loginflag"><i class="fal fa-user"></i> Logout</a>
               <a class="main-btn ml-30" href="#">Get Started</a>
               <div class="toggle-btn ml-30 canvas_open d-lg-none d-block">
                 <i class="fa fa-bars" @click="showSidebar"></i>
@@ -124,6 +127,9 @@ export default {
       // alert(code);
       window.location.href =
         "https://kauth.kakao.com/oauth/authorize?client_id=76d85e088d5bb875d6e4493b8eda78fd&response_type=code&redirect_uri=http://localhost:8080/oauth/callback";
+    },
+    loginflag: function () {
+      return false;
     },
   },
 };

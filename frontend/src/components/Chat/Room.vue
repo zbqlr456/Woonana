@@ -23,7 +23,7 @@
 </template>
 
 <script>
-
+import http from '@/util/index';
 export default {
     data() {
       return {
@@ -36,7 +36,7 @@ export default {
     },
     methods:{
         findAllRoom: function() {
-                this.$http.get('/chat/rooms').then(response => { this.chatrooms = response.data; });
+                http.get('/chat/rooms').then(response => { this.chatrooms = response.data; });
             },
             createRoom: function() {
                 if("" === this.room_name) {
@@ -45,7 +45,7 @@ export default {
                 } else {
                     var params = new URLSearchParams();
                     params.append("name",this.room_name);
-                    this.$http.post('/chat/room', params)
+                    http.post('/chat/room', params)
                         .then(
                             response => {
                                 alert(response.data.name+"방 개설에 성공하였습니다.")

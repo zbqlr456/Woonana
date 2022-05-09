@@ -24,7 +24,7 @@
 <script>
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
-import http from "@/util/index";
+
 var sock = new SockJS("/ws");
 var ws = Stomp.over(sock);
 
@@ -46,11 +46,10 @@ export default {
   },
   methods: {
     findRoom: function () {
-      http.get("/chat/room/" + this.roomId).then((response) => {
+      this.$http.get("/chat/room/" + this.roomId).then((response) => {
         this.room = response.data;
       });
     },
-    findRoomMessage: function () {},
     sendMessage: function () {
       ws.send(
         "/pub/chat/message",
@@ -72,6 +71,8 @@ export default {
       });
     },
     connect() {
+      const serverURL = "http://localhost:8080";
+      console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`);
       ws.connect(
         {},
         (frame) => {

@@ -10,8 +10,11 @@
                                             <a href="#"><i class="fal fa-clock"></i>April 22, 2020</a>
                                             <a href="#"><i class="fal fa-comments"></i>6 Comments</a>
                                         </div>
-                                        <h3><a href="single-post.html">Build A Full Web Chat App From Scratch.</a></h3>
-                                        <a class="read-more" href="single-post.html">Read More<i class="fal fa-arrow-right"></i></a>
+                                        <router-link to="/chat">
+                                        <h3><a>Build A Full Web Chat App From Scratch.</a></h3>
+                                        
+                                        <a class="read-more">Read More<i class="fal fa-arrow-right"></i></a>
+                                        </router-link>
                                     </div>
                                 </div>
                             </div>

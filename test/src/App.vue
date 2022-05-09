@@ -1,28 +1,35 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <div class="kmap" ref="map"></div> -->
+    <KakaoMap class="kmap" :options="mapOption" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import KakaoMap from './components/map/KakaoMap.vue'
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+   KakaoMap
+  },
+  data(){
+    return {
+      mapOption:{
+        center : {
+          lat : 33.450701,
+          lng : 126.570667,
+        },
+        level : 8,
+      }
+    }
+  },
+  mounted() {
+    
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>

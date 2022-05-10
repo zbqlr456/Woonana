@@ -9,4 +9,4 @@ RUN ./gradlew :clean build
 RUN ls ./build/libs
 
 EXPOSE 8082
-ENTRYPOINT ["java", "-jar", "./build/libs/backend-chat-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "./build/libs/backend_chat-0.0.1-SNAPSHOT.jar"]

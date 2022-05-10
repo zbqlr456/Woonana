@@ -1,6 +1,7 @@
 package com.ssafy.woonana.domain.service.board;
 
 import com.ssafy.woonana.domain.model.dto.board.request.BoardRequest;
+import com.ssafy.woonana.domain.model.dto.board.response.BoardByExerciseListResponse;
 import com.ssafy.woonana.domain.model.dto.board.response.BoardDetailResponse;
 import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
 import com.ssafy.woonana.domain.model.dto.board.response.ParticipatedMemberResponse;
@@ -65,6 +66,26 @@ public class BoardService {
         return list;
     }
 
+    public List<BoardListResponse> getBoardsByMeet() {
+        List<Board> boardList = boardRepository.findBoardsByOrderByMeetStartDateAsc();
+        List<BoardListResponse> list = new ArrayList<>();
+
+        for (Board b : boardList) {
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
+        }
+
+        return list;
+    }
+    public List<BoardByExerciseListResponse> getBoardsByExercise(Long exerciseId) {
+        List<Board> findBoards = boardRepository.findBoardsByExerciseId(exerciseId);
+        List<BoardByExerciseListResponse> list = new ArrayList<>();
+        for (Board b : findBoards) {
+            list.add(new BoardByExerciseListResponse(b.getExercise().getId(), b.getId(), b.getPlace()));
+        }
+
+        return list;
+    }
+
     public BoardDetailResponse getOneBoard(Long boardId) {
         Board findBoard = boardRepository.findById(boardId).get();
         return new BoardDetailResponse(findBoard);
@@ -92,4 +113,5 @@ public class BoardService {
         }
         return list;
     }
+
 }

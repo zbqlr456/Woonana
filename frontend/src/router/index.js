@@ -1,69 +1,87 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeOne from '../views/HomeOne.vue'
-import HomeDark from '../views/HomeDark.vue'
-import News from '../views/News.vue'
-import SingleNews from '../views/SingleNews.vue'
-import Contact from '../views/Contact.vue'
-import ServiceDetails from '../views/ServiceDetails'
-import Error from '../views/Error.vue'
-import AboutUs from '../views/About.vue'
-import LoginCallback from '../components/Login/MemberLoginCallback.vue'
-import Room from '../components/Chat/Room.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import HomeOne from "../views/HomeOne.vue";
+import HomeDark from "../views/HomeDark.vue";
+import News from "../views/News.vue";
+import SingleNews from "../views/SingleNews.vue";
+import Contact from "../views/Contact.vue";
+import ServiceDetails from "../views/ServiceDetails";
+import Error from "../views/Error.vue";
+import AboutUs from "../views/About.vue";
+import LoginCallback from "../components/Login/MemberLoginCallback.vue";
+import Room from "../components/Chat/Room.vue";
+import RoomDetail from "../components/Chat/RoomDetail.vue";
+import Mypage from "../views/Mypage.vue";
+import MypageMain from "../components/Mypage/index_mypage.vue"
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'HomeOne',
-    component: HomeOne
+    path: "/",
+    name: "HomeOne",
+    component: HomeOne,
   },
   {
-    path: '/home-dark',
-    name: 'HomeDark',
-    component: HomeDark
+    path: "/home-dark",
+    name: "HomeDark",
+    component: HomeDark,
   },
   {
-    path: '/service-details',
-    name: 'ServiceDetails',
-    component: ServiceDetails
+    path: "/service-details",
+    name: "ServiceDetails",
+    component: ServiceDetails,
   },
   {
-    path: '/about-us',
-    name: 'AboutUs',
-    component: AboutUs
+    path: "/about-us",
+    name: "AboutUs",
+    component: AboutUs,
   },
   {
-    path: '/news',
-    name: 'News',
-    component: News
+    path: "/news",
+    name: "News",
+    component: News,
   },
   {
-    path: '/single-news',
-    name: 'SingleNews',
-    component: SingleNews
+    path: "/single-news",
+    name: "SingleNews",
+    component: SingleNews,
   },
   {
-    path: '/contact',
-    name: 'Contact',
-    component: Contact
+    path: "/contact",
+    name: "Contact",
+    component: Contact,
   },
   {
-    path: '/error',
-    name: 'Error',
-    component: Error
+    path: "/error",
+    name: "Error",
+    component: Error,
   },
   {
-    path: '/oauth/callback',
-    name: 'LoginCallback',
-    component: LoginCallback
+    path: "/oauth/callback",
+    name: "LoginCallback",
+    component: LoginCallback,
   },
   {
-    path: '/chat',
-    name: 'Chat',
-    component: Room
-  }
+    path: "/chat",
+    name: "Chat",
+    component: Room,
+  },
+  {
+    path: "/chat/detail",
+    name: "RoomDetail",
+    component: RoomDetail,
+  },
+  {
+    path: "/mypage",
+    name: "Mypage",
+    component: Mypage,
+  },
+  {
+    path: "/mypage/main",
+    name: "MypageMain",
+    component: MypageMain,
+  },
   // {
   //   path: '/about',
   //   name: 'About',
@@ -72,16 +90,16 @@ const routes = [
   //   // which is lazy-loaded when the route is visited.
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   // }
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes,
   // stop stop cache
   scrollBehavior() {
-      document.getElementById('app').scrollIntoView();
-  }
-})
+    document.getElementById("app").scrollIntoView();
+  },
+});
 
-export default router
+export default router;

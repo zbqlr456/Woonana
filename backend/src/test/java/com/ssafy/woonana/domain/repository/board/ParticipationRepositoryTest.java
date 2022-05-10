@@ -1,6 +1,8 @@
 package com.ssafy.woonana.domain.repository.board;
 
 import com.ssafy.woonana.domain.model.dto.board.request.BoardRequest;
+import com.ssafy.woonana.domain.model.dto.user.response.UserParticipateLog;
+import com.ssafy.woonana.domain.model.dto.user.response.UserParticipatedCheck;
 import com.ssafy.woonana.domain.model.entity.board.Board;
 import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
 import com.ssafy.woonana.domain.model.entity.participation.Participation;
@@ -57,5 +59,27 @@ class ParticipationRepositoryTest {
             if (p.isAllowed()) memberCnt++;
         }
 //        findBoard.updateAllowedMemberCount(memberCnt);
+    }
+
+    @Test
+    public void getBoardListOfUser() {
+        Long userId = 2225360214L;
+        List<UserParticipateLog> findUserParticipations = participationRepository.findParticipationsByUserId(userId);
+        for (UserParticipateLog p : findUserParticipations) {
+            System.out.println("p = " + p.getParticipationId() + ", " + p.getExerciseName() + ", " + p.getBoardId() + ", " + p.getMeetStartDate());
+        }
+    }
+
+    @Test
+    public void timeCheckForRegister() {
+        Long userId = 2225360214L;
+        LocalDateTime startDate = LocalDateTime.of(2022,05,25,15,00) ;
+        LocalDateTime endDate = LocalDateTime.of(2022,05,25,16,00) ;
+        List<UserParticipatedCheck> participationsByTime = participationRepository.findParticipationsByTime(userId, startDate, endDate);
+        System.out.println("participationsByTime = " + participationsByTime);
+        if (participationsByTime.size() == 0) System.out.println("no");
+        for (UserParticipatedCheck u : participationsByTime) {
+            System.out.println("u.getBoardId() = " + u.getBoardId());
+        }
     }
 }

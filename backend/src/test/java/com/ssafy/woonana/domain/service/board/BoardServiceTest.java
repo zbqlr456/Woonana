@@ -42,12 +42,11 @@ class BoardServiceTest {
 
         //given
         User u1 = createUser();
-        Exercise e1 = createExercise("탁구");
+        Exercise e1 = createExercise("탁구", "");
         System.out.println("e1 = " + e1.getId());
-        BoardRequest boardRequest1 = new BoardRequest("제목!!","내용!!","경기도", LocalDateTime.parse("2022-04-25T20:00:00"), LocalDateTime.parse("2022-04-25T22:00:00"),2, 1);
         //Long boardId = boardService.register(boardRequest1);
 
-        System.out.println("boardId = " + boardId);
+
         // then
         //Board getBoard = boardRepository.findById(boardId).get();
         //System.out.println("getBoard = " + getBoard);
@@ -70,8 +69,8 @@ class BoardServiceTest {
         //System.out.println("board2 = " + board2.getMeetEndDate());
     }
 
-    private Exercise createExercise(String eName) {
-        Exercise e1 = new Exercise(eName);
+    private Exercise createExercise(String eName, String imageUrl) {
+        Exercise e1 = new Exercise(eName, imageUrl);
         em.persist(e1);
         return e1;
     }

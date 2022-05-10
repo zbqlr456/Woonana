@@ -1,15 +1,12 @@
 package com.ssafy.woonana.domain.repository.board;
 
 import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ExerciseRepositoryTest {
@@ -19,9 +16,9 @@ class ExerciseRepositoryTest {
 
     @Test
     public void save() {
-        Exercise e1 = new Exercise("탁구");
-        Exercise e2 = new Exercise("캐치볼");
-        Exercise e3 = new Exercise("산책");
+        Exercise e1 = new Exercise("탁구", "");
+        Exercise e2 = new Exercise("캐치볼", "");
+        Exercise e3 = new Exercise("산책", "");
 
         exerciseRepository.save(e1);
         exerciseRepository.save(e2);

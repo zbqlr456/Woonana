@@ -9,7 +9,7 @@
       </div>
       <input type="text" class="form-control" v-model="message" @keyup.enter="sendMessage" />
       <div class="input-group-append">
-        <button class="btn btn-primary" type="button" @click="sendMessage()">보내기</button>
+        <button class="btn btn-primary" type="button" @click="sendMessage">보내기</button>
       </div>
     </div>
     <ul class="list-group">
@@ -51,6 +51,8 @@ export default {
       });
       http.get("/chat/messages/" + this.roomId).then((response) => {
         this.messages = response.data;
+        // console.log("response.data: " + response.data);
+        // console.log("messages: " + this.messages);
       });
     },
     sendMessage: function () {
@@ -63,20 +65,21 @@ export default {
       this.message = "";
     },
     recvMessage: function (recv) {
-      console.log(recv);
       this.messages.unshift({
+        type: recv.type,
         sender: recv.sender,
         message: recv.message,
       });
     },
-    connect: function () {
+    connect() {
+      console.log("소켓 연결 시도");
       ws.connect(
         {},
         (frame) => {
           this.connected = true;
           console.log("소켓 연결 성공", frame);
           // 서버의 메시지 전송 endpoint를 구독
-          ws.subscribe("/sub/chat/room/" + this.roomId, (message) => {
+          ws.subscribe("/sub/chat/room/" + this.roomId, function (message) {
             var recv = JSON.parse(message.body);
             this.recvMessage(recv);
           });

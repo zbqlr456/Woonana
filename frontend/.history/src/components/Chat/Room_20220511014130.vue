@@ -56,7 +56,7 @@ export default {
           .post("/chat/room", JSON.stringify({ name: this.room_name }))
           .then((response) => {
             console.log(response);
-            alert(this.room_name + "방 개설에 성공하였습니다.");
+            alert(formData.name + "방 개설에 성공하였습니다.");
             this.room_name = "";
             this.findAllRoom();
           })
@@ -72,45 +72,8 @@ export default {
       localStorage.setItem("wschat.roomId", roomId);
       this.$router.push("/chat/detail");
     },
-<<<<<<< HEAD
-    methods:{
-        findAllRoom: function() {
-                http.get('/chat/rooms').then(response => { this.chatrooms = response.data; });
-            },
-            createRoom: function() {
-                if("" === this.room_name) {
-                    alert("방 제목을 입력해 주십시요.");
-                    return;
-                } else {
-                    var params = new URLSearchParams();
-                    params.append("name", JSON.stringify(this.room_name));
-                    http.post('/chat/room', params)
-                        .then(
-                            response => {
-                                alert(response.data.name+"방 개설에 성공하였습니다.")
-                                this.room_name = '';
-                                this.findAllRoom();
-                            }
-                        )
-                        .catch( response => { alert("채팅방 개설에 실패하였습니다."); 
-                        console.log(response); } );
-                        
-                }
-            },
-            enterRoom: function(roomId) {
-                var sender = prompt('대화명을 입력해 주세요.');
-                localStorage.setItem('wschat.sender',sender);
-                localStorage.setItem('wschat.roomId',roomId);
-                location.href="/chat/room/enter/"+roomId;
-            }
-    }
-
-
-}
-=======
   },
 };
->>>>>>> 69e68d5637170b809cf520d689f99bc49fa91da1
 </script>
 
 <style>

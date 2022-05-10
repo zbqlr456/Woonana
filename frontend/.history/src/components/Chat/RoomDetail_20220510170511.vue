@@ -9,7 +9,7 @@
       </div>
       <input type="text" class="form-control" v-model="message" @keyup.enter="sendMessage" />
       <div class="input-group-append">
-        <button class="btn btn-primary" type="button" @click="sendMessage()">보내기</button>
+        <button class="btn btn-primary" type="button" @click="sendMessage">보내기</button>
       </div>
     </div>
     <ul class="list-group">
@@ -23,9 +23,9 @@
 
 <script>
 import SockJS from "sockjs-client";
-import Stomp from "stomp-websocket";
+import Stomp from "webstomp-client";
 import http from "@/util/index";
-var sock = new SockJS("http://localhost:8081/ws"); // endpoint로 sockJS 연결
+var sock = new SockJS("/ws"); // endpoint로 sockJS 연결
 var ws = Stomp.over(sock); // sockJS 위에서 돌아간다.
 
 export default {
@@ -51,6 +51,8 @@ export default {
       });
       http.get("/chat/messages/" + this.roomId).then((response) => {
         this.messages = response.data;
+        console.log("response.data: " + response.data);
+        console.log("messages: " + this.messages);
       });
     },
     sendMessage: function () {
@@ -58,28 +60,39 @@ export default {
       ws.send(
         "/pub/chat/message",
         {},
-        JSON.stringify({ roomId: this.roomId, sender: this.sender, message: this.message })
+        JSON.stringify({
+          type: "TALK",
+          roomId: this.roomId,
+          sender: this.sender,
+          message: this.message,
+        })
       );
       this.message = "";
     },
     recvMessage: function (recv) {
-      console.log(recv);
       this.messages.unshift({
-        sender: recv.sender,
+        type: recv.type,
+        sender: recv.type == "ENTER" ? "[알림]" : recv.sender,
         message: recv.message,
       });
     },
-    connect: function () {
+    connect() {
       ws.connect(
         {},
         (frame) => {
+          // 소켓 연결 성공
           this.connected = true;
           console.log("소켓 연결 성공", frame);
           // 서버의 메시지 전송 endpoint를 구독
-          ws.subscribe("/sub/chat/room/" + this.roomId, (message) => {
+          ws.subscribe("/sub/chat/room/" + this.roomId, function (message) {
             var recv = JSON.parse(message.body);
             this.recvMessage(recv);
           });
+          ws.send(
+            "/pub/chat/message",
+            {},
+            JSON.stringify({ type: "ENTER", roomId: this.roomId, sender: this.sender })
+          ); // 처음 연결할 때의 상태는 ENTER
         },
         (error) => {
           // 소켓 연결 실패

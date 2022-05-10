@@ -44,7 +44,7 @@ export default {
                     return;
                 } else {
                     var params = new URLSearchParams();
-                    params.append("name",this.room_name);
+                    params.append("name", JSON.stringify(this.room_name));
                     http.post('/chat/room', params)
                         .then(
                             response => {

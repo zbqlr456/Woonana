@@ -7,8 +7,8 @@
           <div class="col-lg-2 col-md-4 col-sm-5 col-6 order-1 order-sm-1">
             <div class="appie-logo-box">
               <a href="/">
-                <img v-if="dark" src="@/assets/images/logo-7.png" alt="appie" />
-                <img v-else src="@/assets/images/logo.png" alt="appie" />
+                <img v-if="dark" src="@/assets/images/logo/Woonana_Dark_small.png" alt="Woonana" />
+                <img v-else src="@/assets/images/logo/Woonana_small.png" alt="Woonana" />
               </a>
             </div>
           </div>

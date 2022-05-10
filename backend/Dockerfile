@@ -1,5 +1,5 @@
 FROM openjdk:11 AS builder
-WORKDIR /home/ubuntu/practice
+WORKDIR /var/lib/jenkins/workspace/woonana@2/backend
 
 COPY . .
 RUN chmod +x ./gradlew

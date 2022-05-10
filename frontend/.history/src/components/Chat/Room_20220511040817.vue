@@ -71,7 +71,6 @@ export default {
       localStorage.setItem("wschat.sender", sender);
       localStorage.setItem("wschat.roomId", roomId);
       this.$router.push("/chat/detail");
-      this.$router.go();
     },
   },
 };

@@ -5,14 +5,7 @@ const loginStore = {
 	namespaced: false,
   state: {
     jwtToken: '',
-    userInfo: {
-      userEmail : '',
-      userNickname: '',
-      userBirthday: '',
-      userSex: '',
-      userRatingScore: '',
-      userProfileUrl: '',
-    },
+    
     
 	},
   getters: {
@@ -43,8 +36,11 @@ const loginStore = {
             console.log(res);
             commit('SET_JWT_TOKEN', res.data.token);
             //헤더에 기본적으로 추가!!!! 헤더의 키는 Access-Token 이다.
-            axios.defaults.headers.common['Access-Token'] = res.data.token;
-              result = true;
+            // axios.defaults.headers.common['Authorization'] = res.data.token;
+            http.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+
+            
+            result = true;
           } else {
               console.log("로그인되지 않았습니다.");
               let err = new Error("Request failed with status code 401");
@@ -69,6 +65,7 @@ const loginStore = {
   // 로그아웃합니다.
   doLogout({commit}) {
     commit('reset');
+    window.localStorage.removeItem('vuex');
     //헤더에서 엑세스 토큰 삭제
     delete axios.defaults.headers.common['Access-Token'];
   },

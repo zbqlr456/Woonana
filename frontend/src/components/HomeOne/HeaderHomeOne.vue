@@ -63,6 +63,7 @@
               </template>
               <div v-if="isLogin == true">
                 <!-- <a class="login-btn" @click="Logout()"><i class="fal fa-user"></i> Logout</a> -->
+                <button @click="mypage">마이페이지이동</button>
                 <a class="login-btn" @click="logout" v-show="isLogin == true"
                   ><i class="fal fa-user"></i> Logout</a
                 >
@@ -136,6 +137,10 @@ export default {
     },
     logout: function () {
       this.$store.dispatch("doLogout");
+      this.$router.push("/");
+    },
+    mypage: function () {
+      this.$router.push({ path: "mypage" });
     },
   },
   computed: {

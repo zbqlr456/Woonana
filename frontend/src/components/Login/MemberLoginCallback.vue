@@ -17,6 +17,8 @@ export default {
       code = URLSearch.get("code");
       // alert(code);
       this.$store.dispatch("doLogin", code);
+      this.$router.push("/");
+
       // window.location.href = "http://localhost:8080";
 
       //백엔드로 코드 전송???

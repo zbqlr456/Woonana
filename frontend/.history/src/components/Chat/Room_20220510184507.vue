@@ -52,11 +52,14 @@ export default {
       } else {
         // var params = new URLSearchParams();
         // params.append("name", this.room_name);
+        const formData = {
+          name: this.room_name,
+        };
         http
-          .post("/chat/room", JSON.stringify({ name: this.room_name }))
+          .post("/chat/room", JSON.stringify(formData))
           .then((response) => {
             console.log(response);
-            alert(this.room_name + "방 개설에 성공하였습니다.");
+            alert(formData.name + "방 개설에 성공하였습니다.");
             this.room_name = "";
             this.findAllRoom();
           })

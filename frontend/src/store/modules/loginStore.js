@@ -1,4 +1,5 @@
 import http from '../../util/index';
+import axios from 'axios';
 
 const loginStore = {
 	namespaced: false,
@@ -33,6 +34,8 @@ const loginStore = {
               console.log("로그인되었습니다.");
               
             commit('SET_JWT_TOKEN', res.data.token);
+            //헤더에 기본적으로 추가!!!! 헤더의 키는 Access-Token 이다.
+            axios.defaults.headers.common['Access-Token'] = res.data.token;
               result = true;
           } else {
               console.log("로그인되지 않았습니다.");
@@ -57,7 +60,9 @@ const loginStore = {
   },
   // 로그아웃합니다.
   doLogout({commit}) {
-      commit('reset');
+    commit('reset');
+    //헤더에서 엑세스 토큰 삭제
+    delete axios.defaults.headers.common['Access-Token'];
   },
 	}
 };

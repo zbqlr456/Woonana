@@ -61,11 +61,15 @@
                   </svg>
                 </span>
               </template>
-
-              <a class="login-btn" @click="kakaoLogin" v-show="loginflag"
-                ><i class="fal fa-user"></i> Login</a
-              >
-              <a class="login-btn" v-show="loginflag"><i class="fal fa-user"></i> Logout</a>
+              <div v-if="isLogin == true">
+                <!-- <a class="login-btn" @click="Logout()"><i class="fal fa-user"></i> Logout</a> -->
+                <a class="login-btn" v-show="isLogin == true"><i class="fal fa-user"></i> Logout</a>
+              </div>
+              <div v-else>
+                <a class="login-btn" @click="kakaoLogin" v-show="isLogin == false"
+                  ><i class="fal fa-user"></i>Login</a
+                >
+              </div>
               <a class="main-btn ml-30" href="#">Get Started</a>
               <div class="toggle-btn ml-30 canvas_open d-lg-none d-block">
                 <i class="fa fa-bars" @click="showSidebar"></i>
@@ -82,6 +86,7 @@
 
 <script>
 import NavItems from "../NavItems.vue";
+// import { getters } from "vuex";
 export default {
   props: {
     menuItems: {
@@ -125,11 +130,13 @@ export default {
       // const URLSearch = new URLSearchParams(location.search);
       // const code = URLSearch.get("code"); //쿼리스트링의 값을 받아온다.
       // alert(code);
-      window.location.href =
-        "https://kauth.kakao.com/oauth/authorize?client_id=76d85e088d5bb875d6e4493b8eda78fd&response_type=code&redirect_uri=http://localhost:8080/oauth/callback";
+      window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=76d85e088d5bb875d6e4493b8eda78fd&response_type=code&redirect_uri=${process.env.VUE_APP_LOCAL_URI}oauth/callback`;
     },
-    loginflag: function () {
-      return false;
+  },
+  computed: {
+    isLogin() {
+      console.log("islogin : ", this.$store.getters.isLogin);
+      return this.$store.getters.isLogin;
     },
   },
 };

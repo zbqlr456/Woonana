@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate';
 import loginStore from './modules/loginStore'
 // import axios from 'axios';
 
@@ -12,6 +13,9 @@ export const store = new Vuex.Store({
     modules: {
         loginStore : loginStore,
     },
+    plugins: [
+        createPersistedState(),
+    ],
     state: {
         rtl: true,
         enableRtl: false,

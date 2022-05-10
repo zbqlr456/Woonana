@@ -50,7 +50,6 @@ export default {
         this.room = response.data;
       });
     },
-    findRoomMessage: function () {},
     sendMessage: function () {
       ws.send(
         "/pub/chat/message",

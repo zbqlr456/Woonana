@@ -1,5 +1,6 @@
 <template>
-  <div class="container" v-cloak>
+  <div class="container">
+    dsdfsd
     <div>
       <h2>{{ room.name }}</h2>
     </div>

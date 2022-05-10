@@ -10,7 +10,6 @@ import Error from "../views/Error.vue";
 import AboutUs from "../views/About.vue";
 import LoginCallback from "../components/Login/MemberLoginCallback.vue";
 import Room from "../components/Chat/Room.vue";
-import RoomDetail from "../components/Chat/RoomDetail.vue";
 
 Vue.use(VueRouter);
 

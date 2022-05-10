@@ -6,9 +6,7 @@
       </div>
     </div>
     <div class="input-group">
-      <div class="input-group-prepend">
-        <label class="input-group-text">방제목</label>
-      </div>
+      <div class="input-group-prepend"><label class="input-group-text">방제목</label>z</div>
       <input type="text" class="form-control" v-model="room_name" @keyup.enter="createRoom" />
       <div class="input-group-append">
         <button class="btn btn-primary" type="button" @click="createRoom">채팅방 개설</button>
@@ -28,7 +26,6 @@
 </template>
 
 <script>
-import http from "@/util/index";
 export default {
   data() {
     return {
@@ -41,7 +38,7 @@ export default {
   },
   methods: {
     findAllRoom: function () {
-      http.get("/chat/rooms").then((response) => {
+      this.$http.get("/chat/rooms").then((response) => {
         this.chatrooms = response.data;
       });
     },
@@ -50,16 +47,12 @@ export default {
         alert("방 제목을 입력해 주십시요.");
         return;
       } else {
-        // var params = new URLSearchParams();
-        // params.append("name", this.room_name);
-        const formData = {
-          name: this.room_name,
-        };
-        http
-          .post("/chat/room", JSON.stringify(formData))
+        var params = new URLSearchParams();
+        params.append("name", this.room_name);
+        this.$http
+          .post("/chat/room", params)
           .then((response) => {
-            console.log(response);
-            alert(formData.name + "방 개설에 성공하였습니다.");
+            alert(response.data.name + "방 개설에 성공하였습니다.");
             this.room_name = "";
             this.findAllRoom();
           })
@@ -73,7 +66,7 @@ export default {
       var sender = prompt("대화명을 입력해 주세요.");
       localStorage.setItem("wschat.sender", sender);
       localStorage.setItem("wschat.roomId", roomId);
-      this.$router.push("/chat/detail");
+      location.href = "/chat/room/enter/" + roomId;
     },
   },
 };

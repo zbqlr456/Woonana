@@ -40,6 +40,7 @@ pipeline { // 파이프라인의 시작, 여기에 파이프라인 작성할 거
                 sh """
                 pwd
                 docker build -f ../backend/Dockerfile -t backend:latest ../backend
+                docker build -f ../backend_chat/Dockerfile -t backendchat:latest ../backend_chat
                 """
             }// 도커를 만들어서 빌드하기 위해서 docker build 명령어. 
              // 도커 컨테이너를 미리 실행시켜둬야 한다.
@@ -93,6 +94,8 @@ pipeline { // 파이프라인의 시작, 여기에 파이프라인 작성할 거
                 sh '''
                 docker rm -f backend
                 docker run -d --name backend -p 8081:8081 backend:latest
+                docker rm -f backendchat
+                docker run -d --name backendchat -p 8082:8082 backendchat:latest
                 '''
             } // 원래 돌고 있던 도커 이미지 지우고 도커 server 도커를 켜준다
             // 위의 줄은 처음 배포할 때에는 지워줘야 한다

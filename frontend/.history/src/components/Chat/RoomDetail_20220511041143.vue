@@ -43,6 +43,7 @@ export default {
     this.sender = localStorage.getItem("wschat.sender");
     this.findRoom();
     this.connect();
+    this.refresh();
   },
   methods: {
     findRoom: function () {
@@ -63,6 +64,7 @@ export default {
       this.message = "";
     },
     recvMessage: function (recv) {
+      console.log(recv);
       this.messages.unshift({
         sender: recv.sender,
         message: recv.message,

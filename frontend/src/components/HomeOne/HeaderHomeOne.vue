@@ -63,7 +63,9 @@
               </template>
               <div v-if="isLogin == true">
                 <!-- <a class="login-btn" @click="Logout()"><i class="fal fa-user"></i> Logout</a> -->
-                <a class="login-btn" v-show="isLogin == true"><i class="fal fa-user"></i> Logout</a>
+                <a class="login-btn" @click="logout" v-show="isLogin == true"
+                  ><i class="fal fa-user"></i> Logout</a
+                >
               </div>
               <div v-else>
                 <a class="login-btn" @click="kakaoLogin" v-show="isLogin == false"
@@ -131,6 +133,9 @@ export default {
       // const code = URLSearch.get("code"); //쿼리스트링의 값을 받아온다.
       // alert(code);
       window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=76d85e088d5bb875d6e4493b8eda78fd&response_type=code&redirect_uri=${process.env.VUE_APP_LOCAL_URI}oauth/callback`;
+    },
+    logout: function () {
+      this.$store.dispatch("doLogout");
     },
   },
   computed: {

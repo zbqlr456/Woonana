@@ -1,5 +1,5 @@
 <template>
-  <div id="test">Login callbackpage입니다.</div>
+  <div id="test">Login callback중 에러가 발생했습니다.</div>
 </template>
 
 <script>

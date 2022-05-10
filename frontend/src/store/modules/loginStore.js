@@ -5,7 +5,15 @@ const loginStore = {
 	namespaced: false,
   state: {
     jwtToken: '',
-    memberid: '',
+    userInfo: {
+      userEmail : '',
+      userNickname: '',
+      userBirthday: '',
+      userSex: '',
+      userRatingScore: '',
+      userProfileUrl: '',
+    },
+    
 	},
   getters: {
     isLogin(state) {
@@ -16,11 +24,11 @@ const loginStore = {
     SET_JWT_TOKEN: (state, payload) => {
       state.jwtToken = payload
   },
-  SET_MEMBER_ID: (state, memberid) => {
-      state.memberid = memberid
+  SET_USER_INFO: (state, payload) => {
+    state.userInfo.userEmail = payload.userEmail;
   },
   reset(state) {
-      state.memberid = "";
+    state.userInfo = {};
       state.jwtToken = "";
   }
 	},
@@ -32,7 +40,7 @@ const loginStore = {
           let res = await http.post( '/api/accounts/signup?' +"code=" + code);
           if (res.status === 200) {
               console.log("로그인되었습니다.");
-              
+            console.log(res);
             commit('SET_JWT_TOKEN', res.data.token);
             //헤더에 기본적으로 추가!!!! 헤더의 키는 Access-Token 이다.
             axios.defaults.headers.common['Access-Token'] = res.data.token;

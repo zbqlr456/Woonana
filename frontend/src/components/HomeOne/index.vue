@@ -34,11 +34,10 @@
       <!--====== APPIE HERO PART START ======-->
 
       <hero-home-one
-        welcome_message="Welcome To Appie"
-        slogan="Manage it all, in this all new system."
-        description="Hanky panky lavatory up the duff jolly good cack brolly is chinwag zonked happy days sloshed."
-        first_button_content="Download for iOS"
-        first_button_icon="fab fa-apple"
+        welcome_message="Welcome To Woonana"
+        slogan="함께 운동할 사람을 찾아보세요"
+        first_button_content="Get Started"
+        first_button_icon=""
         second_button_content="Download for Android"
         second_button_icon="fab fa-google-play"
       />

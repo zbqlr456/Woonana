@@ -75,8 +75,9 @@ export default {
           this.connected = true;
           console.log("소켓 연결 성공", frame);
           // 서버의 메시지 전송 endpoint를 구독
-          ws.subscribe("/sub/chat/room/" + this.roomId, (message) => {
+          ws.subscribe("/sub/chat/room/" + this.roomId, function (message) {
             var recv = JSON.parse(message.body);
+            console.log(recv);
             this.recvMessage(recv);
           });
         },
@@ -86,9 +87,6 @@ export default {
           alert("error" + error);
         }
       );
-    },
-    refresh: function () {
-      this.$router.go();
     },
   },
 };

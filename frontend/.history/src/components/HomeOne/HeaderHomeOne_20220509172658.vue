@@ -7,8 +7,8 @@
           <div class="col-lg-2 col-md-4 col-sm-5 col-6 order-1 order-sm-1">
             <div class="appie-logo-box">
               <a href="/">
-                <img v-if="dark" src="@/assets/images/logo/Woonana_Dark_small.png" alt="Woonana" />
-                <img v-else src="@/assets/images/logo/Woonana_small.png" alt="Woonana" />
+                <img v-if="dark" src="@/assets/images/logo-7.png" alt="appie" />
+                <img v-else src="@/assets/images/logo.png" alt="appie" />
               </a>
             </div>
           </div>
@@ -61,18 +61,11 @@
                   </svg>
                 </span>
               </template>
-              <div v-if="isLogin == true">
-                <!-- <a class="login-btn" @click="Logout()"><i class="fal fa-user"></i> Logout</a> -->
-                <button @click="mypage">마이페이지이동</button>
-                <a class="login-btn" @click="logout" v-show="isLogin == true"
-                  ><i class="fal fa-user"></i> Logout</a
-                >
-              </div>
-              <div v-else>
-                <a class="login-btn" @click="kakaoLogin" v-show="isLogin == false"
-                  ><i class="fal fa-user"></i>Login</a
-                >
-              </div>
+
+              <a class="login-btn" @click="kakaoLogin" v-show="loginflag"
+                ><i class="fal fa-user"></i> Login</a
+              >
+              <a class="login-btn" v-show="loginflag"><i class="fal fa-user"></i> Logout</a>
               <a class="main-btn ml-30" href="#">Get Started</a>
               <div class="toggle-btn ml-30 canvas_open d-lg-none d-block">
                 <i class="fa fa-bars" @click="showSidebar"></i>
@@ -89,7 +82,6 @@
 
 <script>
 import NavItems from "../NavItems.vue";
-// import { getters } from "vuex";
 export default {
   props: {
     menuItems: {
@@ -133,20 +125,11 @@ export default {
       // const URLSearch = new URLSearchParams(location.search);
       // const code = URLSearch.get("code"); //쿼리스트링의 값을 받아온다.
       // alert(code);
-      window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=76d85e088d5bb875d6e4493b8eda78fd&response_type=code&redirect_uri=${process.env.VUE_APP_LOCAL_URI}oauth/callback`;
+      window.location.href =
+        "https://kauth.kakao.com/oauth/authorize?client_id=76d85e088d5bb875d6e4493b8eda78fd&response_type=code&redirect_uri=http://localhost:8080/oauth/callback";
     },
-    logout: function () {
-      this.$store.dispatch("doLogout");
-      this.$router.push("/");
-    },
-    mypage: function () {
-      this.$router.push({ path: "mypage" });
-    },
-  },
-  computed: {
-    isLogin() {
-      console.log("islogin : ", this.$store.getters.isLogin);
-      return this.$store.getters.isLogin;
+    loginflag: function () {
+      return false;
     },
   },
 };

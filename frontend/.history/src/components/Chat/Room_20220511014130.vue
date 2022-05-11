@@ -56,7 +56,7 @@ export default {
           .post("/chat/room", JSON.stringify({ name: this.room_name }))
           .then((response) => {
             console.log(response);
-            alert(this.room_name + "방 개설에 성공하였습니다.");
+            alert(formData.name + "방 개설에 성공하였습니다.");
             this.room_name = "";
             this.findAllRoom();
           })
@@ -71,7 +71,6 @@ export default {
       localStorage.setItem("wschat.sender", sender);
       localStorage.setItem("wschat.roomId", roomId);
       this.$router.push("/chat/detail");
-      this.$router.go();
     },
   },
 };

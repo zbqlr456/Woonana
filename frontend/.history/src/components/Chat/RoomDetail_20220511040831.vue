@@ -63,6 +63,7 @@ export default {
       this.message = "";
     },
     recvMessage: function (recv) {
+      console.log(recv);
       this.messages.unshift({
         sender: recv.sender,
         message: recv.message,
@@ -86,9 +87,6 @@ export default {
           alert("error" + error);
         }
       );
-    },
-    refresh: function () {
-      this.$router.go();
     },
   },
 };

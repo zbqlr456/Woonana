@@ -3,6 +3,7 @@ package com.ssafy.woonana.domain.service.user;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
+import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogCountResponse;
 import com.ssafy.woonana.domain.model.dto.user.response.LikeExcerciseResponse;
 import com.ssafy.woonana.domain.model.dto.user.response.MyPageInfoResponse;
 import com.ssafy.woonana.domain.model.dto.user.response.UserEvaluateResponse;
@@ -15,6 +16,7 @@ import com.ssafy.woonana.domain.model.entity.user.User;
 import com.ssafy.woonana.domain.repository.board.BoardRepository;
 import com.ssafy.woonana.domain.repository.board.ExerciseRepository;
 import com.ssafy.woonana.domain.repository.evaluation.EvaluationRepository;
+import com.ssafy.woonana.domain.repository.exercise.ExerciseLogRepository;
 import com.ssafy.woonana.domain.repository.participation.ParticipationRepository;
 import com.ssafy.woonana.domain.repository.user.UserRepository;
 import com.ssafy.woonana.security.TokenProvider;
@@ -46,6 +48,9 @@ public class UserService {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private ExerciseLogRepository exerciseLogRepository;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -285,12 +290,11 @@ public class UserService {
     }
 
     // 인자로 들어온 사용자의 운동 선호도 조회
-    public LikeExcerciseResponse getLikeExcercise(Long userId){
+    public List<ExerciseLogCountResponse> getLikeExcercise(Long userId){
 
-        User user = userRepository.findById(userId).get();
-        
+        List<ExerciseLogCountResponse> list = exerciseLogRepository.findExerciseCountByUser(userId);
 
-        return null;
+        return list;
     }
 
     // 평가하기

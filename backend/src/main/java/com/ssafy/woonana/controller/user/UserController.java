@@ -1,5 +1,6 @@
 package com.ssafy.woonana.controller.user;
 
+import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogCountResponse;
 import com.ssafy.woonana.domain.model.dto.user.request.UserEvaluateRequest;
 import com.ssafy.woonana.domain.model.dto.user.response.LikeExcerciseResponse;
 import com.ssafy.woonana.domain.model.dto.user.response.MyPageInfoResponse;
@@ -27,6 +28,7 @@ public class UserController {
 
     // 유저가 회원이면 로그인, 유저가 회원이 아니라면 회원가입을 시키고 나서 로그인한다.
     @PostMapping("/signup")
+    @ApiOperation(value = "회원 기능", notes = "유저가 회원이면 로그인, 유저가 회원이 아니라면 회원가입 시킨 후 로그인.")
     public ResponseEntity<HashMap<String, String>> userLogin(@RequestParam String code) throws Exception {
 
         HashMap<String, String> result = new HashMap<>(); 
@@ -37,6 +39,7 @@ public class UserController {
     }
 
     @DeleteMapping("/mypage")
+    @ApiOperation(value = "회원 정보 삭제", notes = "카카오 권한 삭제하고 회원 정보도 삭제한다.")
     public ResponseEntity<HashMap<String, String>> userDelete(@AuthenticationPrincipal Long userId) throws Exception {
 
         if(!userService.userDelete(userId)){
@@ -51,6 +54,7 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
+    @ApiOperation(value="회원 정보", notes="지금 로그인한 회원 정보를 조회한다.")
     public ResponseEntity<MyPageInfoResponse> getMyPageInformation(@AuthenticationPrincipal Long userId) {
 
         MyPageInfoResponse result = userService.selectUserInfo(userId);
@@ -58,10 +62,11 @@ public class UserController {
     }
 
     @GetMapping("/likes")
-    @ApiOperation(value="내 운동 선호도 조회", notes = "로그인한 사용자의 운동 선호도 조회")
-    public ResponseEntity<LikeExcerciseResponse> getExcerciseLike(@AuthenticationPrincipal Long userId){
+    @ApiOperation(value="내 운동 선호도 조회", notes = "로그인한 사용자의 운동 선호도를 조회한다.")
+    public ResponseEntity<List<ExerciseLogCountResponse>> getExcerciseLike(@AuthenticationPrincipal Long userId){
 
-        return null;
+        List<ExerciseLogCountResponse> result = userService.getLikeExcercise(userId);
+        return ResponseEntity.ok().body(result);
     }
 
     @PostMapping("/evalue")

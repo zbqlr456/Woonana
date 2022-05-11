@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import AxiosPlugin from 'vue-axios-cors';
+import axios from 'axios'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 
@@ -19,6 +21,9 @@ import '../src/assets/css/main.css'
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
+Vue.use(AxiosPlugin);
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
 
 Vue.use(IconsPlugin)
 

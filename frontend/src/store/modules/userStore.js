@@ -21,7 +21,14 @@ const userStore = {
   actions: {
     getUserInfo({ commit }) {
       try {
-        http.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('vuex').loginStore.jwtToken;
+        let data = localStorage.getItem('vuex');
+        let parsedata = JSON.parse(data);
+        let token = parsedata.loginStore.jwtToken;
+        console.log(token);
+        token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaXNzIjoid29vbmFuYSIsImlhdCI6MTY1MjIzNTk1NywiZXhwIjoxNjUyMzIyMzU3fQ.QL8RJhVvg-ROl8igeFLAJT3NP14kvNRkE_C3Pb5RWXELDUReoXDuG1zgpN9qUiObCbGa_brigtBsCYyyyqQldg';
+
+        http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        console.log(http.defaults.headers.common['Authorization']);
         const res = http.get('api/accounts/mypage');
         // let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaXNzIjoid29vbmFuYSIsImlhdCI6MTY1MjE2NDk4NywiZXhwIjoxNjUyMjUxMzg3fQ.VfPXbqMxqR2Y0rIiBfxSH3byym1lTV7QNrtSosZVteQsLDzXKxAtGY-WiY8ieibO7KkzZz6tmxZlAHaDi0IgMA";
         

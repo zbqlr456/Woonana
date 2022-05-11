@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests() // /account/** 경로는 인증 안 해도 됨
                 .antMatchers("/","/api/accounts/signup/**","/swagger-ui/**",
-                        "/swagger-resources/**","/chat/**","/ws/**","/favicon.ico/**",
+                        "/swagger-resources/**",
                         "/api/test/**").permitAll()
                 .anyRequest()
                 .authenticated();

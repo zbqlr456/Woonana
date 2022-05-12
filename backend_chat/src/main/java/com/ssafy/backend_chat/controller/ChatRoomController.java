@@ -6,6 +6,7 @@ import com.ssafy.backend_chat.domain.repository.ChatRoomRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class ChatRoomController {
     @ResponseBody
     @ApiOperation(value = "채팅방 전체 조회")
     public List<ChatRoom> room() {
-        return chatRoomRepository.findAllBy();
+        return chatRoomRepository.findAllBy(Sort.by(Sort.Direction.DESC,"createdAt"));
     }
 
     @PostMapping("/room")

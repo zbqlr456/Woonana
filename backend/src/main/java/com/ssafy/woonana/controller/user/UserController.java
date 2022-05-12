@@ -63,16 +63,16 @@ public class UserController {
     @ApiOperation(value="내 운동 선호도 조회", notes = "로그인한 사용자의 운동 선호도를 조회한다.")
     public ResponseEntity<List<ExerciseLogCountResponse>> getExcerciseLike(@AuthenticationPrincipal Long userId){
 
-        List<ExerciseLogCountResponse> result = userService.getLikeExcercise(userId);
+        List<ExerciseLogCountResponse> result = userService.getLikeExercise(userId);
         return ResponseEntity.ok().body(result);
     }
 
     @PostMapping("/evalue")
     @ApiOperation(value="평가하기", notes="사용자의 점수를 평가한다.")
-    public void evaluate(@RequestBody UserEvaluateRequest evaluation, @AuthenticationPrincipal Long userId){
+    public ResponseEntity<String> evaluate(@RequestBody UserEvaluateRequest evaluation, @AuthenticationPrincipal Long userId){
 
         userService.evaluate(userId, evaluation.getUserId(), evaluation.getRating());
-
+        return ResponseEntity.ok().body("평가 완료");
     }
 
     @GetMapping("/evalue")

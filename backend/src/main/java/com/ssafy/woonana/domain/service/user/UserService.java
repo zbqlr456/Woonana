@@ -50,6 +50,9 @@ public class UserService {
     private ExerciseLogRepository exerciseLogRepository;
 
     @Autowired
+    private ExerciseRepository exerciseRepository;
+
+    @Autowired
     private TokenProvider tokenProvider;
 
     @Value("${kakao.login.redirect_url}")
@@ -287,9 +290,14 @@ public class UserService {
     }
 
     // 인자로 들어온 사용자의 운동 선호도 조회
-    public List<ExerciseLogCountResponse> getLikeExcercise(Long userId){
+    public List<ExerciseLogCountResponse> getLikeExercise(Long userId){
 
-        List<ExerciseLogCountResponse> list = exerciseLogRepository.findExerciseCountByUser(userId);
+        List<Exercise> exercises = exerciseRepository.findAll(); // 전체 운동 조회 -> 아이디 가져옴
+        List<ExerciseLogCountResponse> list = new ArrayList<>(); // 운동 기록 저장 리스트
+
+        for(Exercise e: exercises){ // 운동 하나에 대해서
+            list.addAll(exerciseLogRepository.findExerciseCountByUser(e.getId(), userId)); // 운동 기록 더해줌
+        }
 
         return list;
     }
@@ -333,7 +341,7 @@ public class UserService {
         User user=userRepository.findById(userId).get();
 
         // 참여(participation) 조회
-        List<Participation> participations = participationRepository.findParticipationsByUser(user);
+        List<Participation> participations = participationRepository.findParticipationsByUser(userId);
         List<UserParticipateResponse> result = new ArrayList<>();
 
         for(Participation par: participations){
@@ -344,6 +352,7 @@ public class UserService {
         return result;
     }
 
+    // 채팅용: 유저 정보 리턴
     public ChatingUserInfoResponse getUserInfo(Long userId){
 
         User user=userRepository.findById(userId).get();

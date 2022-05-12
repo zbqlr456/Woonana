@@ -42,9 +42,6 @@ public class ChatController {
 //        System.out.println(chatMessageRepository.findByRoomIdOrderByCreatedAtDesc(roomId));
         return chatMessageRepository.findByRoomIdOrderByCreatedAt(roomId);
     }
-<<<<<<< HEAD
-}
-=======
 
     @GetMapping("/chat/info")
     public ResponseEntity<UserInfoDto> getUserInfo(@RequestParam String token){
@@ -65,4 +62,3 @@ public class ChatController {
         return response;
     }
 }
->>>>>>> 46068d214f311ce1f1f872c7859db764848f8ed1

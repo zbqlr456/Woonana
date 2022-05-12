@@ -43,15 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests() // /account/** 경로는 인증 안 해도 됨
-<<<<<<< HEAD
-                .antMatchers("/","/api/accounts/signup/**","/swagger-ui/**",
-                        "/swagger-resources/**", "/api/test/**").permitAll()
-=======
                 .antMatchers("/","/api/accounts/signup/**",
                         "/swagger-ui/**",
                         "/swagger-resources/**",
                         "/api/test/**").permitAll()
->>>>>>> 46068d214f311ce1f1f872c7859db764848f8ed1
                 .anyRequest()
                 .authenticated();
 

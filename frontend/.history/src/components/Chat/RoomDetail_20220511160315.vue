@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-cloak>
     <div>
       <h2>{{ room.name }}</h2>
     </div>
@@ -94,4 +94,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+[v-cloak] {
+  display: none;
+}
+</style>

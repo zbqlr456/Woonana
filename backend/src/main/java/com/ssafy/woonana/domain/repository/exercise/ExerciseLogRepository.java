@@ -22,9 +22,9 @@ public interface ExerciseLogRepository extends JpaRepository<ExerciseLog, Long> 
             "join exercise e on el.exercise_id = e.exercise_id where el.user_id = :userId", nativeQuery = true)
     List<ExerciseLogResponse> findExerciseLogByLikes(@Param("userId")int userId);
 
-    @Query(value="select exercise_id, count(*) as count from exercise_log " +
-            "where exercise_id=(select exercise_id from exercise) and user_id=:userId" +
-            "group by exercise_id", nativeQuery = true)
-    List<ExerciseLogCountResponse> findExerciseCountByUser(@Param("userId") Long userId);
+    @Query(value="select el.exercise_id, count(*) as count from exercise_log el " +
+            "where exercise_id=:exerciseId and el.user_id=:userId " +
+            "group by el.exercise_id", nativeQuery = true)
+    List<ExerciseLogCountResponse> findExerciseCountByUser(@Param("exerciseId") Long exerciseId, @Param("userId") Long userId);
 
 }

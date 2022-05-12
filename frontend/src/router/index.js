@@ -13,7 +13,8 @@ import Room from "../components/Chat/Room.vue";
 import RoomDetail from "../components/Chat/RoomDetail.vue";
 
 import Mypage from "../views/Mypage.vue";
-import MypageMain from "../components/Mypage/MypageMain.vue"
+import MypageMain from "../components/Mypage/index.vue"
+import SingleBlog from "../components/SingleNews/index.vue"
 import MypageQna from "../components/Mypage/MypageQna.vue"
 import MyEvalLog from "../components/Mypage/MyEvalLog.vue"
 import MyJoinLog from "../components/Mypage/MyJoinLog.vue"
@@ -123,6 +124,11 @@ const routes = [
     ]
     
   },
+  {
+    path: "/singleblog",
+    name: "SingleBlog",
+    component: SingleBlog,
+  }
   // {
   //   path: '/about',
   //   name: 'About',

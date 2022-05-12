@@ -12,7 +12,7 @@
         <button class="btn btn-primary" type="button" @click="sendMessage()">보내기</button>
       </div>
     </div>
-    <ul class="list-group" id="message-list">
+    <ul class="list-group">
       <li class="list-group-item" v-bind:key="idx" v-for="(message, idx) in messages">
         <a>{{ message.sender }} - {{ message.message }}</a>
       </li>
@@ -53,6 +53,9 @@ export default {
         this.messages = response.data;
       });
     },
+    reversedMessages: function () {
+      return this.messages.reverse();
+    },
     sendMessage: function () {
       // ChatController에 메세지를 보냄.
       ws.send(
@@ -87,13 +90,11 @@ export default {
         }
       );
     },
+    refresh: function () {
+      this.$router.go();
+    },
   },
 };
 </script>
 
-<style>
-#message-list {
-  display: flex;
-  flex-direction: column-reverse;
-}
-</style>
+<style></style>

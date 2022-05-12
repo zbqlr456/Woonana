@@ -12,7 +12,7 @@
         <button class="btn btn-primary" type="button" @click="sendMessage()">보내기</button>
       </div>
     </div>
-    <ul class="list-group" id="message-list">
+    <ul class="list-group">
       <li class="list-group-item" v-bind:key="idx" v-for="(message, idx) in messages">
         <a>{{ message.sender }} - {{ message.message }}</a>
       </li>
@@ -49,14 +49,14 @@ export default {
       http.get("/chat/room/" + this.roomId).then((response) => {
         this.room = response.data;
       });
-      http.get("/chatapi/messages/" + this.roomId).then((response) => {
+      http.get("/chat/messages/" + this.roomId).then((response) => {
         this.messages = response.data;
       });
     },
     sendMessage: function () {
       // ChatController에 메세지를 보냄.
       ws.send(
-        "/pub/chatapi/message",
+        "/pub/chat/message",
         {},
         JSON.stringify({ roomId: this.roomId, sender: this.sender, message: this.message })
       );
@@ -87,13 +87,11 @@ export default {
         }
       );
     },
+    refresh: function () {
+      this.$router.go();
+    },
   },
 };
 </script>
 
-<style>
-#message-list {
-  display: flex;
-  flex-direction: column-reverse;
-}
-</style>
+<style></style>

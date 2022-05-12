@@ -2,8 +2,6 @@
   <div>
     <!--====== OFFCANVAS MENU PART START ======-->
 
-    <sidebar-home-one :sidebar="sidebar" @toggleSidebar="toggleSidebar" :menuItems="navs" />
-
     <!--====== OFFCANVAS MENU PART ENDS ======-->
     <!--====== APPIE HEADER PART START ======-->
 
@@ -14,9 +12,9 @@
 
     <!-- reference by news -->
     <title-area />
-
+    <mypagenav />
     <!--====== APPIE PAGE TITLE PART ENDS ======-->
-    <mypage-qna />
+    <router-view />
 
     <!--====== APPIE FOOTER PART START ======-->
     <footer-home-one />
@@ -27,17 +25,18 @@
 
 <script>
 import HeaderHomeOne from "../HomeOne/HeaderHomeOne.vue";
-import SidebarHomeOne from "../HomeOne/SidebarHomeOne.vue";
+
 import FooterHomeOne from "../HomeOne/FooterHomeOne.vue";
-import MypageQna from "./MypageQna.vue";
+// import MypageQna from "./MypageQna.vue";
 import TitleArea from "./TitieArea.vue";
+import Mypagenav from "./Mypagenav.vue";
 export default {
   components: {
-    SidebarHomeOne,
     HeaderHomeOne,
     FooterHomeOne,
-    MypageQna,
+    // MypageQna,
     TitleArea,
+    Mypagenav,
   },
 };
 </script>

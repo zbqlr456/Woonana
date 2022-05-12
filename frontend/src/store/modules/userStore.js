@@ -1,4 +1,5 @@
 import http from '../../util/index';
+// import axios from "axios";
 const userStore = {
   state: {
     userInfo: {
@@ -11,6 +12,10 @@ const userStore = {
     },
   },
   getters: {
+    GET_USER_INFO: (state) => {
+      return state.userInfo;
+    }
+    
 
   },
   mutations: {
@@ -19,25 +24,23 @@ const userStore = {
     },
   },
   actions: {
-    getUserInfo({ commit }) {
+    async getUserInfo({ commit }) {
       try {
         let data = localStorage.getItem('vuex');
         let parsedata = JSON.parse(data);
         let token = parsedata.loginStore.jwtToken;
-        console.log(token);
-        token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaXNzIjoid29vbmFuYSIsImlhdCI6MTY1MjIzNTk1NywiZXhwIjoxNjUyMzIyMzU3fQ.QL8RJhVvg-ROl8igeFLAJT3NP14kvNRkE_C3Pb5RWXELDUReoXDuG1zgpN9qUiObCbGa_brigtBsCYyyyqQldg';
-
+        
+        http.defaults.withCredentials = false;
         http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        http.defaults.headers.common['withCredentials'] = false;
         console.log(http.defaults.headers.common['Authorization']);
-        const res = http.get('api/accounts/mypage');
+        const res = await http.get('api/accounts/mypage');
         // let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaXNzIjoid29vbmFuYSIsImlhdCI6MTY1MjE2NDk4NywiZXhwIjoxNjUyMjUxMzg3fQ.VfPXbqMxqR2Y0rIiBfxSH3byym1lTV7QNrtSosZVteQsLDzXKxAtGY-WiY8ieibO7KkzZz6tmxZlAHaDi0IgMA";
         
         if (res.state === 200) {
           console.log('유저 정보를 가져왔습니다');
           console.log(res);
           commit('SET_USER_INFO', res.data) ;
-
-
         } else {
           console.log('유저정보 에러발생');
         }

@@ -32,6 +32,6 @@ public class ChatController {
     @ApiOperation(value = "채팅방 채팅내역 전체 조회")
     public List<ChatMessage> roomInfo(@PathVariable String roomId) {
 //        System.out.println(chatMessageRepository.findByRoomIdOrderByCreatedAtDesc(roomId));
-        return chatMessageRepository.findByRoomIdOrderByCreatedAtDesc(roomId);
+        return chatMessageRepository.findByRoomIdOrderByCreatedAt(roomId);
     }
 }

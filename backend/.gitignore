@@ -38,3 +38,4 @@ out/
 
 ### for Test ###
 !**/src/main/resources/application-test.yml
+!**/src/main/resources/aws.yml

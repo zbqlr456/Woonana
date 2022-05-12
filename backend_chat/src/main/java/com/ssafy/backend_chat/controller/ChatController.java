@@ -28,14 +28,14 @@ public class ChatController {
     @Value("${userinfo.url}")
     private String userInfoUrl;
 
-    @MessageMapping("/chat/message") // 메세지 보낼때 컨트롤러가 받아줌.
+    @MessageMapping("/chatapi/message") // 메세지 보낼때 컨트롤러가 받아줌.
     public void message(ChatMessageDto message) {
         System.out.println(message);
         chatMessageRepository.save(message.toEntity());
         messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 
-    @GetMapping("/chat/messages/{roomId}")
+    @GetMapping("/chatapi/messages/{roomId}")
     @ResponseBody
     @ApiOperation(value = "채팅방 채팅내역 전체 조회")
     public List<ChatMessage> roomInfo(@PathVariable String roomId) {
@@ -43,7 +43,7 @@ public class ChatController {
         return chatMessageRepository.findByRoomIdOrderByCreatedAtDesc(roomId);
     }
 
-    @GetMapping("/chat/info")
+    @GetMapping("/chatapi/info")
     public ResponseEntity<UserInfoDto> getUserInfo(@RequestParam String token){
 
         HttpHeaders headers=new HttpHeaders();

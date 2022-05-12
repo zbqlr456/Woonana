@@ -71,6 +71,17 @@ public class BoardService {
         return list;
     }
 
+    public List<BoardListResponse> getBoardsByUser(Long userId) {
+        List<Board> boardList = boardRepository.findBoardsByUserId(userId);
+        List<BoardListResponse> list = new ArrayList<>();
+
+        for (Board b : boardList) {
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
+        }
+
+        return list;
+    }
+
     public List<BoardListResponse> getBoardsByMeet() {
         List<Board> boardList = boardRepository.findBoardsByOrderByMeetStartDateAsc();
         List<BoardListResponse> list = new ArrayList<>();
@@ -96,7 +107,7 @@ public class BoardService {
         User findBoardUser = findBoard.getUser();
         return new BoardDetailResponse(findBoard, findBoardUser);
     }
-
+    @Transactional
     public void deleteBoard(Long boardId) {
         // TODO: 참여하기로한 멤버가 있는 경우
         // TODO: 완료하지 않은 운동인 경우 운동 기록, 참여 등에도 삭제가 반영 되는지 확인 필요
@@ -119,6 +130,5 @@ public class BoardService {
         }
         return list;
     }
-
 
 }

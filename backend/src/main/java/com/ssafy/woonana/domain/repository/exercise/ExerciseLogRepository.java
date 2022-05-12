@@ -14,17 +14,17 @@ public interface ExerciseLogRepository extends JpaRepository<ExerciseLog, Long> 
     @Query(value = "select * from exercise_log", nativeQuery = true)
     List<ExerciseLogResponse> findExerciseLogByMonth(@Param("userId") int userId);
 
-    @Query(value = "select el.exercise_id, e.exercise_name, el.exercise_count from exercise_log el" +
+    @Query(value = "select el.exercise_id as exercise_id, e.exercise_name as exercise_name, el.exercise_count as exercise_count from exercise_log el" +
             "join exercise e on el.exercise_id = e.exercise_id where el.user_id = :userId", nativeQuery = true)
     List<ExerciseLogResponse> findExerciseLogByUserId(@Param("userId")int userId);
 
-    @Query(value = "select el.exercise_id, e.exercise_name, el.exercise_count from exercise_log el" +
+    @Query(value = "select el.exercise_id as exercise_id, e.exercise_name as exercise_name, el.exercise_count as exercise_count from exercise_log el" +
             "join exercise e on el.exercise_id = e.exercise_id where el.user_id = :userId", nativeQuery = true)
     List<ExerciseLogResponse> findExerciseLogByLikes(@Param("userId")int userId);
 
-    @Query(value="select exercise_id, count(*) as count from exercise_log " +
-            "where exercise_id=(select exercise_id from exercise) and user_id=:userId" +
-            "group by exercise_id", nativeQuery = true)
-    List<ExerciseLogCountResponse> findExerciseCountByUser(@Param("userId") Long userId);
+    @Query(value="select el.exercise_id, count(*) as count from exercise_log el " +
+            "where exercise_id=:exerciseId and el.user_id=:userId " +
+            "group by el.exercise_id", nativeQuery = true)
+    List<ExerciseLogCountResponse> findExerciseCountByUser(@Param("exerciseId") Long exerciseId, @Param("userId") Long userId);
 
 }

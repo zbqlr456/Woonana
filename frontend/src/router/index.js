@@ -13,6 +13,7 @@ import Room from "../components/Chat/Room.vue";
 import RoomDetail from "../components/Chat/RoomDetail.vue";
 import Mypage from "../views/Mypage.vue";
 import MypageMain from "../components/Mypage/index_mypage.vue"
+import SingleBlog from "../components/SingleNews/index.vue"
 
 Vue.use(VueRouter);
 
@@ -82,6 +83,11 @@ const routes = [
     name: "MypageMain",
     component: MypageMain,
   },
+  {
+    path: "/singleblog",
+    name: "SingleBlog",
+    component: SingleBlog,
+  }
   // {
   //   path: '/about',
   //   name: 'About',

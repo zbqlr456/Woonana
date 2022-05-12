@@ -53,7 +53,7 @@ public class BoardController {
 
         return ResponseEntity.ok(boardService.getOneBoard(boardId));
     }
-
+    @CrossOrigin("*")
     @GetMapping
     @ApiOperation(value = "신청 가능한 글 전체 목록", notes = "메인 페이지의 글 목록을 무한 스크롤로 보여준다.")
     @ApiResponses({

@@ -11,6 +11,7 @@ public class BoardListResponse {
 
     private Long boardId;
     private String userNickname;
+    private String userEmail;
     private String title;
     private int allowedNumber;
     private int maxNumber;

@@ -11,7 +11,8 @@ const loginStore = {
   getters: {
     isLogin(state) {
       return state.jwtToken == '' ? false : true;
-  }
+    },
+    token: state => state.jwtToken,
 	},
   mutations: {
     SET_JWT_TOKEN: (state, payload) => {
@@ -37,7 +38,8 @@ const loginStore = {
             commit('SET_JWT_TOKEN', res.data.token);
             //헤더에 기본적으로 추가!!!! 헤더의 키는 Access-Token 이다.
             // axios.defaults.headers.common['Authorization'] = res.data.token;
-            http.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+            http.defaults.headers.common['Authorization'] = "Bearer " + res.data.token;
+            axios.defaults.withCredentials = false;
 
             
             result = true;

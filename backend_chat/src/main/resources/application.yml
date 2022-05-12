@@ -1,0 +1,23 @@
+server:
+  port: 8082
+
+spring:
+  data:
+    mongodb:
+      host: k6b104.p.ssafy.io
+      port: 27017
+      database: chat
+      username: root
+      password: woonana123@
+      authentication-database: admin
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+
+userinfo.url: http://localhost:8081/api/accounts/info # 로컬
+# userinfo.url: http://k6b104.p.ssafy.io:80/api/accounts/info # 서버에 올렸을 때 회원 정보를 요청할 url

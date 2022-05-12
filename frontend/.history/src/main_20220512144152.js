@@ -1,6 +1,8 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
+import AxiosPlugin from "vue-axios-cors";
+import axios from "axios";
 import { BootstrapVue, IconsPlugin, BadgePlugin } from "bootstrap-vue";
 
 import { store } from "./store/index";

@@ -12,6 +12,14 @@ import LoginCallback from "../components/Login/MemberLoginCallback.vue";
 import Room from "../components/Chat/Room.vue";
 import RoomDetail from "../components/Chat/RoomDetail.vue";
 
+import Mypage from "../views/Mypage.vue";
+import MypageMain from "../components/Mypage/MypageMain.vue"
+import MypageQna from "../components/Mypage/MypageQna.vue"
+import MyEvalLog from "../components/Mypage/MyEvalLog.vue"
+import MyJoinLog from "../components/Mypage/MyJoinLog.vue"
+import MyPosts from "../components/Mypage/MyPosts.vue"
+import MyWorkoutLog from "../components/Mypage/MyWorkoutLog.vue"
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -69,6 +77,51 @@ const routes = [
     path: "/chat/detail",
     name: "RoomDetail",
     component: RoomDetail,
+  },
+  {
+    path: "/mypage/",
+    component: Mypage,
+    children: [
+      {
+        path: '/',
+        component: MypageMain
+      },
+      {
+        path: 'main',
+        component: MypageMain
+      },
+      {
+        // /mypage/qna 과 일치 할 때
+        // mypageqna가 mypage <router-view> 내에 렌더링 됩니다.
+        path: 'qna',
+        component: MypageQna
+      },
+      {
+        // /mypage/qna 과 일치 할 때
+        // mypageqna가 mypage <router-view> 내에 렌더링 됩니다.
+        path: 'myevallog',
+        component: MyEvalLog
+      },
+      {
+        // /mypage/qna 과 일치 할 때
+        // mypageqna가 mypage <router-view> 내에 렌더링 됩니다.
+        path: 'myjoinlog',
+        component: MyJoinLog
+      },
+      {
+        // /mypage/qna 과 일치 할 때
+        // mypageqna가 mypage <router-view> 내에 렌더링 됩니다.
+        path: 'myposts',
+        component: MyPosts
+      },
+      {
+        // /mypage/qna 과 일치 할 때
+        // mypageqna가 mypage <router-view> 내에 렌더링 됩니다.
+        path: 'myworkoutlog',
+        component: MyWorkoutLog
+      },
+    ]
+    
   },
   // {
   //   path: '/about',

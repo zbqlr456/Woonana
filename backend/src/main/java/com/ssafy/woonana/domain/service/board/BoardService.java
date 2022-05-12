@@ -1,6 +1,7 @@
 package com.ssafy.woonana.domain.service.board;
 
 import com.ssafy.woonana.domain.model.dto.board.request.BoardRequest;
+import com.ssafy.woonana.domain.model.dto.board.response.BoardByExerciseListResponse;
 import com.ssafy.woonana.domain.model.dto.board.response.BoardDetailResponse;
 import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
 import com.ssafy.woonana.domain.model.dto.board.response.ParticipatedMemberResponse;
@@ -18,7 +19,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +35,18 @@ public class BoardService {
     private final ExerciseRepository exerciseRepository;
     private final UserRepository userRepository;
     private final ParticipationRepository participationRepository;
+    private final AwsS3Service awsS3Service;
 
     @Transactional
-    public Long register(BoardRequest boardRequest, Long userId) {
+    public Long register(BoardRequest boardRequest, Long userId) throws IOException {
         Exercise exerciseRequest = exerciseRepository.findById(boardRequest.getExerciseId()).get();
         User boardUser = userRepository.findById(userId).get();
         Board board = new Board(boardRequest.getTitle(), boardRequest.getContent(), boardRequest.getPlace(), boardRequest.getMeetStartDate(), boardRequest.getMeetEndDate(), boardRequest.getMaxNumber(), boardRequest.getParticipationOption(), exerciseRequest, boardUser);
         // 등록된 사진이 있으면 세팅
-        if (boardRequest.getImageUrl().length() != 0)
-            board.setImageUrl(boardRequest.getImageUrl());
+        if (!boardRequest.getFile().isEmpty()) {
+            String url = awsS3Service.uploadFile(boardRequest.getFile(), "static");
+            board.setImageUrl(url);
+        }
         // 이 시간대에 참여 신청된 board가 있으면 종료
         this.isTimeOverlapped(boardUser.getUserId(), board.getMeetStartDate(), board.getMeetEndDate());
         board.updateAllowedMemberCount();
@@ -59,7 +65,27 @@ public class BoardService {
         List<BoardListResponse> list = new ArrayList<>();
 
         for (Board b : boardList) {
-            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
+        }
+
+        return list;
+    }
+
+    public List<BoardListResponse> getBoardsByMeet() {
+        List<Board> boardList = boardRepository.findBoardsByOrderByMeetStartDateAsc();
+        List<BoardListResponse> list = new ArrayList<>();
+
+        for (Board b : boardList) {
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
+        }
+
+        return list;
+    }
+    public List<BoardByExerciseListResponse> getBoardsByExercise(Long exerciseId) {
+        List<Board> findBoards = boardRepository.findBoardsByExerciseId(exerciseId);
+        List<BoardByExerciseListResponse> list = new ArrayList<>();
+        for (Board b : findBoards) {
+            list.add(new BoardByExerciseListResponse(b.getExercise().getId(), b.getId(), b.getPlace()));
         }
 
         return list;
@@ -67,7 +93,8 @@ public class BoardService {
 
     public BoardDetailResponse getOneBoard(Long boardId) {
         Board findBoard = boardRepository.findById(boardId).get();
-        return new BoardDetailResponse(findBoard);
+        User findBoardUser = findBoard.getUser();
+        return new BoardDetailResponse(findBoard, findBoardUser);
     }
 
     public void deleteBoard(Long boardId) {
@@ -88,8 +115,10 @@ public class BoardService {
         List<ParticipatedMemberResponse> list = new ArrayList<>();
         for (Participation p : findList) {
             User oneUser = p.getUser();
-            list.add(new ParticipatedMemberResponse(oneUser.getUserId(), oneUser.getUserNickname(), oneUser.getUserProfileUrl(), oneUser.getUserRatingScore()));
+            list.add(new ParticipatedMemberResponse(oneUser.getUserId(), oneUser.getUserNickname(), oneUser.getUserProfileUrl(), oneUser.getUserSex(), oneUser.getUserRatingScore()));
         }
         return list;
     }
+
+
 }

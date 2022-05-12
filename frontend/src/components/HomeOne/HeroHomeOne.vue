@@ -7,22 +7,22 @@
                     <div class="appie-hero-content">
                         <span>{{welcome_message}}</span>
                         <h1 class="appie-title">{{slogan}}</h1>
-                        <p>{{description}}</p>
+                        <!-- <p>{{description}}</p> -->
                         <ul>
-                            <li><a href="#"><i :class="first_button_icon"></i>{{first_button_content}}</a></li>
+                            <li><a href="/news">{{first_button_content}}</a></li>
                           
-                            <li><a class="item-2" href="#"><i :class="second_button_icon"></i> {{second_button_content}}</a></li>
+                            <!-- <li><a class="item-2" href="#"><i :class="second_button_icon"></i> {{second_button_content}}</a></li> -->
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="appie-hero-thumb">
                         <div class="thumb wow animated fadeInUp" data-wow-duration="2000ms" data-wow-delay="200ms">
-                            <img src="@/assets/images/hero-thumb-1.png" alt="">
+                            <img src="@/assets/images/pre_designed_mainpage.png" alt="">
                         </div>
-                        <div class="thumb-2 wow animated fadeInRight" data-wow-duration="2000ms" data-wow-delay="600ms">
+                        <!-- <div class="thumb-2 wow animated fadeInRight" data-wow-duration="2000ms" data-wow-delay="600ms">
                             <img src="@/assets/images/hero-thumb-2.png" alt="">
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

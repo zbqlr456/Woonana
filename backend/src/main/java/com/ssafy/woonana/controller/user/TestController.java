@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,5 +18,10 @@ public class TestController {
     public ResponseEntity<String> tokenTestMethod(@AuthenticationPrincipal Long userId){
 
         return ResponseEntity.ok().body("가져와졌음, id: "+userId);
+    }
+
+    @GetMapping("/urltest")
+    public ResponseEntity<String> getMsgForTest(){
+        return ResponseEntity.ok().body("woonana 백엔드 호출");
     }
 }

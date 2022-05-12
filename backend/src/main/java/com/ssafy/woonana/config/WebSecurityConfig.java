@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers(
                 "/v2/api-docs", "/configuration/ui",
                 "/swagger-resources", "/configuration/security",
-                "/swagger-ui.html", "/webjars/**","/swagger/**");
+                "/swagger-ui.html", "/webjars/**","/swagger/**", "/api/test/**");
 
     }
 
@@ -42,7 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests() // /account/** 경로는 인증 안 해도 됨
-                .antMatchers("/","/api/accounts/signup/**","/swagger-ui/**","/swagger-resources/**","/chat/**","/ws/**","/favicon.ico/**").permitAll()
+                .antMatchers("/","/api/accounts/signup/**","/swagger-ui/**",
+                        "/swagger-resources/**",
+                        "/api/test/**").permitAll()
                 .anyRequest()
                 .authenticated();
 

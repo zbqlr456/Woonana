@@ -1,10 +1,7 @@
 package com.ssafy.woonana.domain.service.board;
 
 import com.ssafy.woonana.domain.model.dto.board.request.BoardRequest;
-import com.ssafy.woonana.domain.model.dto.board.response.BoardByExerciseListResponse;
-import com.ssafy.woonana.domain.model.dto.board.response.BoardDetailResponse;
-import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
-import com.ssafy.woonana.domain.model.dto.board.response.ParticipatedMemberResponse;
+import com.ssafy.woonana.domain.model.dto.board.response.*;
 import com.ssafy.woonana.domain.model.dto.user.response.UserParticipatedCheck;
 import com.ssafy.woonana.domain.model.entity.board.Board;
 import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
@@ -71,12 +68,12 @@ public class BoardService {
         return list;
     }
 
-    public List<BoardListResponse> getBoardsByUser(Long userId) {
+    public List<MyBoardListResponse> getBoardsByUser(Long userId) {
         List<Board> boardList = boardRepository.findBoardsByUserId(userId);
-        List<BoardListResponse> list = new ArrayList<>();
+        List<MyBoardListResponse> list = new ArrayList<>();
 
         for (Board b : boardList) {
-            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
+            list.add(new MyBoardListResponse(b.getId(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus()));
         }
 
         return list;

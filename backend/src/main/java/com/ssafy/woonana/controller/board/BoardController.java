@@ -1,11 +1,7 @@
 package com.ssafy.woonana.controller.board;
 
 import com.ssafy.woonana.domain.model.dto.board.request.BoardRequest;
-import com.ssafy.woonana.domain.model.dto.board.response.BoardByExerciseListResponse;
-import com.ssafy.woonana.domain.model.dto.board.response.BoardDetailResponse;
-import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
-import com.ssafy.woonana.domain.model.dto.board.response.ParticipatedMemberResponse;
-import com.ssafy.woonana.domain.service.board.AwsS3Service;
+import com.ssafy.woonana.domain.model.dto.board.response.*;
 import com.ssafy.woonana.domain.service.board.BoardService;
 import com.ssafy.woonana.error.exception.ErrorResponse;
 import io.swagger.annotations.Api;
@@ -17,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @Api(value = "게시글 API", tags = {"Board"})
@@ -107,7 +101,7 @@ public class BoardController {
             @ApiResponse(code = 404, message = "글 정보가 없음", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
     })
-    public ResponseEntity<List<BoardListResponse>> getBoardsByUser(@AuthenticationPrincipal Long userId) {
+    public ResponseEntity<List<MyBoardListResponse>> getBoardsByUser(@AuthenticationPrincipal Long userId) {
         return ResponseEntity.ok(boardService.getBoardsByUser(userId));
     }
 

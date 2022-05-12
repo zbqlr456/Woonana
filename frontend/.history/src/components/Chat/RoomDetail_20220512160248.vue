@@ -12,7 +12,7 @@
         <button class="btn btn-primary" type="button" @click="sendMessage()">보내기</button>
       </div>
     </div>
-    <ul class="list-group" id="message-list">
+    <ul class="list-group">
       <li class="list-group-item" v-bind:key="idx" v-for="(message, idx) in messages">
         <a>{{ message.sender }} - {{ message.message }}</a>
       </li>
@@ -43,6 +43,11 @@ export default {
     this.sender = localStorage.getItem("wschat.sender");
     this.findRoom();
     this.connect();
+  },
+  computed: {
+    reversedMessages: function () {
+      this.messages.reverse();
+    },
   },
   methods: {
     findRoom: function () {
@@ -87,13 +92,11 @@ export default {
         }
       );
     },
+    refresh: function () {
+      this.$router.go();
+    },
   },
 };
 </script>
 
-<style>
-#message-list {
-  display: flex;
-  flex-direction: column-reverse;
-}
-</style>
+<style></style>

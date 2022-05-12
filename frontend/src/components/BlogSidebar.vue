@@ -10,13 +10,12 @@
       <aside class="widget widget-categories">
         <h3 class="widget-title">Categories</h3>
         <ul>
-          <li><a href="#">Web Design</a><span>(24)</span></li>
-          <li><a href="#">Marketing</a><span>(15)</span></li>
-          <li><a href="#">Frontend</a><span>(8)</span></li>
-          <li><a href="#">IT & Software</a><span>(13)</span></li>
-          <li><a href="#">Photography</a><span>(4)</span></li>
-          <li><a href="#">Technology</a><span>(16)</span></li>
-          <li><a href="#">General</a><span>(12)</span></li>
+          <li><a href="#">산책</a><span></span></li>
+          <li><a href="#">조깅</a><span>(15)</span></li>
+          <li><a href="#">배드민턴</a><span>(8)</span></li>
+          <li><a href="#">탁구</a><span>(13)</span></li>
+          <li><a href="#">당구</a><span>(4)</span></li>
+          <li><a href="#">2개이상</a><span>(12)</span></li>
         </ul>
       </aside>
       <aside class="widget widget-trend-post">

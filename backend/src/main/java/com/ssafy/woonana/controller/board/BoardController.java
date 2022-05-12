@@ -5,6 +5,7 @@ import com.ssafy.woonana.domain.model.dto.board.response.BoardByExerciseListResp
 import com.ssafy.woonana.domain.model.dto.board.response.BoardDetailResponse;
 import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
 import com.ssafy.woonana.domain.model.dto.board.response.ParticipatedMemberResponse;
+import com.ssafy.woonana.domain.service.board.AwsS3Service;
 import com.ssafy.woonana.domain.service.board.BoardService;
 import com.ssafy.woonana.error.exception.ErrorResponse;
 import io.swagger.annotations.Api;
@@ -16,18 +17,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Api(value = "게시글 API", tags = {"Board"})
 @RestController
-@RequestMapping("api/board")
+@RequestMapping("api/main")
 @RequiredArgsConstructor
 public class BoardController {
 
     private final BoardService boardService;
 
-    @PostMapping
+    @PostMapping(consumes = {"multipart/form-data"})
     @ApiOperation(value = "글 하나 등록", notes = "새로운 글을 등록한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "글 작성 성공"),
@@ -36,8 +39,13 @@ public class BoardController {
             @ApiResponse(code = 409, message = "글 작성 불가 (작성자가 동시간대에 다른 참여 신청된 경우)", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
     })
-    public ResponseEntity registerBoard(@RequestBody BoardRequest boardRequest, @AuthenticationPrincipal Long userId) {
-        boardService.register(boardRequest, userId);
+    public ResponseEntity registerBoard(@ModelAttribute BoardRequest boardRequest, @AuthenticationPrincipal Long userId) {
+        try {
+            boardService.register(boardRequest, userId);
+
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity(HttpStatus.OK);
     }
 

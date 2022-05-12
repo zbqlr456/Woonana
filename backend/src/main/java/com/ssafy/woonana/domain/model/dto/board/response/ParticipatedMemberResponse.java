@@ -9,6 +9,7 @@ public class ParticipatedMemberResponse {
     private Long userId;
     private String userNickname;
     private String userProfileUrl;
+    private String userSex;
     private int userRatingScore;
 
 }

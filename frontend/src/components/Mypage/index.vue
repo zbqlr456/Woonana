@@ -12,6 +12,14 @@
 
     <!-- reference by news -->
     <title-area />
+    <!-- <star-rating
+      v-bind:increment="0.5"
+      v-bind:max-rating="5"
+      inactive-color="#000"
+      active-color="#f00"
+      v-bind:star-size="90"
+    >
+    </star-rating> -->
     <mypagenav />
     <!--====== APPIE PAGE TITLE PART ENDS ======-->
     <router-view />
@@ -28,8 +36,9 @@ import HeaderHomeOne from "../HomeOne/HeaderHomeOne.vue";
 
 import FooterHomeOne from "../HomeOne/FooterHomeOne.vue";
 // import MypageQna from "./MypageQna.vue";
-import TitleArea from "./TitieArea.vue";
 import Mypagenav from "./Mypagenav.vue";
+import TitleArea from "./TitieArea.vue";
+// import StarRating from "vue-star-rating";
 export default {
   components: {
     HeaderHomeOne,
@@ -37,6 +46,7 @@ export default {
     // MypageQna,
     TitleArea,
     Mypagenav,
+    // StarRating,
   },
 };
 </script>

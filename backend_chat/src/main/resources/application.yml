@@ -18,3 +18,6 @@ spring:
       enabled: true
     restart:
       enabled: false
+
+userinfo.url: http://localhost:8081/api/accounts/info # 로컬
+# userinfo.url: http://k6b104.p.ssafy.io:80/api/accounts/info # 서버에 올렸을 때 회원 정보를 요청할 url

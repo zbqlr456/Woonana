@@ -13,7 +13,8 @@ import java.util.List;
 
 public interface ParticipationRepository extends JpaRepository<Participation, Long> {
 
-    List<Participation> findParticipationsByUser(User user); // user에 해당하는 참여들 리턴
+    @Query(value = "select p from Participation p where p.user.userId=:userId and p.allowed=true order by p.board.meetStartDate desc")
+    List<Participation> findParticipationsByUser(Long userId); // user에 해당하는 참여들 리턴
 
     List<Participation> findListByBoardId(Long boardId);
 

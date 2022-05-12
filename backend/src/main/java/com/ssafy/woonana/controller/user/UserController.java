@@ -2,10 +2,7 @@ package com.ssafy.woonana.controller.user;
 
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogCountResponse;
 import com.ssafy.woonana.domain.model.dto.user.request.UserEvaluateRequest;
-import com.ssafy.woonana.domain.model.dto.user.response.LikeExcerciseResponse;
-import com.ssafy.woonana.domain.model.dto.user.response.MyPageInfoResponse;
-import com.ssafy.woonana.domain.model.dto.user.response.UserEvaluateResponse;
-import com.ssafy.woonana.domain.model.dto.user.response.UserParticipateResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.*;
 import com.ssafy.woonana.domain.service.user.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -90,6 +87,15 @@ public class UserController {
     public ResponseEntity<List<UserParticipateResponse>> getParticipateList(@AuthenticationPrincipal Long userId){
 
         List<UserParticipateResponse> result = userService.getParticipationList(userId);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/info")
+    @ApiOperation(value="채팅용 - 로그인한 회원 정보", notes="로그인한 회원의 닉네임, 회원 아이디, 프로필 사진을 리턴한다.")
+    public ResponseEntity<ChatingUserInfoResponse> getChatingUserInfo(@AuthenticationPrincipal Long userId){
+
+        ChatingUserInfoResponse result = userService.getUserInfo(userId);
+
         return ResponseEntity.ok().body(result);
     }
 }

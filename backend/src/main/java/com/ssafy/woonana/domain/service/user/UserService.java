@@ -4,10 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogCountResponse;
-import com.ssafy.woonana.domain.model.dto.user.response.LikeExcerciseResponse;
-import com.ssafy.woonana.domain.model.dto.user.response.MyPageInfoResponse;
-import com.ssafy.woonana.domain.model.dto.user.response.UserEvaluateResponse;
-import com.ssafy.woonana.domain.model.dto.user.response.UserParticipateResponse;
+import com.ssafy.woonana.domain.model.dto.user.response.*;
 import com.ssafy.woonana.domain.model.entity.board.Board;
 import com.ssafy.woonana.domain.model.entity.evaluation.Evaluation;
 import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
@@ -347,6 +344,12 @@ public class UserService {
         return result;
     }
 
+    public ChatingUserInfoResponse getUserInfo(Long userId){
 
+        User user=userRepository.findById(userId).get();
+        ChatingUserInfoResponse result = new ChatingUserInfoResponse(user);
+
+        return result;
+    }
 
 }

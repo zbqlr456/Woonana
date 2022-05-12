@@ -133,7 +133,7 @@ export default {
         }
     },
     mounted(){
-        http.get(`/api/board`).then(({data})=>{
+        http.get(`/api/main`).then(({data})=>{
             this.boards = data;
             console.log(this.boards);
         }).catch(err=>{

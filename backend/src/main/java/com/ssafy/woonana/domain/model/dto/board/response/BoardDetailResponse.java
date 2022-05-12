@@ -1,6 +1,7 @@
 package com.ssafy.woonana.domain.model.dto.board.response;
 
 import com.ssafy.woonana.domain.model.entity.board.Board;
+import com.ssafy.woonana.domain.model.entity.user.User;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -8,6 +9,8 @@ import java.time.LocalDateTime;
 @Data
 public class BoardDetailResponse {
 
+    private String userNickname;
+    private String userEmail;
     private String title;
     private String content;
     private String place;
@@ -19,19 +22,10 @@ public class BoardDetailResponse {
     private Long exerciseId;
     private String status;
     private String imageUrl;
-    public BoardDetailResponse(String title, String content, String place, LocalDateTime createdDate, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, long exerciseId, String status) {
-        this.title = title;
-        this.content = content;
-        this.place = place;
-        this.createdDate = createdDate;
-        this.meetStartDate = meetStartDate;
-        this.meetEndDate = meetEndDate;
-        this.maxNumber = maxNumber;
-        this.exerciseId = exerciseId;
-        this.status = status;
-    }
 
-    public BoardDetailResponse(Board board) {
+    public BoardDetailResponse(Board board, User user) {
+        this.userNickname = user.getUserNickname();
+        this.userEmail = user.getUserEmail();
         this.title = board.getTitle();
         this.content = board.getContent();
         this.place = board.getPlace();

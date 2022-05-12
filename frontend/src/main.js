@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import AxiosPlugin from 'vue-axios-cors';
 import axios from 'axios'
 import { BootstrapVue, IconsPlugin, BadgePlugin  } from 'bootstrap-vue'
 
@@ -22,7 +21,6 @@ import '../src/assets/css/main.css'
 Vue.use(BootstrapVue)
 Vue.use(BadgePlugin)
 // Optionally install the BootstrapVue icon components plugin
-Vue.use(AxiosPlugin);
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 

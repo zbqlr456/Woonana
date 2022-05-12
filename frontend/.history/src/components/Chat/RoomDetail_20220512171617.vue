@@ -12,7 +12,7 @@
         <button class="btn btn-primary" type="button" @click="sendMessage()">보내기</button>
       </div>
     </div>
-    <ul class="list-group" id="message-list">
+    <ul class="list-group">
       <li class="list-group-item" v-bind:key="idx" v-for="(message, idx) in messages">
         <a>{{ message.sender }} - {{ message.message }}</a>
       </li>
@@ -92,7 +92,7 @@ export default {
 </script>
 
 <style>
-#message-list {
+.list-group {
   display: flex;
   flex-direction: column-reverse;
 }

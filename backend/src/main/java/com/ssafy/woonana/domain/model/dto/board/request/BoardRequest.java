@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -20,10 +22,10 @@ public class BoardRequest {
     @ApiModelProperty(name = "만날 장소의 주소", example="대전광역시 유성구 동서대로 98-39 (SSAFY)")
     private String place;
     @ApiModelProperty(name = "운동 시작 시간(만날 시간)", example="2022-05-15T15:00:00")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime meetStartDate;
     @ApiModelProperty(name = "운동 종료 시간", example="2022-05-15T17:00:00")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime meetEndDate;
     @ApiModelProperty(name = "모집할 최대 인원", example="3")
     private int maxNumber;
@@ -31,11 +33,11 @@ public class BoardRequest {
     private int participationOption;
     @ApiModelProperty(name = "만나서 할 운동 종류", example="2")
     private Long exerciseId;
-    @ApiModelProperty(name = "사진 등록", example="사진URL~~")
-    private String imageUrl;
+    @ApiModelProperty(name = "사진 등록")
+    private MultipartFile file;
 
 
-    public BoardRequest(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, int participationOption, long exerciseId) {
+    public BoardRequest(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, int participationOption, long exerciseId, MultipartFile file) {
         this.title = title;
         this.content = content;
         this.place = place;
@@ -44,5 +46,6 @@ public class BoardRequest {
         this.maxNumber = maxNumber;
         this.participationOption = participationOption;
         this.exerciseId = exerciseId;
+        this.file = file;
     }
 }

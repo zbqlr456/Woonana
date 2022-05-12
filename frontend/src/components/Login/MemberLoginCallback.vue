@@ -1,5 +1,5 @@
 <template>
-  <div id="test">Login callbackpage입니다.</div>
+  <div id="test">Login callback중 에러가 발생했습니다.</div>
 </template>
 
 <script>
@@ -17,6 +17,8 @@ export default {
       code = URLSearch.get("code");
       // alert(code);
       this.$store.dispatch("doLogin", code);
+      this.$router.push("/");
+
       // window.location.href = "http://localhost:8080";
 
       //백엔드로 코드 전송???

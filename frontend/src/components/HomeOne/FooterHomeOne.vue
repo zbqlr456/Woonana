@@ -7,7 +7,7 @@
         <div class="col-lg-4 col-md-6">
           <div class="footer-about-widget">
             <div class="logo">
-              <a href="#"><img src="@/assets/images/logo.png" alt="" /></a>
+              <a href="#"><img src="@/assets/images/logo/Woonana_small.png" alt="" /></a>
             </div>
             <p>
               Appie WordPress is theme is the last theme you will ever have.

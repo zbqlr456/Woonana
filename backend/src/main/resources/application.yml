@@ -7,6 +7,14 @@ spring:
     username: root
     password: woonana123@
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    generate-ddl: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -19,15 +27,10 @@ spring:
     cache: false
     template-loader-path: classpath:/templates
     suffix: .ftl
-
-jpa:
-  generate-ddl: false
-  open-in-view: false
-  hibernate:
-    ddl-auto: validate # ???? ???? ?? ??????? ??
-  properties:
-    hibernate:
-      format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
 
 logging.level:
   org.hibernate.SQL: debug  # ?? hibernate? ???? SQL? ??? ??? ??? ? ??(?????? ??!)
@@ -36,37 +39,14 @@ logging.level:
 kakao.login:
   client_id: 76d85e088d5bb875d6e4493b8eda78fd
   redirect_url: http://localhost:8080/oauth/callback
-#
-#server:
-#  port: 8081
-#
-#spring:
-#  mvc:
-#    pathmatch:
-#      matching-strategy: ant_path_matcher
-#  devtools:
-#    livereload:
-#      enabled: true
-#    restart:
-#      enabled: false
-#  freemarker:
-#    cache: false
-#    template-loader-path: classpath:/templates
-#    suffix: .ftl
-#
-#jpa:
-#  generate-ddl: false
-#  open-in-view: false
-#  hibernate:
-#    ddl-auto: validate # ???? ???? ?? ??????? ??
-#  properties:
-#    hibernate:
-#      format_sql: true
-#
-#logging.level:
-#  org.hibernate.SQL: debug  # ?? hibernate? ???? SQL? ??? ??? ??? ? ??(?????? ??!)
-#  org.hibernate.type: trace
-#
-#kakao.login:
-#  client_id: 76d85e088d5bb875d6e4493b8eda78fd
-#  redirect_url: http://localhost:8081/oauth/callback
+
+cloud:
+  aws:
+    s3:
+      bucket: woonana
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: true

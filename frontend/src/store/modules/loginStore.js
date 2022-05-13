@@ -44,7 +44,7 @@ const loginStore = {
             
             result = true;
           } else {
-              console.log("로그인되지 않았습니다.");
+              alert("로그인되지 않았습니다.");
               let err = new Error("Request failed with status code 401");
               err.response = {data:{"success":false, "errormessage":"로그인되지 않았습니다."}};
               resultErr = err;
@@ -52,8 +52,10 @@ const loginStore = {
       } catch(err) {
           console.log(err);
           if (!err.response) {
-              err.response = {data:{"success":false, "errormessage":err.message}};
-          }
+            err.response = { data: { "success": false, "errormessage": err.message } };
+            
+        }
+        alert("로그인 에러 발생");
           resultErr = err;
       }
       return new Promise((resolve, reject) => {

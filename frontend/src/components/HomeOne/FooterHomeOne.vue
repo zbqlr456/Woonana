@@ -9,9 +9,7 @@
             <div class="logo">
               <a href="#"><img src="@/assets/images/logo/Woonana_small.png" alt="" /></a>
             </div>
-            <p>
-              Appie WordPress is theme is the last theme you will ever have.
-            </p>
+            <p>Appie WordPress is theme is the last theme you will ever have.</p>
             <a href="#">Read More <i class="fal fa-arrow-right"></i></a>
             <div class="social mt-30">
               <ul>
@@ -60,17 +58,14 @@
             <h4 class="title">Get In Touch</h4>
             <ul>
               <li>
-                <a href="#"
-                  ><i class="fal fa-envelope"></i> support@appie.com</a
-                >
+                <a href="#"><i class="fal fa-envelope"></i> woonana@woonana.com</a>
               </li>
               <li>
-                <a href="#"><i class="fal fa-phone"></i> +(642) 342 762 44</a>
+                <a href="#"><i class="fal fa-phone"></i> +(82) 02-1234-5678</a>
               </li>
               <li>
                 <a href="#"
-                  ><i class="fal fa-map-marker-alt"></i> 442 Belle Terre St
-                  Floor 7, San Francisco, AV 4206</a
+                  ><i class="fal fa-map-marker-alt"></i> 대전광역시 유성 삼성화재연수원 1234</a
                 >
               </li>
             </ul>
@@ -79,15 +74,7 @@
       </div>
       <div class="row">
         <div class="col-lg-12">
-          <div
-            class="
-              footer-copyright
-              d-flex
-              align-items-center
-              justify-content-between
-              pt-35
-            "
-          >
+          <div class="footer-copyright d-flex align-items-center justify-content-between pt-35">
             <div class="apps-download-btn">
               <ul>
                 <li>
@@ -116,5 +103,4 @@
 export default {};
 </script>
 
-<style>
-</style>
+<style></style>

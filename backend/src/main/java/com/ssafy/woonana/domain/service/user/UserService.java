@@ -338,7 +338,7 @@ public class UserService {
     // userId에 해당하는 유저가 참여한 게시글 정보 리턴
     public List<UserParticipateResponse> getParticipationList(Long userId){
 
-        User user=userRepository.findById(userId).get();
+        User user = userRepository.findById(userId).get();
 
         // 참여(participation) 조회
         List<Participation> participations = participationRepository.findParticipationsByUser(userId);
@@ -346,6 +346,7 @@ public class UserService {
 
         for(Participation par: participations){
             Board participatedBoard = boardRepository.findById(par.getBoard().getId()).get();
+            System.out.println("participatedBoard = " + participatedBoard.getExercise());
             result.add(new UserParticipateResponse(participatedBoard));
         }
 

@@ -54,7 +54,7 @@ public class Board extends BaseTimeEntity {
     @Column(name = "board_image_url")
     private String imageUrl;    // TODO: default 사진 url 등록하기
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 

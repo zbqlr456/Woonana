@@ -1,5 +1,6 @@
 package com.ssafy.woonana.controller.exercise;
 
+import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLog;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogResponse;
 import com.ssafy.woonana.domain.service.exercise.ExerciseLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,12 @@ public class ExerciseLogController {
     }
 
     @GetMapping("/myexercise/record/{userId}")
-    public ResponseEntity<List<ExerciseLogResponse>> exerciseLogRecord(@PathVariable("userId") int userId){
+    public ResponseEntity<List<ExerciseLog>> exerciseLogRecord(@PathVariable("userId") Long userId){
         return ResponseEntity.ok(exerciseLogService.findExerciseLogByUserId(userId));
     }
 
     @GetMapping("/myexercise/likes/{userId}")
-    public ResponseEntity<List<ExerciseLogResponse>> exerciseLogLikes(@PathVariable("userId")int userId){
+    public ResponseEntity<List<ExerciseLog>> exerciseLogLikes(@PathVariable("userId")Long userId){
         return ResponseEntity.ok(exerciseLogService.findExerciseLogByLikes(userId));
     }
 }

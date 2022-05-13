@@ -1,5 +1,6 @@
 package com.ssafy.woonana.domain.service.exercise;
 
+import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLog;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogResponse;
 import com.ssafy.woonana.domain.repository.exercise.ExerciseLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ public class ExerciseLogService {
     public List<ExerciseLogResponse> findExerciseLogByMonth(int userId) {return exerciseLogRepository.findExerciseLogByMonth(userId);}
 
     @Transactional
-    public List<ExerciseLogResponse> findExerciseLogByUserId(int userId){
+    public List<ExerciseLog> findExerciseLogByUserId(Long userId){
         return exerciseLogRepository.findExerciseLogByUserId(userId);
     }
 
     @Transactional
-    public List<ExerciseLogResponse> findExerciseLogByLikes(int userId){
+    public List<ExerciseLog> findExerciseLogByLikes(Long userId){
         return exerciseLogRepository.findExerciseLogByLikes(userId);
     }
 }

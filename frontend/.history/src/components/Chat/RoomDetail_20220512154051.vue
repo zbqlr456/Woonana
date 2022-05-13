@@ -12,7 +12,7 @@
         <button class="btn btn-primary" type="button" @click="sendMessage()">보내기</button>
       </div>
     </div>
-    <ul class="list-group" id="message-list">
+    <ul class="list-group">
       <li class="list-group-item" v-bind:key="idx" v-for="(message, idx) in messages">
         <a>{{ message.sender }} - {{ message.message }}</a>
       </li>
@@ -44,6 +44,9 @@ export default {
     this.findRoom();
     this.connect();
   },
+  computed() {
+    this.messages.reverse();
+  },
   methods: {
     findRoom: function () {
       http.get("/chat/room/" + this.roomId).then((response) => {
@@ -67,6 +70,7 @@ export default {
         sender: recv.sender,
         message: recv.message,
       });
+      this.messages.reverse();
     },
     connect: function () {
       ws.connect(
@@ -87,13 +91,11 @@ export default {
         }
       );
     },
+    refresh: function () {
+      this.$router.go();
+    },
   },
 };
 </script>
 
-<style>
-#message-list {
-  display: flex;
-  flex-direction: column-reverse;
-}
-</style>
+<style></style>

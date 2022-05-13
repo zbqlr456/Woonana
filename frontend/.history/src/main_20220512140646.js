@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import AxiosPlugin from 'vue-axios-cors';
 import axios from 'axios'
 import { BootstrapVue, IconsPlugin, BadgePlugin  } from 'bootstrap-vue'
-import vueStarRating from 'vue-star-rating'
+
 
 import {store} from './store/index'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
@@ -17,20 +18,20 @@ import '../src/assets/css/default.css'
 import '../src/assets/css/magnific.dark.css'
 import '../src/assets/css/style.css'
 import '../src/assets/css/main.css'
-
 // Make BootstrapVue available throughout your project
-Vue.component("StarRating",vueStarRating)
 Vue.use(BootstrapVue)
 Vue.use(BadgePlugin)
 // Optionally install the BootstrapVue icon components plugin
-axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+Vue.use(AxiosPlugin);
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
-Vue.use(IconsPlugin);
 
-Vue.config.productionTip = false;
+Vue.use(IconsPlugin)
+
+Vue.config.productionTip = false
 
 new Vue({
   store,
   router,
-  render: (h) => h(App),
-}).$mount("#app");
+  render: h => h(App)
+}).$mount('#app')

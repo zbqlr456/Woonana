@@ -13,7 +13,7 @@ import Room from "../components/Chat/Room.vue";
 import RoomDetail from "../components/Chat/RoomDetail.vue";
 
 import Mypage from "../views/Mypage.vue";
-import MypageMain from "../components/Mypage/index.vue"
+import MypageMain from "../components/Mypage/MypageMain.vue"
 import SingleBlog from "../components/SingleNews/index.vue"
 import MypageQna from "../components/Mypage/MypageQna.vue"
 import MyEvalLog from "../components/Mypage/MyEvalLog.vue"
@@ -80,11 +80,11 @@ const routes = [
     component: RoomDetail,
   },
   {
-    path: "/mypage/",
+    path: "/mypage",
     component: Mypage,
     children: [
       {
-        path: '/',
+        path: '',
         component: MypageMain
       },
       {

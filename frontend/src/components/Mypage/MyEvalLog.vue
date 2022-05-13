@@ -1,21 +1,36 @@
 <template>
   <div>
-    <div>여기에 평가하기 ,평가내역 탭 넣기</div>
-    <div>우선 평가내역 페이지</div>
-    <div v-for="(item, index) in evalLists" :key="index">
-      <b-card
-        v-bind:title="item.userId + '님은 어떠셨나요?'"
-        sub-title="22/2/22 호수공원모임 "
-        style="max-width: 20rem"
-        class="mb-2"
-      >
-        <b-card-text>
-          <star-rating v-bind:rating="item.rating" :read-only="true" :increment="1" />
-        </b-card-text>
+    <b-tabs content-class="mt-3" fill>
+      <b-tab title="평가내역" active>
+        <div v-for="(item, index) in evalLists" :key="index">
+          <b-card
+            v-bind:title="item.userId + '님에게 준 평점'"
+            sub-title="22/2/22 호수공원모임 "
+            style="max-width: 25rem"
+            class="mb-2"
+          >
+            <b-card-text>
+              <star-rating v-bind:rating="item.rating" :read-only="true" :increment="1" />
+            </b-card-text>
 
-        <b-button href="#" variant="primary">평가확정</b-button>
-      </b-card>
-    </div>
+            <!-- <b-button href="#" variant="primary">평가확정</b-button> -->
+          </b-card>
+        </div></b-tab
+      >
+      <b-tab title="평가하기">
+        <div v-for="(item, index) in evalLists" :key="index">
+          <b-card
+            v-bind:title="item.userId + '님은 어떠셨나요?'"
+            sub-title="22/2/22 호수공원모임 "
+            style="max-width: 25rem"
+            class="mb-3"
+          >
+            <b-card-text>
+              <star-rating v-bind:rating="3" @rating-selected="setRating" :increment="1" />
+            </b-card-text>
+          </b-card></div
+      ></b-tab>
+    </b-tabs>
   </div>
 </template>
 
@@ -25,7 +40,8 @@ export default {
   data() {
     return {
       evalLists: [],
-      city: ["서울", "대전", "대구", "부산"],
+      evalpostLIst: [],
+      rating: 0,
     };
   },
   methods: {
@@ -55,6 +71,10 @@ export default {
 
       let res = await http.post("/api/accounts/evalue", param);
       console.log(res);
+    },
+    setRating: function (rating) {
+      this.rating = rating;
+      this.postRating(rating, 6);
     },
   },
   mounted: function () {

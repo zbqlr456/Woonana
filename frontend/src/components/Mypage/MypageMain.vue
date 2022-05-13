@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+import axios from "../../util/index";
 import StarRating from "vue-star-rating";
 import Mypagenav from "./Mypagenav.vue";
 
@@ -57,7 +57,7 @@ export default {
       axios.defaults.headers.common["withCredentials"] = false;
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 
-      axios.get("http://localhost:8081/api/accounts/mypage").then((response) => {
+      axios.get("/api/accounts/mypage").then((response) => {
         console.log(response);
         this.myinfo = response.data;
         console.log(this.myinfo);

@@ -34,11 +34,11 @@
 <script>
 import HeaderHomeOne from "../HomeOne/HeaderHomeOne.vue";
 
+import Mypagenav from "./Mypagenav.vue";
 import FooterHomeOne from "../HomeOne/FooterHomeOne.vue";
 // import MypageQna from "./MypageQna.vue";
-import Mypagenav from "./Mypagenav.vue";
 import TitleArea from "./TitieArea.vue";
-// import StarRating from "vue-star-rating";
+
 export default {
   components: {
     HeaderHomeOne,
@@ -46,7 +46,6 @@ export default {
     // MypageQna,
     TitleArea,
     Mypagenav,
-    // StarRating,
   },
 };
 </script>

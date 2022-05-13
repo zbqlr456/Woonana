@@ -9,14 +9,7 @@
           <p>{{ myinfo.userNickname }}</p>
         </div>
         <div class="col-md-2">
-          <star-rating
-            v-bind:increment="0.5"
-            v-bind:max-rating="5"
-            inactive-color="#000"
-            active-color="#f00"
-            v-bind:star-size="90"
-          >
-          </star-rating>
+          <star-rating :show-rating="false" @rating-selected="setRating"></star-rating>
         </div>
       </div>
 
@@ -31,14 +24,16 @@
       <b-button size="lg">바로가기</b-button>
       <b-button disabled size="lg">바로가기</b-button>
     </div>
-    <h2>Capture Rating</h2>
-    <star-rating :show-rating="false" @rating-selected="setRating"></star-rating>
+
     <div style="margin-top: 10px; font-weight: bold">{{ rating }}</div>
+    <mypagenav />
   </div>
 </template>
 <script>
 import axios from "axios";
 import StarRating from "vue-star-rating";
+import Mypagenav from "./Mypagenav.vue";
+
 export default {
   data() {
     return {
@@ -53,7 +48,7 @@ export default {
     getUserInfo: function () {
       this.$store.dispatch("getUserInfo");
     },
-    components: { StarRating },
+    components: { StarRating, Mypagenav },
     //axios로 해야 withcredentials가 셋팅되서 잘됨,,, 현재 이걸루 하는중
     getUserInfoaxios: function () {
       let token = this.$store.getters.token;

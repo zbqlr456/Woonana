@@ -1,5 +1,5 @@
 module.exports = {
     devServer: {
-      proxy: "http://localhost:8081/",
+      proxy: process.env.VUE_APP_LOCAL_URI
     }
   }

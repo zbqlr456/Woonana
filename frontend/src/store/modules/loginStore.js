@@ -31,7 +31,7 @@ const loginStore = {
       let result = false;
       let resultErr = null;
       try {
-          let res = await http.post( '/api/accounts/signup?' +"code=" + code);
+          let res = await http.post('api/accounts/signup?' +"code=" + code);
           if (res.status === 200) {
               console.log("로그인되었습니다.");
             console.log(res);

@@ -7,6 +7,8 @@ import com.ssafy.backend_chat.domain.repository.ChatMessageRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.*;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.awt.print.Pageable;
 import java.net.URI;
 import java.util.List;
 
@@ -35,12 +38,23 @@ public class ChatController {
         messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 
+//    @GetMapping("/chatapi/messages/{roomId}")
+//    @ResponseBody
+//    @ApiOperation(value = "채팅방 채팅내역 전체 조회")
+//    public List<ChatMessage> roomInfo(@PathVariable String roomId) {
+//        return chatMessageRepository.findByRoomIdOrderByCreatedAtDesc(roomId);
+//    }
+
     @GetMapping("/chatapi/messages/{roomId}")
     @ResponseBody
     @ApiOperation(value = "채팅방 채팅내역 전체 조회")
-    public List<ChatMessage> roomInfo(@PathVariable String roomId) {
-//        System.out.println(chatMessageRepository.findByRoomIdOrderByCreatedAtDesc(roomId));
-        return chatMessageRepository.findByRoomIdOrderByCreatedAt(roomId);
+    public List<ChatMessage> roomInfo(@PathVariable String roomId, @RequestParam(value="pageNo")int pageNo) {
+        System.out.println("roomId =" + roomId + " - page =" + pageNo);
+        PageRequest pageRequest = PageRequest.of(pageNo, 25);
+        Page<ChatMessage> page = chatMessageRepository.findByRoomIdOrderByCreatedAtDesc(roomId, pageRequest);
+        List<ChatMessage> rep = page.getContent();
+        System.out.println(rep);
+        return rep;
     }
 
     @GetMapping("/chatapi/info")

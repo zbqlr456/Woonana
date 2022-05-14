@@ -73,7 +73,8 @@ export default {
       var sender = prompt("대화명을 입력해 주세요.");
       localStorage.setItem("wschat.sender", sender);
       localStorage.setItem("wschat.roomId", roomId);
-      this.$router.push("/chat/detail");
+      this.$router.push("/chat/chatroom");
+      this.$router.go();
     },
   },
 };

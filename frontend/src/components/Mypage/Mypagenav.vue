@@ -1,8 +1,8 @@
 <template>
   <div class="mypage">
-    <b-navbar toggleable="true" type="dark" variant="info">
+    <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#"
-        ><router-link to="/mypage/main">마이페이지</router-link></b-navbar-brand
+        ><router-link to="/mypage/main">김싸피님의 마이페이지</router-link></b-navbar-brand
       >
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

@@ -14,13 +14,23 @@ import ChatRoom from "../views/ChatRoom.vue";
 import ChatList from "../components/Chat/ChatList.vue";
 
 import Mypage from "../views/Mypage.vue";
-import MypageMain from "../components/Mypage/MypageMain.vue";
+<<<<<<< HEAD
+import MypageMain from "../components/Mypage/index.vue";
 import SingleBlog from "../components/SingleNews/index.vue";
 import MypageQna from "../components/Mypage/MypageQna.vue";
 import MyEvalLog from "../components/Mypage/MyEvalLog.vue";
 import MyJoinLog from "../components/Mypage/MyJoinLog.vue";
 import MyPosts from "../components/Mypage/MyPosts.vue";
 import MyWorkoutLog from "../components/Mypage/MyWorkoutLog.vue";
+=======
+import MypageMain from "../components/Mypage/MypageMain.vue"
+import SingleBlog from "../components/SingleNews/index.vue"
+import MypageQna from "../components/Mypage/MypageQna.vue"
+import MyEvalLog from "../components/Mypage/MyEvalLog.vue"
+import MyJoinLog from "../components/Mypage/MyJoinLog.vue"
+import MyPosts from "../components/Mypage/MyPosts.vue"
+import MyWorkoutLog from "../components/Mypage/MyWorkoutLog.vue"
+>>>>>>> 44138978306043462c81e948598d6786844ced2d
 
 Vue.use(VueRouter);
 

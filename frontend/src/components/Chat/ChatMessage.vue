@@ -69,7 +69,7 @@ export default {
 .others-message{
   display: flex;
   justify-content: left;
-  align-items: flex-end;
+  align-items: flex-start;
   margin: 2%;
   min-height: 40px;
   line-break: anywhere;

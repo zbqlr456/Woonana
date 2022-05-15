@@ -53,36 +53,6 @@ pipeline { // 파이프라인의 시작, 여기에 파이프라인 작성할 거
             }
           }
         }
-
-        stage('Build Frontend'){
-          agent any
-          steps {
-            echo 'Build Frontend'
-
-            dir('./frontend'){
-              sh """
-              sudo npm install
-              sudo npm run build
-              """
-            }
-          }
-        }
-
-        stage('Run Frontend'){
-          agent any
-          steps{
-            echo 'Run Frontend'
-
-            dir('./frontend'){
-              sh """
-              sudo rm -rf /var/www/woonana/dist
-              sudo mv dist /var/www/woonana/dist
-              sudo systemctl restart nginx
-              """
-            }
-          }
-        }
-        
         
         stage('Docker Run') {
           agent any
@@ -107,5 +77,36 @@ pipeline { // 파이프라인의 시작, 여기에 파이프라인 작성할 거
             }
           }
         }
+
+        stage('Build Frontend'){
+          agent any
+          steps {
+            echo 'Build Frontend'
+
+            dir('./frontend'){
+              sh """
+              sudo npm install
+              sudo npm run build
+              """
+            }
+          }
+        }
+
+        stage('Run Frontend'){
+          agent any
+          steps{
+            echo 'Run Frontend'
+
+            dir('./frontend'){
+              sh """
+              pwd
+              sudo rm -rf /var/www/woonana/dist
+              sudo mv ./dist /var/www/woonana/dist
+              sudo systemctl restart nginx
+              """
+            }
+          }
+        }
+        
     }
 }

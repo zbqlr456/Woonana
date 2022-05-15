@@ -16,7 +16,9 @@ public class ExerciseLogService {
     private ExerciseLogRepository exerciseLogRepository;
 
     @Transactional
-    public List<ExerciseLogResponse> findExerciseLogByMonth(int userId) {return exerciseLogRepository.findExerciseLogByMonth(userId);}
+    public List<ExerciseLogResponse> findExerciseLogByMonth(int userId) {
+        return exerciseLogRepository.findExerciseLogByMonth(userId);
+    }
 
     @Transactional
     public List<ExerciseLog> findExerciseLogByUserId(Long userId){

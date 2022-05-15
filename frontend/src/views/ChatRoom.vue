@@ -1,8 +1,10 @@
 <template>
   <div class="chat">
+    
     <div id="room-name">
       <span>{{ room.name }}</span>
     </div>
+
     <infinite-loading
       @infinite="infiniteHandler"
       spinner="waveDots"
@@ -11,6 +13,7 @@
     <div id="chat-list">
       <chat-list :messages="messages"></chat-list>
     </div>
+
     <div id="send-message-box">
       <div class="input-group" id="send-message-group">
         <input
@@ -159,12 +162,12 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
+
 #room-name {
   position: fixed;
   top: 0;
   background: #ffffff;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
-  border-radius: 24px 24px 0px 0px;
   padding: 1.8rem;
   font-size: 16px;
   font-weight: 700;
@@ -172,28 +175,32 @@ export default {
   z-index: 10;
 }
 
-#send-message-group {
+#chat-list {
+  padding-top: 13%;
+  padding-bottom: 12%;
+  z-index: -1;
+}
+
+#send-message-box {
   position: fixed;
   bottom: 0;
+  height: 7%;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 3px 0px 30px rgba(0, 0, 0, 0.05);
+}
+
+#send-message-group {
+  position: fixed;
+  bottom: 0.6%;
 }
 
 #input-message {
   border: none;
 }
 
-#input-message:focus {
-  outline: none;
-}
-
-#send-message-box {
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  justify-content: space-between;
-  padding: 1.4rem;
-  background: #ffa5a5;
-  border-radius: 30px 30px 24px 24px;
-  box-shadow: 0px -5px 30px rgba(0, 0, 0, 0.05);
+#input-message::placeholder{
+  color: rgb(193, 193, 193);
 }
 
 .form__submit {
@@ -210,9 +217,4 @@ svg:hover {
   fill: #999999;
 }
 
-#chat-list {
-  padding-top: 50px;
-  padding-bottom: 45px;
-  z-index: -1;
-}
 </style>

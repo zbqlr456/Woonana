@@ -1,11 +1,11 @@
 <template>
   <div class="container" v-cloak>
     <div class="row">
-      <div class="col-md-12">
-        <h3>채팅방 리스트</h3>
+      <div class="col-md-12" id="chat-room-list-title">
+        <span>채팅</span>
       </div>
     </div>
-    <div class="input-group">
+    <!-- <div class="input-group">
       <div class="input-group-prepend">
         <label class="input-group-text">방제목</label>
       </div>
@@ -13,10 +13,10 @@
       <div class="input-group-append">
         <button class="btn btn-primary" type="button" @click="createRoom">채팅방 개설</button>
       </div>
-    </div>
-    <ul class="list-group">
+    </div> -->
+    <ul class="list-group-flush"  id="chat-room-list">
       <li
-        class="list-group-item list-group-item-action"
+        class="list-group-item list-group-item-action" id="chat-room"
         v-for="item in chatrooms"
         v-bind:key="item.roomId"
         v-on:click="enterRoom(item.roomId)"
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import http from "@/util/index";
 export default {
   data() {
     return {
@@ -83,4 +84,25 @@ export default {
 [v-cloak] {
   display: none;
 }
+#chat-room-list-title{
+  position: fixed;
+  top: 0;
+  background: #ffffff;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
+  padding: 1.8rem;
+  font-size: 16px;
+  font-weight: 700;
+  width: 100%;
+  z-index: 10;
+}
+
+#chat-room-list{
+  margin-top: 25%;
+}
+
+#chat-room{
+  margin: 10px 0px 10px 0px;
+  padding-bottom: 12px;
+}
+
 </style>

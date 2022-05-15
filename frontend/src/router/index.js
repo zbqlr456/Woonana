@@ -12,6 +12,7 @@ import LoginCallback from "../components/Login/MemberLoginCallback.vue";
 import ChatRoomList from "../components/Chat/ChatRoomList.vue";
 import ChatRoom from "../views/ChatRoom.vue";
 import ChatList from "../components/Chat/ChatList.vue";
+import ChatMessage from "../components/Chat/ChatMessage.vue";
 
 import Mypage from "../views/Mypage.vue";
 import MypageMain from "../components/Mypage/MypageMain.vue";
@@ -84,6 +85,11 @@ const routes = [
     path: "/chat/chatroomlist",
     name: "ChatRoomList",
     component: ChatRoomList,
+  },
+  {
+    path: "/chat/chatmessage",
+    name: "ChatMessage",
+    component: ChatMessage,
   },
   {
     path: "/mypage",

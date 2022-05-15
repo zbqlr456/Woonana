@@ -92,7 +92,6 @@ export default {
   padding: 1.8rem;
   font-size: 16px;
   font-weight: 700;
-  width: 100%;
   z-index: 10;
 }
 

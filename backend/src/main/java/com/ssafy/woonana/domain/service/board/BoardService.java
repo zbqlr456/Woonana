@@ -98,14 +98,18 @@ public class BoardService {
 
         return list;
     }
-    public List<BoardByExerciseListResponse> getBoardsByExercise(Long exerciseId) {
+    public List<BoardListResponse> getBoardsByExercise(Long exerciseId) {
         List<Board> findBoards = boardRepository.findBoardsByExerciseId(exerciseId);
-        List<BoardByExerciseListResponse> list = new ArrayList<>();
+        List<BoardListResponse> list = new ArrayList<>();
         for (Board b : findBoards) {
-            list.add(new BoardByExerciseListResponse(b.getExercise().getId(), b.getId(), b.getPlace()));
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
         }
 
         return list;
+    }
+
+    public Long getBoardsCountByExercise(Long exerciseId) {
+        return boardRepository.getCountByExercise(exerciseId);
     }
 
     public BoardDetailResponse getOneBoard(Long boardId) {

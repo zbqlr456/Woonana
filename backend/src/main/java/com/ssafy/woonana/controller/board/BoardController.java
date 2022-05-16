@@ -83,15 +83,21 @@ public class BoardController {
     }
 
     @GetMapping("/search/{exerciseId}")
-    @ApiOperation(value = "운동별 등록된 글 리스트 조회", notes = "지도에서 운동을 선택하면 종료되지 않은(모집중/모집마감) 운동별 모든 글을 보여준다")
+    @ApiOperation(value = "운동별 등록된 글 리스트 조회", notes = "운동을 선택하면 종료되지 않은(모집중/모집마감) 운동별 모든 글을 보여준다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "글 목록 조회 성공"),
             @ApiResponse(code = 401, message = "토큰 만료 || 토큰 없음 || 토큰 오류 => 권한 인증 오류", response = ErrorResponse.class),
             @ApiResponse(code = 404, message = "글 정보가 없음", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
     })
-    public ResponseEntity<List<BoardByExerciseListResponse>> getBoardsByExercise(@PathVariable("exerciseId") Long exerciseId) {
+    public ResponseEntity<List<BoardListResponse>> getBoardsByExercise(@PathVariable("exerciseId") Long exerciseId) {
         return ResponseEntity.ok(boardService.getBoardsByExercise(exerciseId));
+    }
+
+    @GetMapping("/search/count/{exerciseId}")
+    @ApiOperation(value = "운동별 등록된 글 개수 조회", notes = "카테고리의 운동 이름 옆에 표시할 등록된 글 중 신청 가능한 글의 개수를 반환한다.")
+    public ResponseEntity<Long> getBoardsCountByExercise(@PathVariable("exerciseId") Long exerciseId) {
+        return ResponseEntity.ok(boardService.getBoardsCountByExercise(exerciseId));
     }
 
     @GetMapping("/mypage")

@@ -3,7 +3,7 @@ package com.ssafy.woonana.controller.user;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogCountResponse;
 import com.ssafy.woonana.domain.model.dto.user.request.UserEvaluateRequest;
 import com.ssafy.woonana.domain.model.dto.user.response.*;
-import com.ssafy.woonana.domain.repository.user.service.user.UserService;
+import com.ssafy.woonana.domain.service.user.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +71,7 @@ public class UserController {
     @ApiOperation(value="평가하기", notes="사용자의 점수를 평가한다.")
     public ResponseEntity<String> evaluate(@RequestBody UserEvaluateRequest evaluation, @AuthenticationPrincipal Long userId){
 
-        userService.evaluate(userId, evaluation.getUserId(), evaluation.getRating());
+        userService.evaluate(userId, evaluation.getUserId(), evaluation.getRating(), evaluation.getBoardId());
         return ResponseEntity.ok().body("평가 완료");
     }
 

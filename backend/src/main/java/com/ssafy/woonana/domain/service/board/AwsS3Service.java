@@ -1,4 +1,4 @@
-package com.ssafy.woonana.domain.repository.user.service.board;
+package com.ssafy.woonana.domain.service.board;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;

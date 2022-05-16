@@ -1,4 +1,4 @@
-package com.ssafy.woonana.domain.repository.user.service.board;
+package com.ssafy.woonana.domain.service.board;
 
 import com.ssafy.woonana.domain.model.dto.board.response.PickListDetail;
 import com.ssafy.woonana.domain.model.dto.board.response.PickListResponse;

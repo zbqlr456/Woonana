@@ -15,13 +15,14 @@ import ChatList from "../components/Chat/ChatList.vue";
 import ChatMessage from "../components/Chat/ChatMessage.vue";
 
 import Mypage from "../views/Mypage.vue";
-import MypageMain from "../components/Mypage/MypageMain.vue";
-import SingleBlog from "../components/SingleNews/index.vue";
-import MypageQna from "../components/Mypage/MypageQna.vue";
-import MyEvalLog from "../components/Mypage/MyEvalLog.vue";
-import MyJoinLog from "../components/Mypage/MyJoinLog.vue";
-import MyPosts from "../components/Mypage/MyPosts.vue";
-import MyWorkoutLog from "../components/Mypage/MyWorkoutLog.vue";
+import MypageMain from "../components/Mypage/index.vue"
+import SingleBlog from "../components/SingleNews/index.vue"
+import MypageQna from "../components/Mypage/MypageQna.vue"
+import MyEvalLog from "../components/Mypage/MyEvalLog.vue"
+import MyJoinLog from "../components/Mypage/MyJoinLog.vue"
+import MyPosts from "../components/Mypage/MyPosts.vue"
+import MyWorkoutLog from "../components/Mypage/MyWorkoutLog.vue"
+import NewPost from "../components/Blogs/NewPost.vue"
 
 Vue.use(VueRouter);
 
@@ -80,6 +81,12 @@ const routes = [
     path: "/chat/chatlist",
     name: "ChatList",
     component: ChatList,
+  },
+  {
+    path: "/newpost",
+    name: "NewPost",
+    component: NewPost,
+
   },
   {
     path: "/chat/chatroomlist",

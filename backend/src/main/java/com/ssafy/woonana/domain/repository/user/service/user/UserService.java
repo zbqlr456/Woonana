@@ -1,4 +1,4 @@
-package com.ssafy.woonana.domain.service.user;
+package com.ssafy.woonana.domain.repository.user.service.user;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;

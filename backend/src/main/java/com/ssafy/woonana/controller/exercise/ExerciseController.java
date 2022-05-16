@@ -1,7 +1,7 @@
 package com.ssafy.woonana.controller.exercise;
 
 import com.ssafy.woonana.domain.model.dto.exercise.request.ExerciseRequest;
-import com.ssafy.woonana.domain.service.exercise.ExerciseService;
+import com.ssafy.woonana.domain.repository.user.service.exercise.ExerciseService;
 import com.ssafy.woonana.error.exception.ErrorResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

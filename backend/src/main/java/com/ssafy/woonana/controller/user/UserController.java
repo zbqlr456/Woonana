@@ -3,7 +3,7 @@ package com.ssafy.woonana.controller.user;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogCountResponse;
 import com.ssafy.woonana.domain.model.dto.user.request.UserEvaluateRequest;
 import com.ssafy.woonana.domain.model.dto.user.response.*;
-import com.ssafy.woonana.domain.service.user.UserService;
+import com.ssafy.woonana.domain.repository.user.service.user.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

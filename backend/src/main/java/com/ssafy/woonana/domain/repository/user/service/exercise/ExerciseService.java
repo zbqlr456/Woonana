@@ -1,4 +1,4 @@
-package com.ssafy.woonana.domain.service.exercise;
+package com.ssafy.woonana.domain.repository.user.service.exercise;
 
 import com.ssafy.woonana.domain.model.dto.exercise.request.ExerciseRequest;
 import com.ssafy.woonana.domain.model.entity.exercise.Exercise;

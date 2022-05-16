@@ -1,7 +1,7 @@
 package com.ssafy.woonana.controller.board;
 
 import com.ssafy.woonana.domain.model.dto.board.response.PickListResponse;
-import com.ssafy.woonana.domain.service.board.ParticipationService;
+import com.ssafy.woonana.domain.repository.user.service.board.ParticipationService;
 import com.ssafy.woonana.error.exception.ErrorResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

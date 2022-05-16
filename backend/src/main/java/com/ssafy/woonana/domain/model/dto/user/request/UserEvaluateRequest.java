@@ -11,5 +11,6 @@ public class UserEvaluateRequest {
 
     private Long userId;
     private int rating;
+    private Long boardId;
 
 }

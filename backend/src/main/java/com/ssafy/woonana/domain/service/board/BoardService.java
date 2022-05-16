@@ -1,6 +1,7 @@
 package com.ssafy.woonana.domain.service.board;
 
 import com.ssafy.woonana.domain.model.dto.board.request.BoardRequest;
+import com.ssafy.woonana.domain.model.dto.board.request.BoardUpdateRequest;
 import com.ssafy.woonana.domain.model.dto.board.response.*;
 import com.ssafy.woonana.domain.model.dto.user.response.UserParticipatedCheck;
 import com.ssafy.woonana.domain.model.entity.board.Board;
@@ -146,4 +147,14 @@ public class BoardService {
         return list;
     }
 
+    @Transactional
+    public void update(BoardUpdateRequest boardUpdateRequest, Long userId, Long boardId) throws Exception {
+        User findUser = userRepository.findById(userId).get();
+        User boardUser = boardRepository.findById(boardId).get().getUser();
+        if (findUser != boardUser) {
+            throw new RuntimeException("글 작성자가 아님");
+        }
+        boardRepository.updateOneBoard(boardUpdateRequest.getTitle(), boardUpdateRequest.getContent(), boardUpdateRequest.getMaxNumber(), boardId);
+
+    }
 }

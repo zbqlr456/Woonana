@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface ExerciseLogRepository extends JpaRepository<ExerciseLog, Long> {
+public interface ExerciseLogRepository extends JpaRepository<com.ssafy.woonana.domain.model.entity.exercise.ExerciseLog, Long> {
 
     @Query("select count(el.exercise_log_id) from ExerciseLog el where el.user.userId=:userId")
     int countExerciseLogsByUser(Long userId);

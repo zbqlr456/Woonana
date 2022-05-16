@@ -6,6 +6,7 @@ import com.ssafy.woonana.domain.model.entity.board.Board;
 import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -41,4 +42,9 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
 
     @Query("select p from Participation p join fetch p.user where p.board.id=:boardId")
     List<Participation> findParticipationsByBoardId(@Param("boardId") Long boardId); //  boardId로 participation 테이블 조회
+
+    @Modifying(clearAutomatically = true)
+    @Query("delete from Participation p where p.board.id = :boardId")
+    void deleteParticipationByBoardId(@Param("boardId") Long boardId);
+
 }

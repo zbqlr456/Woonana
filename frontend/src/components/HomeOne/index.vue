@@ -17,11 +17,7 @@
 
       <!--====== OFFCANVAS MENU PART START ======-->
 
-      <sidebar-home-one
-        :sidebar="sidebar"
-        @toggleSidebar="toggleSidebar"
-        :menuItems="navs"
-      />
+      <sidebar-home-one :sidebar="sidebar" @toggleSidebar="toggleSidebar" :menuItems="navs" />
 
       <!--====== OFFCANVAS MENU PART ENDS ======-->
 
@@ -200,7 +196,7 @@ export default {
           name: "home",
           childrens: [
             {
-              name: "Home 1",
+              name: "Home",
               path: "/",
             },
             {
@@ -210,38 +206,43 @@ export default {
           ],
         },
         {
-          name: "service",
-          path: "/service-details",
-        },
-        {
-          name: "pages",
+          name: "운동목록",
           childrens: [
             {
-              name: "About us",
-              path: "/about-us",
-            },
-            {
-              name: "Error",
-              path: "/error",
-            },
-          ],
-        },
-        {
-          name: "news",
-          childrens: [
-            {
-              name: "News",
+              name: "운동목록",
               path: "/news",
             },
-            {
-              name: "Single news",
-              path: "/single-news",
-            },
           ],
         },
         {
-          name: "contact",
-          path: "/contact",
+          name: "마이페이지",
+          path: "/mypage",
+          childrens: [
+            {
+              name: "내정보",
+              path: "/mypage/main",
+            },
+            {
+              name: "내 글",
+              path: "/mypage/myposts",
+            },
+            {
+              name: "참여내역",
+              path: "/mypage/myjoinlog",
+            },
+            {
+              name: "운동기록",
+              path: "/mypage/myworkoutlog",
+            },
+            {
+              name: "평가페이지",
+              path: "/mypage/myevallog",
+            },
+            {
+              name: "자주묻는질문",
+              path: "/mypage/qna",
+            },
+          ],
         },
       ],
       itemsGrid: [
@@ -477,5 +478,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -3,10 +3,14 @@
     <div class="mypage_content">
       <div class="row profile">
         <div class="col-md-1">
-          <b-img v-bind:src="myinfo.userProfileUrl" rounded="circle" alt="Circle image"></b-img>
+          <b-img
+            v-bind:src="myinfomation.userProfileUrl"
+            rounded="circle"
+            alt="Circle image"
+          ></b-img>
         </div>
         <div class="col-md-1">
-          <p>{{ myinfo.userNickname }}</p>
+          <p>{{ myinfomation.userNickname }}</p>
         </div>
         <div class="col-md-2">
           <star-rating :show-rating="false" @rating-selected="setRating"></star-rating>
@@ -30,7 +34,6 @@
   </div>
 </template>
 <script>
-import axios from "../../util/index";
 import StarRating from "vue-star-rating";
 import Mypagenav from "./Mypagenav.vue";
 
@@ -45,31 +48,23 @@ export default {
   },
   methods: {
     //userStore에서 백에 요청해서 가져오는데 현재 http로 요청하면 헤더셋팅에 withCredentials가 안들어감
-    getUserInfo: function () {
-      this.$store.dispatch("getUserInfo");
+    getUserInfo: async function () {
+      this.myinfo = await this.$store.dispatch("getUserInfo");
     },
     components: { StarRating, Mypagenav },
     //axios로 해야 withcredentials가 셋팅되서 잘됨,,, 현재 이걸루 하는중
-    getUserInfoaxios: function () {
-      let token = this.$store.getters.token;
-      console.log(token);
-      axios.defaults.withCredentials = false;
-      axios.defaults.headers.common["withCredentials"] = false;
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-
-      axios.get("/api/accounts/mypage").then((response) => {
-        console.log(response);
-        this.myinfo = response.data;
-        console.log(this.myinfo);
-      });
-    },
   },
   beforemount: function () {},
-  mounted: function () {
-    this.getUserInfoaxios();
-
-    // console.log("userinfo", this.$store.getters.GET_USER_INFO);
+  mounted: async function () {
+    this.getUserInfo();
+    console.log(this.myinfo);
+    console.log("userinfo", this.$store.getters.GET_USER_INFO);
     // this.getUserInfoaxios();
+  },
+  computed: {
+    myinfomation: function () {
+      return this.$store.getters.GET_USER_INFO;
+    },
   },
 };
 </script>

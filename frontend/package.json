@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve --mode development",
+    "build": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint",
     "prod_mode": "vue-cli-service --mode production"
   },
@@ -21,8 +21,10 @@
     "vue-countup-v2": "^4.0.0",
     "vue-easy-lightbox": "^0.16.2",
     "vue-faq-accordion": "^1.6.2",
+    "vue-infinite-loading": "^2.4.5",
     "vue-router": "^3.2.0",
     "vue-slick-carousel": "^1.0.6",
+    "vue-star-rating": "^1.7.0",
     "vuex": "^3.6.2",
     "vuex-persistedstate": "^4.1.0"
   },

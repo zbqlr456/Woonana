@@ -1,64 +1,71 @@
 <template>
-  <div class="col-md-8">
+  <div class="col-md-8 Jua">
         <div class="contact-form">
             <h4>게시글 등록</h4>
             <p>함께 운동할 사람을 찾아보세요.</p>
             <form action="#" method="post" class="row">
                 <div class="col-md-6">
-                    <input type="text" name="f-name" placeholder="제목을 입력하세요" v-model="board.title">
+                  <label>게시글 제목</label>
+                    <input type="text" name="title" placeholder="제목을 입력하세요" v-model="board.title">
                 </div>
                 <div class="col-md-12">
-                    <textarea name="message" placeholder="내용을 입력하세요" v-model="board.content"></textarea>
+                  <label>게시글 내용</label>
+                    <textarea name="content" placeholder="내용을 입력하세요" v-model="board.content"></textarea>
                 </div>
                 <div class="col-md-6">
-                  <label>운동 시작 날짜</label>
-                  <input type="date" name="시작 날짜" v-model="board.meetStartDate">
+                  <label>운동 시작 날짜</label><br>
+                  <input type="datetime-local" name="meetStartDate" v-model="board.meetStartDate">
                 </div>
                 <div class="col-md-6">
-                    <label>운동 종료 날짜</label>
-                    <input type="date" name="종료 날짜" v-model="board.meetEndDate">
+                    <label>운동 종료 날짜</label><br>
+                    <input type="datetime-local" name="meetEndDate" v-model="board.meetEndDate">
                 </div>
+                <br>
                 <div class="col-md-6">
+                    <br>
                     <label>최대 인원 설정</label>
                     <input type="number" name="maxNumber" min="1" max="6" v-model="board.maxNumber">
                 </div>
                 <div class="col-md-12">
-                    <input type="radio" id="산책" name="산책" value="4" v-model="board.exerciseId">
-                    <label for="산책">산책</label>
-                    <input type="radio" id="캐치볼" name="캐치볼" value="3" v-model="board.exerciseId">
-                    <label for="캐치볼">캐치볼</label>
-                    <input type="radio" id="탁구" name="탁구" value="1" v-model="board.exerciseId">
-                    <label for="탁구">탁구</label>
-                    <input type="radio" id="배드민턴" name="배드민턴" value="2" v-model="board.exerciseId">
-                    <label for="배드민턴">배드민턴</label>
+                    <label>운동 종류 설정</label><br>
+                    <input type="radio" id="산책" name="exerciseId" value="4" v-model="board.exerciseId">
+                    <label for="산책">산책</label><br>
+                    <input type="radio" id="캐치볼" name="exerciseId" value="3" v-model="board.exerciseId">
+                    <label for="캐치볼">캐치볼 </label><br>
+                    <input type="radio" id="탁구" name="exerciseId" value="1" v-model="board.exerciseId">
+                    <label for="탁구">탁구 </label><br>
+                    <input type="radio" id="배드민턴" name="exerciseId" value="2" v-model="board.exerciseId">
+                    <label for="배드민턴">배드민턴 </label><br>
+                </div>
+                <br>
+                <div class="col-md-12">
+                  <br>
+                  <label>모집 형태</label><br>
+                  <input type="radio" id="신청제" name="신청제" value="0" v-model="board.participationOption">
+                  <label for="신청제">신청제 </label><br>
+                  <input type="radio" id="선착순" name="선착순" value="1" v-model="board.participationOption">
+                  <label for="선착순">선착순 </label><br>
                 </div>
                 <div>
-    <div
-      ref="searchWindow"
-      :style="searchWindow"
-      style="border:1px solid;width:500px;margin:5px 0;position:relative"
-    >
-      <img
-        src="//t1.daumcdn.net/postcode/resource/images/close.png"
-        id="btnFoldWrap"
-        style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1"
-        @click="searchWindow.display = 'none'"
-        alt="close"
-      >
-    </div>
-    <input type="text" placeholder="우편번호" v-model="postcode">
-    <input type="button" value="우편번호 찾기" @click="execDaumPostcode">
-    <br>
-    <input type="text" v-model="address" placeholder="주소">
-    <br>
-    <input type="text" v-model="extraAddress" ref="extraAddress" placeholder="상세주소">
-  </div>
+                <br>
                 <div class="col-md-12">
-                    <input @change="upload" type="file" id="file" class="img"/>
-                    <label for="file">사진 업로드</label>
+                  <div class="form-group">
+                      <input type="text" id="postcode" v-model="postcode" placeholder="우편번호">
+                      <input type="text" id="address" v-model="address" placeholder="주소"><br>
+                      <input type="text" id="extraAddress" v-model="extraAddress" placeholder="상세주소">
+                      <input type="text" v-model="extra" placeholder="추가사항">
+                  </div>
+                  <button type="button" class="btn btn-light" style="background-color: #ff8989" @click="execDaumPostcode()">주소 검색</button>
                 </div>
+                </div>
+                <br>
+                <ul class="footer-button-plus">
+                  <br>
+                  <input @change="upload" type="file" id="file" class="inputfile" ref="img" accept=".jpg, .png" /> 
+                </ul>
                 <div class="col-md-6 text-right">
-                    <input type="submit" name="submit" value="등록하기">
+                  <br>
+                    <button type="button" class="btn btn-light" style="background-color: skyblue" @click="join()">등록하기</button>
                 </div>
             </form>
         </div>
@@ -66,27 +73,26 @@
 </template>
 
 <script>
+import http from "@/util/index";
+
 export default {
     data(){
         return{
             board:{
                 title:"",
                 content: "",
-                allowedNumber: 0,
-                imageUrl:"",
+                file:"",
                 maxNumber: 0,
                 meetEndDate: "",
                 meetStartDate: "",
                 place:"",
-                postcode:"",
-                address:"",
-                extraAddress: "",
-                status : "",
-                userEmail : "",
-                userNickName: "",
-                createdDate : "",
+                participationOption : 0,
                 exerciseId: 0,
-            }
+            },
+            postcode:"",
+            address:"",
+            extraAddress: "",
+            extra: "",
         }
     },
      methods: {
@@ -127,9 +133,45 @@ export default {
           }
           // 우편번호를 입력한다.
           this.postcode = data.zonecode;
+          
         },
       }).open();
     },
+    upload(){
+      console.log(this.$refs);
+      this.board.file = this.$refs.img.files[0];
+    },
+    join(){
+      const formData = new FormData();
+      formData.append('title', this.board.title);
+      formData.append('content', this.board.content);
+      formData.append('place', this.board.place);
+      formData.append('meetStartDate', this.board.meetStartDate);
+      formData.append('meetEndDate', this.board.meetEndDate);
+      formData.append('maxNumber', this.board.maxNumber);
+      formData.append('participationOption', this.board.participationOption);
+      formData.append('exerciseId', this.board.exerciseId);
+      formData.append('file', this.board.file);
+      let data = localStorage.getItem("vuex");
+      let parsedata = JSON.parse(data);
+      let token = parsedata.loginStore.jwtToken;
+      http.defaults.withCredentials = false;
+      http.defaults.headers.common["Authorization"] = "Bearer " + token;
+      http.defaults.headers.common["withCredentials"] = false;
+      this.board.place = this.address + " " + this.extra;
+      http.defaults.headers.common['Content-Type'] = "multipart/form-data"
+      http.post(`api/main`, formData).then(({response}) => {
+        let msg= "게시글 등록을 완료하였습니다.";
+        console.log(response);
+        alert(msg);
+        this.$router.push("/news")
+      })
+      .catch((err)=>{
+        alert(err);
+      })
+
+    }
+
   },
 }
 </script>

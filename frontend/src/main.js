@@ -4,7 +4,8 @@ import router from './router'
 import axios from 'axios'
 import { BootstrapVue, IconsPlugin, BadgePlugin  } from 'bootstrap-vue'
 import vueStarRating from 'vue-star-rating'
-
+import VuejsHeatmap from "vuejs-heatmap";
+import { Pie } from 'vue-chartjs/legacy'
 import {store} from './store/index'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -20,6 +21,8 @@ import '../src/assets/css/main.css'
 
 // Make BootstrapVue available throughout your project
 Vue.component("StarRating",vueStarRating)
+Vue.component("VuejsHeatmap",VuejsHeatmap)
+Vue.component("Pie",Pie)
 Vue.use(BootstrapVue)
 Vue.use(BadgePlugin)
 // Optionally install the BootstrapVue icon components plugin

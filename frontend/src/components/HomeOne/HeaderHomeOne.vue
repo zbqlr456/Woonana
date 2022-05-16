@@ -73,7 +73,6 @@
                   ><i class="fal fa-user"></i>Login</a
                 >
               </div>
-              <a class="main-btn ml-30" href="#">Get Started</a>
               <div class="toggle-btn ml-30 canvas_open d-lg-none d-block">
                 <i class="fa fa-bars" @click="showSidebar"></i>
               </div>

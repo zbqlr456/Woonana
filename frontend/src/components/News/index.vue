@@ -53,6 +53,7 @@
     <!--====== APPIE BACK TO TOP PART ENDS ======-->
     <div class="back-to-top">
       <a href="#"><i class="fal fa-arrow-up"></i></a>
+      <a href="/newpost"><i class="fal fa-plus"></i></a>
     </div>
     <!--====== APPIE BACK TO TOP PART ENDS ======-->
   </div>

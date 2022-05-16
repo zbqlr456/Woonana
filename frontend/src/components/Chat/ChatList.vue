@@ -105,23 +105,33 @@ export default {
 </style>
 -->
 <template>
-  <div class="container">
-    <ul class="list-group" id="message-list">
-      <li class="list-group-item" v-bind:key="idx" v-for="(message, idx) in messages">
+  <div class="chatlist-container">
+    <!-- <ul class="list-group" id="message-list">
+      <li class="list-group-item" v-for="(message, idx) in messages" :key="idx" >
         <a>{{ message.sender }} - {{ message.message }}</a>
       </li>
-    </ul>
+    </ul> -->
+    <chat-message v-for="(message,idx) in messages" :key="idx" :message = "message"></chat-message>
   </div>
 </template>
 
 <script>
+import ChatMessage from "@/components/Chat/ChatMessage";
 export default {
   props: ["messages"],
+  data(){
+    return{
+      sender:"",
+    };
+  },
+  components: {
+    ChatMessage,
+  },
 };
 </script>
 
 <style>
-#message-list {
+.chatlist-container {
   display: flex;
   flex-direction: column-reverse;
 }

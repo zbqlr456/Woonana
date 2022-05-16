@@ -32,4 +32,9 @@ public class ExerciseService {
             if (findOne == null) exerciseRepository.save(exercise);
         }
     }
+
+    @Transactional
+    public void delete(Long exerciseId) {
+        exerciseRepository.deleteById(exerciseId);
+    }
 }

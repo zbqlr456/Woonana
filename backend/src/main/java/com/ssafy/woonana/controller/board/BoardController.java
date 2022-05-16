@@ -1,6 +1,7 @@
 package com.ssafy.woonana.controller.board;
 
 import com.ssafy.woonana.domain.model.dto.board.request.BoardRequest;
+import com.ssafy.woonana.domain.model.dto.board.request.BoardUpdateRequest;
 import com.ssafy.woonana.domain.model.dto.board.response.*;
 import com.ssafy.woonana.domain.service.board.BoardService;
 import com.ssafy.woonana.error.exception.ErrorResponse;
@@ -82,15 +83,21 @@ public class BoardController {
     }
 
     @GetMapping("/search/{exerciseId}")
-    @ApiOperation(value = "운동별 등록된 글 리스트 조회", notes = "지도에서 운동을 선택하면 종료되지 않은(모집중/모집마감) 운동별 모든 글을 보여준다")
+    @ApiOperation(value = "운동별 등록된 글 리스트 조회", notes = "운동을 선택하면 종료되지 않은(모집중/모집마감) 운동별 모든 글을 보여준다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "글 목록 조회 성공"),
             @ApiResponse(code = 401, message = "토큰 만료 || 토큰 없음 || 토큰 오류 => 권한 인증 오류", response = ErrorResponse.class),
             @ApiResponse(code = 404, message = "글 정보가 없음", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
     })
-    public ResponseEntity<List<BoardByExerciseListResponse>> getBoardsByExercise(@PathVariable("exerciseId") Long exerciseId) {
+    public ResponseEntity<List<BoardListResponse>> getBoardsByExercise(@PathVariable("exerciseId") Long exerciseId) {
         return ResponseEntity.ok(boardService.getBoardsByExercise(exerciseId));
+    }
+
+    @GetMapping("/search/count/{exerciseId}")
+    @ApiOperation(value = "운동별 등록된 글 개수 조회", notes = "카테고리의 운동 이름 옆에 표시할 등록된 글 중 신청 가능한 글의 개수를 반환한다.")
+    public ResponseEntity<Long> getBoardsCountByExercise(@PathVariable("exerciseId") Long exerciseId) {
+        return ResponseEntity.ok(boardService.getBoardsCountByExercise(exerciseId));
     }
 
     @GetMapping("/mypage")
@@ -103,6 +110,23 @@ public class BoardController {
     })
     public ResponseEntity<List<MyBoardListResponse>> getBoardsByUser(@AuthenticationPrincipal Long userId) {
         return ResponseEntity.ok(boardService.getBoardsByUser(userId));
+    }
+
+    @PatchMapping("/{boardId}")
+    @ApiOperation(value = "글 수정 - 제목, 내용, 최대 인원만 수정 가능", notes = "등록된 글을 수정한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "글 수정 성공"),
+            @ApiResponse(code = 400, message = "input 오류", response = ErrorResponse.class),
+            @ApiResponse(code = 401, message = "토큰 만료 || 토큰 없음 || 토큰 오류 => 권한 인증 오류", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
+    })
+    public ResponseEntity updateBoard(@RequestBody BoardUpdateRequest boardUpdateRequest, @PathVariable("boardId") Long boardId, @AuthenticationPrincipal Long userId) {
+        try {
+            boardService.update(boardUpdateRequest, userId, boardId);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/{boardId}/members")
@@ -126,9 +150,10 @@ public class BoardController {
             @ApiResponse(code = 404, message = "글 정보가 없음", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
     })
-    public ResponseEntity deleteBoard(@PathVariable("boardId") Long boardId) {
+    public ResponseEntity deleteBoard(@PathVariable("boardId") Long boardId, @AuthenticationPrincipal Long userId) {
         // TODO: exercise log랑 participations 우선 삭제 필요 (제약조건)
-        boardService.deleteBoard(boardId);
+
+        boardService.deleteBoard(boardId, userId);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

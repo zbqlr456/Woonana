@@ -142,6 +142,7 @@ export default {
       this.board.file = this.$refs.img.files[0];
     },
     join(){
+      this.board.place = this.address + " " + this.extra;
       const formData = new FormData();
       formData.append('title', this.board.title);
       formData.append('content', this.board.content);
@@ -158,7 +159,6 @@ export default {
       http.defaults.withCredentials = false;
       http.defaults.headers.common["Authorization"] = "Bearer " + token;
       http.defaults.headers.common["withCredentials"] = false;
-      this.board.place = this.address + " " + this.extra;
       http.defaults.headers.common['Content-Type'] = "multipart/form-data"
       http.post(`api/main`, formData).then(({response}) => {
         let msg= "게시글 등록을 완료하였습니다.";

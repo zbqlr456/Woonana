@@ -32,4 +32,17 @@ public class ExerciseController {
         exerciseService.register(exerciseRequest);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @DeleteMapping("/{exerciseId}")
+    @ApiOperation(value = "운동 하나 삭제", notes = "등록되어있는 운동을 삭제한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "운동 삭제 성공"),
+            @ApiResponse(code = 400, message = "input 오류", response = ErrorResponse.class),
+            @ApiResponse(code = 401, message = "토큰 만료 || 토큰 없음 || 토큰 오류 => 권한 인증 오류", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
+    })
+    public ResponseEntity deleteExercise(@PathVariable("exerciseId") Long exerciseId) {
+        exerciseService.delete(exerciseId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

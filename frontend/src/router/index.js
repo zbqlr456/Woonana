@@ -15,7 +15,7 @@ import ChatList from "../components/Chat/ChatList.vue";
 import ChatMessage from "../components/Chat/ChatMessage.vue";
 
 import Mypage from "../views/Mypage.vue";
-import MypageMain from "../components/Mypage/index.vue"
+import MypageMain from "../components/Mypage/MypageMain.vue"
 import SingleBlog from "../components/SingleNews/index.vue"
 import MypageQna from "../components/Mypage/MypageQna.vue"
 import MyEvalLog from "../components/Mypage/MyEvalLog.vue"
@@ -103,7 +103,7 @@ const routes = [
     component: Mypage,
     children: [
       {
-        path: "/",
+        path: "",
         component: MypageMain,
       },
       {

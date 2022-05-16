@@ -65,8 +65,7 @@ import http from "@/util/index";
 import SockJS from "sockjs-client";
 import Stomp from "stomp-websocket";
 
-// var sock = new SockJS("http://k6b104.p.ssafy.io:80/ws"); // endpoint로 sockJS 연결
-var sock = new SockJS(`${process.env.VUE_APP_CHAT_WS_URI}`); // endpoint로 sockJS 연결
+var sock = new SockJS("http://k6b104.p.ssafy.io:8082/ws"); // endpoint로 sockJS 연결
 var ws = Stomp.over(sock); // sockJS 위에서 돌아간다.
 export default {
   data() {
@@ -91,7 +90,7 @@ export default {
   },
   methods: {
     findRoom: function () {
-      http.get("/chatapi/room/" + this.roomId).then((response) => {
+      http.get("/chat/room/" + this.roomId).then((response) => {
         this.room = response.data;
       });
     },
@@ -117,7 +116,7 @@ export default {
           this.connected = true;
           console.log("소켓 연결 성공", frame);
           // 서버의 메시지 전송 endpoint를 구독
-          ws.subscribe("/sub/chatapi/room/" + this.roomId, (message) => {
+          ws.subscribe("/sub/chat/room/" + this.roomId, (message) => {
             var recv = JSON.parse(message.body);
             this.recvMessage(recv);
           });

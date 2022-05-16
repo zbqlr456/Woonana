@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="eveldiv">
     <b-tabs content-class="mt-3" fill>
       <b-tab title="평가내역" active>
-        <div v-for="(item, index) in evalLists" :key="index">
+        <div class="card_div m-3" v-for="(item, index) in evalLists" :key="index">
           <b-card
-            v-bind:title="item.userId + '님에게 준 평점'"
-            sub-title="22/2/22 호수공원모임 "
+            v-bind:title="item.boardTitle + ' 모임 ' + item.userId + '님에게 준 평점'"
+            :sub-title="item.boardDate"
             style="max-width: 25rem"
-            class="mb-2"
+            class="mb-3"
           >
             <b-card-text>
               <star-rating v-bind:rating="item.rating" :read-only="true" :increment="1" />
@@ -40,11 +40,12 @@ export default {
   data() {
     return {
       evalLists: [],
-      evalpostLIst: [],
+      evalpostList: [],
       rating: 0,
     };
   },
   methods: {
+    //평가 한사람들의 목록
     getevallist: async function () {
       let data = localStorage.getItem("vuex");
       let parsedata = JSON.parse(data);
@@ -84,4 +85,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.evaldiv {
+  text-align: center;
+}
+.card_div {
+  display: inline-block;
+}
+</style>

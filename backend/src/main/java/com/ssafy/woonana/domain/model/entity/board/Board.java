@@ -1,7 +1,9 @@
 package com.ssafy.woonana.domain.model.entity.board;
 
 import com.ssafy.woonana.domain.model.entity.BaseTimeEntity;
+import com.ssafy.woonana.domain.model.entity.evaluation.Evaluation;
 import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
+import com.ssafy.woonana.domain.model.entity.exercise.ExerciseLog;
 import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
 import lombok.*;
@@ -64,6 +66,12 @@ public class Board extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "board")
     private List<Participation> participations = new ArrayList<>();
+
+    @OneToMany(mappedBy="board")
+    private List<ExerciseLog> exerciseLogs = new ArrayList<>();
+
+    @OneToMany(mappedBy="board")
+    private List<Evaluation> evaluations = new ArrayList<>();
 
     public Board(String title, String content, String place, LocalDateTime meetStartDate, LocalDateTime meetEndDate, int maxNumber, int participationOption, Exercise exercise, User user) {
         this.title = title;

@@ -71,7 +71,7 @@ public class UserController {
     @ApiOperation(value="평가하기", notes="사용자의 점수를 평가한다.")
     public ResponseEntity<String> evaluate(@RequestBody UserEvaluateRequest evaluation, @AuthenticationPrincipal Long userId){
 
-        userService.evaluate(userId, evaluation.getUserId(), evaluation.getRating());
+        userService.evaluate(userId, evaluation.getUserId(), evaluation.getRating(), evaluation.getBoardId());
         return ResponseEntity.ok().body("평가 완료");
     }
 

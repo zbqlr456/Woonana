@@ -305,7 +305,7 @@ public class UserService {
 
     // 평가하기
     @Transactional
-    public void evaluate(Long loginId, Long userId, int rating){
+    public void evaluate(Long loginId, Long userId, int rating, Long boardId){
 
         User loginUser=userRepository.findById(loginId).get(); // 평가한 사람
         User user = userRepository.findById(userId).get(); // 평가받은 사람
@@ -315,6 +315,7 @@ public class UserService {
                 .evaluationRatingScore(rating)
                 .evaluationUser(loginUser)
                 .evaluationTarget(user)
+                .board(boardRepository.findById(boardId).get()) // 참여한 게시글
                 .build();
         evaluationRepository.save(eval);
 

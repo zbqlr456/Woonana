@@ -1,7 +1,9 @@
 package com.ssafy.woonana.domain.model.entity.board;
 
 import com.ssafy.woonana.domain.model.entity.BaseTimeEntity;
+import com.ssafy.woonana.domain.model.entity.evaluation.Evaluation;
 import com.ssafy.woonana.domain.model.entity.exercise.Exercise;
+import com.ssafy.woonana.domain.model.entity.exercise.ExerciseLog;
 import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
 import lombok.*;

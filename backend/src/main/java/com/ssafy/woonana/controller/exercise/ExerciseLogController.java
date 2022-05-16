@@ -38,7 +38,7 @@ public class ExerciseLogController {
     }
 
     @GetMapping("/myexercise/likes/{userId}")
-    public ResponseEntity<List<ExerciseLog>> exerciseLogLikes(@PathVariable("userId")Long userId){
+    public ResponseEntity<List<ExerciseLogDate>> exerciseLogLikes(@PathVariable("userId")Long userId){
         return ResponseEntity.ok(exerciseLogService.findExerciseLogByLikes(userId));
     }
 

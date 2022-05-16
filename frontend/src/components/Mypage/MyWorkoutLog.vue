@@ -3,7 +3,7 @@
     MyWorkoutLog 운동선호도 그래프 위치
     <Pie
       :chart-options="chartOptions"
-      :chart-data="chartData"
+      :chart-data="mychartData"
       :chart-id="chartId"
       :dataset-id-key="datasetIdKey"
       :plugins="plugins"
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import http from "../../util/index";
 import { Pie } from "vue-chartjs/legacy";
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale } from "chart.js";
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
@@ -65,47 +64,71 @@ export default {
   },
   data() {
     return {
+      //넣을 차트데이터 예시,,, 서버에서 가져온 데이터로 대체한다.
       chartData: {
-        labels: ["조깅", "탁구", "골프", "배드민턴"],
+        labels: ["VueJs", "EmberJs", "ReactJs", "AngularJs"],
         datasets: [
           {
             backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"],
-            data: [40, 20, 80, 10],
+            data: [4, 2, 8, 1],
           },
         ],
       },
+      // chartData: {
+      //   labels: [],
+      //   datasets: [
+      //     {
+      //       backgroundColor: [],
+      //       data: [],
+      //     },
+      //   ],
+      // },
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
       },
+      exerciseData: [],
     };
   },
   methods: {
-    async getExerciseInfo(userId) {
-      try {
-        let data = localStorage.getItem("vuex");
-        let parsedata = JSON.parse(data);
-        let token = parsedata.loginStore.jwtToken;
-
-        http.defaults.withCredentials = false;
-        http.defaults.headers.common["Authorization"] = "Bearer " + token;
-        http.defaults.headers.common["withCredentials"] = false;
-        const res = await http.get("api/accounts/myexercise/record/" + userId);
-        // let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaXNzIjoid29vbmFuYSIsImlhdCI6MTY1MjE2NDk4NywiZXhwIjoxNjUyMjUxMzg3fQ.VfPXbqMxqR2Y0rIiBfxSH3byym1lTV7QNrtSosZVteQsLDzXKxAtGY-WiY8ieibO7KkzZz6tmxZlAHaDi0IgMA";
-
-        if (res.status === 200) {
-          console.log("운동정보를 가져왔습니다.");
-          console.log(res);
-        } else {
-          console.log("운동정보 에러발생");
-        }
-      } catch (e) {
-        console.log(e);
-      }
+    //ChartData를 가져온 값으로 재설정한다.
+    setExercisedata: function () {
+      this.chartData.datasets[0].data = [];
+      this.chartData.labels = [];
+      for (let i = 0; i < this.myinfomation.length; i++) {
+        // console.log("formoon work");
+        this.chartData.datasets[0].data.push(this.myinfomation[i].exerciseCount);
+        this.chartData.labels.push(this.myinfomation[i].exerciseName);
+      } // end for
+      //최대 4개의 색상중 들어간 갯수만 남기고 지우기
+      this.chartData.datasets[0].backgroundColor.splice(
+        this.myinfomation.length + 1,
+        /*this.chartData.datasets.backgroundColor.length*/ 4 - this.myinfomation.length
+      );
+      console.log(this.chartData.datasets[0].data);
+      console.log(this.chartData.labels);
     },
   },
-  mounted() {
-    this.getExerciseInfo(7);
+  async mounted() {
+    let tmp = await this.$store.dispatch("getUserId");
+    console.log(tmp);
+    await this.$store.dispatch("getUserInfo");
+    await this.$store.dispatch("getAllExerciseInfo", tmp.userId); // userid에 해당하는 모든 운동로그 가져옴
+    await this.$store.dispatch("getMonthExerciseInfo", tmp.userId); // userid에 해당하는 한달정보 가져옴
+    console.log(this.myinfomation);
+    console.log(this.mymonthlog);
+    this.setExercisedata(); // 7번값을 가져오는데 추후 수정예정!!!
+  },
+  computed: {
+    myinfomation: function () {
+      return this.$store.getters.get_all_exercise;
+    },
+    mymonthlog: function () {
+      return this.$store.getters.monthExercise;
+    },
+    mychartData: function () {
+      return this.chartData;
+    },
   },
 };
 </script>

@@ -4,8 +4,8 @@
       <b-tab title="평가내역" active>
         <div class="card_div m-3" v-for="(item, index) in evalLists" :key="index">
           <b-card
-            v-bind:title="item.userId + '님에게 준 평점'"
-            sub-title="22/2/22 호수공원모임 "
+            v-bind:title="item.boardTitle + ' 모임 ' + item.userId + '님에게 준 평점'"
+            :sub-title="item.boardDate"
             style="max-width: 25rem"
             class="mb-3"
           >
@@ -40,11 +40,12 @@ export default {
   data() {
     return {
       evalLists: [],
-      evalpostLIst: [],
+      evalpostList: [],
       rating: 0,
     };
   },
   methods: {
+    //평가 한사람들의 목록
     getevallist: async function () {
       let data = localStorage.getItem("vuex");
       let parsedata = JSON.parse(data);

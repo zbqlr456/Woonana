@@ -33,7 +33,8 @@ const loginStore = {
       try {
           let res = await http.post('/api/accounts/signup?' +"code=" + code);
           if (res.status === 200) {
-              console.log("로그인되었습니다.");
+            console.log("로그인되었습니다.");
+            
             console.log(res);
             commit('SET_JWT_TOKEN', res.data.token);
             //헤더에 기본적으로 추가!!!! 헤더의 키는 Access-Token 이다.

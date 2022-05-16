@@ -45,7 +45,7 @@ const userStore = {
           console.log(res);
           state.userInfo = res.data;
           console.log(state.userInfo);
-          return res.data;
+          // return res.data;
         } else {
           console.log('유저정보 에러발생');
         }

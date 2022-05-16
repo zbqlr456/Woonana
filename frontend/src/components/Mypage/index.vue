@@ -75,7 +75,7 @@ export default {
         },
         {
           name: "마이페이지",
-          path: "/mypage",
+          path: "/",
           childrens: [
             {
               name: "내정보",

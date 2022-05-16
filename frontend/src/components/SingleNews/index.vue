@@ -29,7 +29,7 @@
 
     <!--====== APPIE PAGE TITLE PART START ======-->
     <!-- use TitleArea component with props -->
-    <div class="appie-page-title-area">
+    <!-- <div class="appie-page-title-area">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!--====== APPIE PAGE TITLE PART ENDS ======-->
 

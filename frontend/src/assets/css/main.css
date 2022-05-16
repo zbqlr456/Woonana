@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+.Jua {
+  font-family: "Jua", sans-serif;
+}
+
+
 .appie-dark-mode {
   transition: all 0.5s ease-in-out;
 }

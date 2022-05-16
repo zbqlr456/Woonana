@@ -1,42 +1,48 @@
 <template>
   <div class="container">
-    <div>
-      <h2>{{ room.name }}</h2>
+    <div id="room-name">
+      <span>{{ room.name }}</span>
     </div>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <label class="input-group-text">내용</label>
-      </div>
+    <infinite-loading
+      @infinite="infiniteHandler"
+      spinner="waveDots"
+      direction="top"
+    ></infinite-loading>
+    <div id="chat-list">
+      <chat-list :messages="messages"></chat-list>
+    </div>
+    <div class="input-group" id="send-message-group">
       <input type="text" class="form-control" v-model="message" @keyup.enter="sendMessage" />
       <div class="input-group-append">
-        <button class="btn btn-primary" type="button" @click="sendMessage()">보내기</button>
+        <button class="btn btn-light" type="button" @click="sendMessage()">전송</button>
       </div>
     </div>
-    <ul class="list-group" id="message-list">
-      <li class="list-group-item" v-bind:key="idx" v-for="(message, idx) in messages">
-        <a>{{ message.sender }} - {{ message.message }}</a>
-      </li>
-    </ul>
-    <div></div>
   </div>
 </template>
 
 <script>
+import InfiniteLoading from "vue-infinite-loading";
+import ChatList from "@/components/Chat/ChatList";
+import http from "@/util/index";
 import SockJS from "sockjs-client";
 import Stomp from "stomp-websocket";
-import http from "@/util/index";
+
 var sock = new SockJS("http://localhost:8082/ws"); // endpoint로 sockJS 연결
 var ws = Stomp.over(sock); // sockJS 위에서 돌아간다.
-
 export default {
   data() {
     return {
+      pageNo: 0,
       roomId: "",
       room: {},
       sender: "",
       message: "",
       messages: [],
     };
+  },
+  components: {
+    ChatList,
+    InfiniteLoading,
   },
   created() {
     this.roomId = localStorage.getItem("wschat.roomId");
@@ -48,9 +54,6 @@ export default {
     findRoom: function () {
       http.get("/chat/room/" + this.roomId).then((response) => {
         this.room = response.data;
-      });
-      http.get("/chatapi/messages/" + this.roomId).then((response) => {
-        this.messages = response.data;
       });
     },
     sendMessage: function () {
@@ -87,13 +90,47 @@ export default {
         }
       );
     },
+    infiniteHandler($state) {
+      http
+        .get("/chatapi/messages/" + this.roomId, {
+          params: {
+            pageNo: this.pageNo,
+          },
+        })
+        .then((response) => {
+          setTimeout(() => {
+            if (response.data.length) {
+              this.messages = this.messages.concat(response.data);
+              this.pageNo += 1;
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          }, 1000);
+        })
+        .catch((error) => {
+          alert("error" + error);
+        });
+    },
   },
 };
 </script>
 
 <style>
-#message-list {
-  display: flex;
-  flex-direction: column-reverse;
+#room-name {
+  background: #ffffff;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 24px 24px 0px 0px;
+  padding: 1.8rem;
+  font-size: 16px;
+  font-weight: 700;
+}
+#send-message-group {
+  position: fixed;
+  bottom: 0;
+}
+#chat-list {
+  padding-top: 100px;
+  padding-bottom: 45px;
 }
 </style>

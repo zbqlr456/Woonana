@@ -4,8 +4,10 @@ import com.ssafy.woonana.domain.model.dto.exercise.request.ExerciseLogRequest;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLog;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogDate;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogResponse;
+import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogByMonthResponse;
 import com.ssafy.woonana.domain.service.exercise.ExerciseLogService;
 import lombok.RequiredArgsConstructor;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,9 @@ public class ExerciseLogController {
     private ExerciseLogService exerciseLogService;
 
     @GetMapping("/myexercise/month/{userId}")
-    public ResponseEntity<List<ExerciseLogResponse>> exerciseLogMonth(@PathVariable("userId") int userId){
+    @ApiOperation(value = "월별 운동 기록 조회", notes="userId 사용자의 총 운동 횟수, 월별 운동 기록을 조회한다.")
+    public ResponseEntity<ExerciseLogByMonthResponse> exerciseLogMonth(@PathVariable("userId") Long userId){
+
         return ResponseEntity.ok(exerciseLogService.findExerciseLogByMonth(userId));
     }
 
@@ -34,7 +38,7 @@ public class ExerciseLogController {
     }
 
     @GetMapping("/myexercise/likes/{userId}")
-    public ResponseEntity<List<ExerciseLogDate>> exerciseLogLikes(@PathVariable("userId")Long userId){
+    public ResponseEntity<List<ExerciseLog>> exerciseLogLikes(@PathVariable("userId")Long userId){
         return ResponseEntity.ok(exerciseLogService.findExerciseLogByLikes(userId));
     }
 

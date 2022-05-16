@@ -5,7 +5,7 @@
     <!--====== OFFCANVAS MENU PART ENDS ======-->
     <!--====== APPIE HEADER PART START ======-->
 
-    <header-home-one @toggleSidebar="toggleSidebar" :menuItems="navs" />
+    <header-home-one :menuItems="navs" />
 
     <!--====== APPIE HEADER PART ENDS ======-->
     <!--====== APPIE PAGE TITLE PART START ======-->
@@ -46,6 +46,65 @@ export default {
     // MypageQna,
     TitleArea,
     Mypagenav,
+  },
+  data() {
+    return {
+      sidebar: false,
+      navs: [
+        {
+          name: "home",
+          childrens: [
+            {
+              name: "Home",
+              path: "/",
+            },
+            {
+              name: "Home Dark",
+              path: "/home-dark",
+            },
+          ],
+        },
+        {
+          name: "운동목록",
+          childrens: [
+            {
+              name: "운동목록",
+              path: "/news",
+            },
+          ],
+        },
+        {
+          name: "마이페이지",
+          path: "/mypage",
+          childrens: [
+            {
+              name: "내정보",
+              path: "/mypage/main",
+            },
+            {
+              name: "내 글",
+              path: "/mypage/myposts",
+            },
+            {
+              name: "참여내역",
+              path: "/mypage/myjoinlog",
+            },
+            {
+              name: "운동기록",
+              path: "/mypage/myworkoutlog",
+            },
+            {
+              name: "평가페이지",
+              path: "/mypage/myevallog",
+            },
+            {
+              name: "자주묻는질문",
+              path: "/mypage/qna",
+            },
+          ],
+        },
+      ],
+    };
   },
 };
 </script>

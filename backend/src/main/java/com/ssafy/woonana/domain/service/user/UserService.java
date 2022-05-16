@@ -368,4 +368,26 @@ public class UserService {
         return result;
     }
 
+    // userId라는 유저가 아직 평가하지 않은 회원 목록
+    public List<NotEvaluatedPerson> notEvaluatedPeople(Long userId){
+
+        List<Board> boardList = participationRepository.findBoardByParticipation(userId); // userId가 참여했던 게시글 리스트
+        List<NotEvaluatedPerson> result=new ArrayList<>();
+
+        for(Board board: boardList) { // 게시글에 대해서
+            List<Participation> participations = participationRepository.findParticipationsByBoardId(board.getId()); // userId가 참여했던 게시글의 참여 내역
+
+            if(participations==null) return null;
+
+            for(Participation participation: participations) { // 참여한 사람들에 대해서
+                int evalCnt=evaluationRepository.findParticipationsByUsersAndBoard(userId, participation.getUser().getUserId(), board.getId()); // 평가를 했는지
+                if (evalCnt<=0 && participation.getUser().getUserId()!=userId){ // 평가를 하지 않았다면
+                    User user=participation.getUser();
+                    result.add(new NotEvaluatedPerson(user, board)); // 리스트에 넣어준다
+                }
+            }
+        }
+
+        return result;
+    }
 }

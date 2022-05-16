@@ -14,7 +14,7 @@ import java.util.List;
 @Api(tags = "채팅방")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/chatapi")
 public class ChatRoomController {
 
     private final ChatRoomRepository chatRoomRepository;

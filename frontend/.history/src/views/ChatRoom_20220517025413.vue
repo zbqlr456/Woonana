@@ -101,6 +101,7 @@ export default {
         {},
         JSON.stringify({ roomId: this.roomId, sender: this.sender, message: this.message })
       );
+      console.log({ roomId: this.roomId, sender: this.sender, message: this.message });
       this.message = "";
     },
     recvMessage: function (recv) {
@@ -111,7 +112,8 @@ export default {
     },
     connect: function () {
       ws.connect(
-        {},
+        "",
+        "",
         (frame) => {
           this.connected = true;
           console.log("소켓 연결 성공", frame);

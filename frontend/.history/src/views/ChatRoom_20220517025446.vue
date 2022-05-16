@@ -101,6 +101,7 @@ export default {
         {},
         JSON.stringify({ roomId: this.roomId, sender: this.sender, message: this.message })
       );
+      console.log({ roomId: this.roomId, sender: this.sender, message: this.message });
       this.message = "";
     },
     recvMessage: function (recv) {

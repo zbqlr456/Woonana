@@ -53,7 +53,7 @@ const routes = [
     component: News,
   },
   {
-    path: "/single-news",
+    path: "/single-news/",
     name: "SingleNews",
     component: SingleNews,
   },

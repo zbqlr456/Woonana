@@ -126,9 +126,10 @@ public class BoardController {
             @ApiResponse(code = 404, message = "글 정보가 없음", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
     })
-    public ResponseEntity deleteBoard(@PathVariable("boardId") Long boardId) {
+    public ResponseEntity deleteBoard(@PathVariable("boardId") Long boardId, @AuthenticationPrincipal Long userId) {
         // TODO: exercise log랑 participations 우선 삭제 필요 (제약조건)
-        boardService.deleteBoard(boardId);
+
+        boardService.deleteBoard(boardId, userId);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -5,6 +5,7 @@ import com.ssafy.woonana.domain.model.dto.user.response.UserParticipatedCheck;
 import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -34,5 +35,9 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
     "and (:startDate between b.meetStartDate and b.meetEndDate " +
     "or :endDate between b.meetStartDate and b.meetEndDate)")
     List<UserParticipatedCheck> findParticipationsByTime(@Param("userId") Long userId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+
+    @Modifying(clearAutomatically = true)
+    @Query("delete from Participation p where p.board.id = :boardId")
+    void deleteParticipationByBoardId(@Param("boardId") Long boardId);
 
 }

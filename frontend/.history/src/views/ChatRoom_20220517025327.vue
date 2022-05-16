@@ -111,7 +111,8 @@ export default {
     },
     connect: function () {
       ws.connect(
-        {},
+        "",
+        "",
         (frame) => {
           this.connected = true;
           console.log("소켓 연결 성공", frame);

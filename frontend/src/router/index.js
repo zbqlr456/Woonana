@@ -20,6 +20,7 @@ import MyEvalLog from "../components/Mypage/MyEvalLog.vue"
 import MyJoinLog from "../components/Mypage/MyJoinLog.vue"
 import MyPosts from "../components/Mypage/MyPosts.vue"
 import MyWorkoutLog from "../components/Mypage/MyWorkoutLog.vue"
+import NewPost from "../components/Blogs/NewPost.vue"
 
 Vue.use(VueRouter);
 
@@ -78,6 +79,12 @@ const routes = [
     path: "/chat/detail",
     name: "RoomDetail",
     component: RoomDetail,
+  },
+  {
+    path: "/newpost",
+    name: "NewPost",
+    component: NewPost,
+
   },
   {
     path: "/mypage/",

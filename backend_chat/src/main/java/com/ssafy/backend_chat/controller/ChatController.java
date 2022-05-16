@@ -36,7 +36,7 @@ public class ChatController {
     public void message(ChatMessageDto message) {
 //        System.out.println(message);
         chatMessageRepository.save(message.toEntity());
-        messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+        messagingTemplate.convertAndSend("/sub/chatapi/room/" + message.getRoomId(), message);
     }
 
 //    @GetMapping("/chatapi/messages/{roomId}")

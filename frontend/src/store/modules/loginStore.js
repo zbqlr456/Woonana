@@ -31,7 +31,7 @@ const loginStore = {
       let result = false;
       let resultErr = null;
       try {
-          let res = await http.post('api/accounts/signup?' +"code=" + code);
+          let res = await http.post('/api/accounts/signup?' +"code=" + code);
           if (res.status === 200) {
               console.log("로그인되었습니다.");
             console.log(res);
@@ -39,7 +39,7 @@ const loginStore = {
             //헤더에 기본적으로 추가!!!! 헤더의 키는 Access-Token 이다.
             // axios.defaults.headers.common['Authorization'] = res.data.token;
             http.defaults.headers.common['Authorization'] = "Bearer " + res.data.token;
-            axios.defaults.withCredentials = false;
+            http.defaults.withCredentials = false;
 
             
             result = true;

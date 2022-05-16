@@ -38,8 +38,8 @@ logging.level:
 
 kakao.login:
   client_id: 76d85e088d5bb875d6e4493b8eda78fd
-  redirect_url: http://k6b104.p.ssafy.io:80/oauth/callback
-#  redirect_url: http://localhost:8080/oauth/callback
+#  redirect_url: http://k6b104.p.ssafy.io:80/oauth/callback
+  redirect_url: http://localhost:8080/oauth/callback
 
 cloud:
   aws:

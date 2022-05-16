@@ -13,7 +13,14 @@
       :height="height"
     />
     <br />
-    횟수 출력 위치
+    횟수 출력 위치 총운동횟수 : {{ mymonthlog.excAll }} 이번달운동횟수 :
+    {{ mymonthlog.excMonthCnt }}
+    <ul>
+      <!-- <li v-for="(element, index) in mymonthlog.monthLogs" :key="index">
+        <i class="{{ selectIcons(element.exerciseId) }}" style="font-size: 36px"></i>운동종목 :
+        {{ selectIcons(element.exerciseId) }} 운동횟수 : {{ element.exerciseCount }}
+      </li> -->
+    </ul>
     <br />
     데일리 운동로그
     <br />
@@ -22,7 +29,7 @@
     <br />
   </div>
 </template>
-
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <script>
 import { Pie } from "vue-chartjs/legacy";
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale } from "chart.js";
@@ -105,8 +112,19 @@ export default {
         this.myinfomation.length + 1,
         /*this.chartData.datasets.backgroundColor.length*/ 4 - this.myinfomation.length
       );
-      console.log(this.chartData.datasets[0].data);
-      console.log(this.chartData.labels);
+      // console.log(this.chartData.datasets[0].data);
+      // console.log(this.chartData.labels);
+    },
+    selectIcons: function (id) {
+      if (id == 1) {
+        return "fas fa-table-tennis";
+      } else if (id == 2) {
+        return "fa-solid fa-badminton";
+      } else if (id == 3) {
+        return "fa-solid fa-baseball";
+      } else if (id == 4) {
+        return "fa-solid fa-person-running";
+      }
     },
   },
   async mounted() {
@@ -117,14 +135,14 @@ export default {
     await this.$store.dispatch("getMonthExerciseInfo", tmp.userId); // userid에 해당하는 한달정보 가져옴
     console.log(this.myinfomation);
     console.log(this.mymonthlog);
-    this.setExercisedata(); // 7번값을 가져오는데 추후 수정예정!!!
+    this.setExercisedata(); // 차트에 예제값을 서버에 얻어온 값으로 교체
   },
   computed: {
     myinfomation: function () {
       return this.$store.getters.get_all_exercise;
     },
     mymonthlog: function () {
-      return this.$store.getters.monthExercise;
+      return this.$store.getters.get_month_Exercise;
     },
     mychartData: function () {
       return this.chartData;

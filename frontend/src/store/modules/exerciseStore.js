@@ -6,9 +6,12 @@ const exerciseStore = {
     monthExercise: [],
   },
   getters: {
+    get_month_Exercise(state) {
+      return state.monthExercise;
+    },
     get_all_exercise(state) {
       return state.allExercise;
-    }
+    },
   },
   mutations: {
     SET_ALL_EXERCISE_INFO: (state, payload) => {
@@ -45,7 +48,7 @@ const exerciseStore = {
       
     },
     //한달운동기록조회
-    async getMonthExerciseInfo({ state} ,payload) {
+    async getMonthExerciseInfo({state} ,payload) {
       try {
         let data = localStorage.getItem('vuex');
         let parsedata = JSON.parse(data);
@@ -60,8 +63,9 @@ const exerciseStore = {
         
         if (res.status === 200) {
           console.log('한달운동 정보를 가져왔습니다');
-          console.log(res);
+         
           state.monthExercise = res.data;
+          console.log(state.monthExercise);
         } else {
           console.log('한달운동정보 에러발생');
         }

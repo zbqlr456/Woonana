@@ -1,8 +1,10 @@
 package com.ssafy.woonana.controller.exercise;
 
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLog;
+import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogByMonthResponse;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogResponse;
 import com.ssafy.woonana.domain.service.exercise.ExerciseLogService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +20,9 @@ public class ExerciseLogController {
     private ExerciseLogService exerciseLogService;
 
     @GetMapping("/myexercise/month/{userId}")
-    public ResponseEntity<List<ExerciseLogResponse>> exerciseLogMonth(@PathVariable("userId") int userId){
+    @ApiOperation(value = "월별 운동 기록 조회", notes="userId 사용자의 총 운동 횟수, 월별 운동 기록을 조회한다.")
+    public ResponseEntity<ExerciseLogByMonthResponse> exerciseLogMonth(@PathVariable("userId") Long userId){
+
         return ResponseEntity.ok(exerciseLogService.findExerciseLogByMonth(userId));
     }
 

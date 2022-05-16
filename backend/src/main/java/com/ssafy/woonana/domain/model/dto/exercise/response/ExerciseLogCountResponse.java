@@ -2,10 +2,9 @@ package com.ssafy.woonana.domain.model.dto.exercise.response;
 
 import lombok.Data;
 
-@Data
-public class ExerciseLogCountResponse {
+public interface ExerciseLogCountResponse {
 
-    private int exercise_id;
-    private int count;
+    Long getExerciseId();
+    Long getExerciseCount();
 
 }

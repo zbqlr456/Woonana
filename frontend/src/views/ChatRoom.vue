@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     findRoom: function () {
-      http.get("/chat/room/" + this.roomId).then((response) => {
+      http.get("/chatapi/room/" + this.roomId).then((response) => {
         this.room = response.data;
       });
     },

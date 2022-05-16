@@ -63,14 +63,14 @@
               </template>
               <div v-if="isLogin == true">
                 <!-- <a class="login-btn" @click="Logout()"><i class="fal fa-user"></i> Logout</a> -->
-                <button @click="mypage">마이페이지이동</button>
-                <a class="login-btn" @click="logout" v-show="isLogin == true"
-                  ><i class="fal fa-user"></i> Logout</a
-                >
+                <b-button @click="mypage" variant="outline-primary">
+                  <b-icon icon="person-fill"></b-icon>
+                </b-button>
+                <b-button @click="logout" v-show="isLogin == true"> Logout</b-button>
               </div>
               <div v-else>
-                <a class="login-btn" @click="kakaoLogin" v-show="isLogin == false"
-                  ><i class="fal fa-user"></i>Login</a
+                <b-button @click="kakaoLogin" variant="outline-primary" v-show="isLogin == false"
+                  ><b-icon icon="person-fill"></b-icon>Login</b-button
                 >
               </div>
               <div class="toggle-btn ml-30 canvas_open d-lg-none d-block">
@@ -133,6 +133,7 @@ export default {
       // const code = URLSearch.get("code"); //쿼리스트링의 값을 받아온다.
       // alert(code);
       window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=76d85e088d5bb875d6e4493b8eda78fd&response_type=code&redirect_uri=${process.env.VUE_APP_LOCAL_URI}oauth/callback`;
+      // window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=76d85e088d5bb875d6e4493b8eda78fd&response_type=code&redirect_uri=http://localhost:8080/oauth/callback`;
     },
     logout: function () {
       this.$store.dispatch("doLogout");

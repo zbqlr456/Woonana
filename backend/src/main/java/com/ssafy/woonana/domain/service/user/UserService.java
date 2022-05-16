@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -48,6 +49,9 @@ public class UserService {
 
     @Autowired
     private ExerciseLogRepository exerciseLogRepository;
+
+    @Autowired
+    private ExerciseRepository exerciseRepository;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -287,14 +291,20 @@ public class UserService {
     }
 
     // 인자로 들어온 사용자의 운동 선호도 조회
-    public List<ExerciseLogCountResponse> getLikeExcercise(Long userId){
+    public List<ExerciseLogCountResponse> getLikeExercise(Long userId){
 
-        List<ExerciseLogCountResponse> list = exerciseLogRepository.findExerciseCountByUser(userId);
+        List<Exercise> exercises = exerciseRepository.findAll(); // 전체 운동 조회 -> 아이디 가져옴
+        List<ExerciseLogCountResponse> list = new ArrayList<>(); // 운동 기록 저장 리스트
+
+        for(Exercise e: exercises){ // 운동 하나에 대해서
+            list.addAll(exerciseLogRepository.findExerciseCountByUser(e.getId(), userId)); // 운동 기록 더해줌
+        }
 
         return list;
     }
 
     // 평가하기
+    @Transactional
     public void evaluate(Long loginId, Long userId, int rating){
 
         User loginUser=userRepository.findById(loginId).get(); // 평가한 사람
@@ -309,7 +319,10 @@ public class UserService {
         evaluationRepository.save(eval);
 
         // 평가받은 유저의 rating score 업데이트
-        user.setUserRatingScore(user.getUserRatingScore()+rating); // 평가 컨셉이 안 잡혀서 일단은 점수를 기존 유저 점수에 더해주도록 함
+        int avg = evaluationRepository.calAvgScore(userId); // 평균 구하기
+//        System.out.println("avg: "+avg); // 디버깅
+        user.setUserRatingScore(avg); // 평가 컨셉이 안 잡혀서 일단은 평균값으로 업데이트 하도록 함
+//        System.out.println("updated: "+user.getUserRatingScore()); // 디버깅
     }
 
     // 특정 유저가 평가한 모든 사용자를 보여준다
@@ -330,20 +343,22 @@ public class UserService {
     // userId에 해당하는 유저가 참여한 게시글 정보 리턴
     public List<UserParticipateResponse> getParticipationList(Long userId){
 
-        User user=userRepository.findById(userId).get();
+        User user = userRepository.findById(userId).get();
 
         // 참여(participation) 조회
-        List<Participation> participations = participationRepository.findParticipationsByUser(user);
+        List<Participation> participations = participationRepository.findParticipationsByUser(userId);
         List<UserParticipateResponse> result = new ArrayList<>();
 
         for(Participation par: participations){
             Board participatedBoard = boardRepository.findById(par.getBoard().getId()).get();
+            System.out.println("participatedBoard = " + participatedBoard.getExercise());
             result.add(new UserParticipateResponse(participatedBoard));
         }
 
         return result;
     }
 
+    // 채팅용: 유저 정보 리턴
     public ChatingUserInfoResponse getUserInfo(Long userId){
 
         User user=userRepository.findById(userId).get();

@@ -10,6 +10,7 @@ const userStore = {
       userRatingScore: '',
       userProfileUrl: '',
     },
+    posts: [],
   },
   getters: {
     GET_USER_INFO: (state) => {

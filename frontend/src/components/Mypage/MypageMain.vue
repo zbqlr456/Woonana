@@ -1,30 +1,15 @@
 <template>
   <div>
-    <!-- <div id="mypagenav">
-      <b-navbar toggleable="true" type="dark" variant="info">
-        <b-navbar-brand>마이페이지</b-navbar-brand>
-
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-        <b-collapse is-nav id="nav_collapse">
-          <b-navbar-nav>
-            <b-nav-item href="#">마이페이지1</b-nav-item>
-            <b-nav-item href="#">마이페이지2</b-nav-item>
-            <b-nav-item href="#">마이페이지3</b-nav-item>
-            <b-nav-item href="#">마이페이지4</b-nav-item>
-            <b-nav-item href="#">마이페이지5</b-nav-item>
-          </b-navbar-nav>
-        </b-collapse>
-      </b-navbar>
-    </div> -->
-
     <div class="mypage_content">
-      <div class="row">
+      <div class="row profile">
         <div class="col-md-1">
           <b-img v-bind:src="myinfo.userProfileUrl" rounded="circle" alt="Circle image"></b-img>
         </div>
         <div class="col-md-1">
           <p>{{ myinfo.userNickname }}</p>
+        </div>
+        <div class="col-md-2">
+          <star-rating :show-rating="false" @rating-selected="setRating"></star-rating>
         </div>
       </div>
 
@@ -39,11 +24,16 @@
       <b-button size="lg">바로가기</b-button>
       <b-button disabled size="lg">바로가기</b-button>
     </div>
+
+    <div style="margin-top: 10px; font-weight: bold">{{ rating }}</div>
+    <mypagenav />
   </div>
 </template>
-
 <script>
-import axios from "axios";
+import axios from "../../util/index";
+import StarRating from "vue-star-rating";
+import Mypagenav from "./Mypagenav.vue";
+
 export default {
   data() {
     return {
@@ -58,6 +48,7 @@ export default {
     getUserInfo: function () {
       this.$store.dispatch("getUserInfo");
     },
+    components: { StarRating, Mypagenav },
     //axios로 해야 withcredentials가 셋팅되서 잘됨,,, 현재 이걸루 하는중
     getUserInfoaxios: function () {
       let token = this.$store.getters.token;
@@ -66,7 +57,7 @@ export default {
       axios.defaults.headers.common["withCredentials"] = false;
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 
-      axios.get("http://localhost:8081/api/accounts/mypage").then((response) => {
+      axios.get("/api/accounts/mypage").then((response) => {
         console.log(response);
         this.myinfo = response.data;
         console.log(this.myinfo);
@@ -86,5 +77,8 @@ export default {
 <style>
 .mypage_content {
   margin: 1%;
+}
+.profile {
+  height: 100%;
 }
 </style>

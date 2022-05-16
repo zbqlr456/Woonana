@@ -11,12 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserEvaluateResponse {
 
-    private Long userId;
-    private int rating;
+    private Long userId; // 평가 받은 사람
+    private int rating; // 평가 점수
 
-    @Builder
     public UserEvaluateResponse(Evaluation eval){
-        this.userId=eval.getEvaluationTarget().getUserId();
+        this.userId=eval.getEvaluationTarget().getUserId(); // 평가 받은 사람
         this.rating=eval.getEvaluationRatingScore();
     }
 

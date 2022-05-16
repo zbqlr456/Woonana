@@ -1,11 +1,7 @@
 package com.ssafy.woonana.controller.board;
 
 import com.ssafy.woonana.domain.model.dto.board.request.BoardRequest;
-import com.ssafy.woonana.domain.model.dto.board.response.BoardByExerciseListResponse;
-import com.ssafy.woonana.domain.model.dto.board.response.BoardDetailResponse;
-import com.ssafy.woonana.domain.model.dto.board.response.BoardListResponse;
-import com.ssafy.woonana.domain.model.dto.board.response.ParticipatedMemberResponse;
-import com.ssafy.woonana.domain.service.board.AwsS3Service;
+import com.ssafy.woonana.domain.model.dto.board.response.*;
 import com.ssafy.woonana.domain.service.board.BoardService;
 import com.ssafy.woonana.error.exception.ErrorResponse;
 import io.swagger.annotations.Api;
@@ -17,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @Api(value = "게시글 API", tags = {"Board"})
@@ -41,8 +35,8 @@ public class BoardController {
     })
     public ResponseEntity registerBoard(@ModelAttribute BoardRequest boardRequest, @AuthenticationPrincipal Long userId) {
         try {
+            System.out.println("userId = " + userId);
             boardService.register(boardRequest, userId);
-
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -99,6 +93,18 @@ public class BoardController {
         return ResponseEntity.ok(boardService.getBoardsByExercise(exerciseId));
     }
 
+    @GetMapping("/mypage")
+    @ApiOperation(value = "내가 쓴 글 리스트 조회", notes = "마이페이지에서 내가 쓴 모든 글을 보여준다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "글 목록 조회 성공"),
+            @ApiResponse(code = 401, message = "토큰 만료 || 토큰 없음 || 토큰 오류 => 권한 인증 오류", response = ErrorResponse.class),
+            @ApiResponse(code = 404, message = "글 정보가 없음", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
+    })
+    public ResponseEntity<List<MyBoardListResponse>> getBoardsByUser(@AuthenticationPrincipal Long userId) {
+        return ResponseEntity.ok(boardService.getBoardsByUser(userId));
+    }
+
     @GetMapping("/{boardId}/members")
     @ApiOperation(value = "내가 참여 승인된 글의 참여 멤버 목록", notes = "로그인된 사용자가 참여 승인된 글일 때 멤버 목록을 보여준다.")
     @ApiResponses({
@@ -120,8 +126,8 @@ public class BoardController {
             @ApiResponse(code = 404, message = "글 정보가 없음", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
     })
-    public ResponseEntity deleteBoard(@PathVariable("{boardId}") Long boardId) {
-
+    public ResponseEntity deleteBoard(@PathVariable("boardId") Long boardId) {
+        // TODO: exercise log랑 participations 우선 삭제 필요 (제약조건)
         boardService.deleteBoard(boardId);
         return new ResponseEntity(HttpStatus.OK);
     }

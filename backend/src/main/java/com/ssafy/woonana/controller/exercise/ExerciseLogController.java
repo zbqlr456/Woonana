@@ -2,7 +2,6 @@ package com.ssafy.woonana.controller.exercise;
 
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLog;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogByMonthResponse;
-import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogResponse;
 import com.ssafy.woonana.domain.service.exercise.ExerciseLogService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

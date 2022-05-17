@@ -66,6 +66,7 @@
                 <div class="col-md-6 text-right">
                   <br>
                     <button type="button" class="btn btn-light" style="background-color: skyblue" @click="join()">등록하기</button>
+                    <button type="button" class="btn btn-light" style="background-color: #FF0000" @click="goback()">뒤로가기</button>
                 </div>
             </form>
         </div>
@@ -165,14 +166,17 @@ export default {
       http.defaults.headers.common['Content-Type'] = "multipart/form-data"
       http.post(`api/main`, formData).then(({response}) => {
         let msg= "게시글 등록을 완료하였습니다.";
-        console.log(response);
+        console.log("등록완료", response);
         alert(msg);
-        this.$router.push("/news")
+        this.$router.push("/allblogs")
       })
       .catch((err)=>{
         alert(err);
       })
 
+    },
+    goback(){
+      this.$router.push("/allblogs");
     }
 
   },

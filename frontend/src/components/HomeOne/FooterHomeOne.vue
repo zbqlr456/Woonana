@@ -32,17 +32,20 @@
       </div>
       <div class="row">
         <div class="col-lg-12">
-          <div class="footer-copyright d-flex align-items-center">
-            <div class="apps-download-btn align-items-center bottomBar">
-              <ul>
+          <div class="footer-copyright">
+            <div class="apps-download-btn">
+              <ul class="bottomBar">
                 <li>
-                  <a><i class="fas fa-home"></i></a>
+                  <a class="button" href="/"><i class="fas fa-home"></i></a>
                 </li>
                 <li>
-                  <a class="item-2" href="#"
-                    ><i class="fa-brands fa-rocketchat"></i> Download for Android</a
-                  >
+                  <a><i class="fas fa-location"></i></a>
                 </li>
+                <li>
+                  <a href="/newpost"><i class="fas fa-plus"></i></a>
+                </li>
+                <li><a href="/chat/chatroomlist"><i class="fas fa-comment"></i></a></li>
+                <li><a href="/mypage"><i class="fas fa-user"></i></a></li>
               </ul>
             </div>
           </div>
@@ -62,12 +65,12 @@ export default {};
 .bottomBar{
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
   background-color:#eef1f6;
-  width: 100%;
+  width: 95%;
   height: 70px;
-  display: flex;
   align-items: center;
+}
+.button{
+  margin-top: 11px;
 }
 </style>

@@ -23,7 +23,7 @@
             </p>
             </div>
       </div>
-      <button type="button" class="btn btn-light Jua" style="background-color: #FF0000" @click="gohome()">홈으로</button>
+      <button type="button" class="btn btn-light Jua" style="background-color: #FF0000" @click="gohome()">뒤로가기</button>
   </div>
 </template>
 
@@ -38,7 +38,7 @@ export default {
         }
     },
     mounted(){
-        this.boardId = this.$route.params.data;
+        this.boardId = this.$route.query.data;
         http.get(`api/main/${this.boardId}/members`).then((response) =>{
             this.users = response.data;
             console.log(this.users);
@@ -49,7 +49,8 @@ export default {
     },
     methods:{
       gohome(){
-          this.$router.push("/allblogs");
+        //   this.$router.push("/allblogs");
+        this.$router.go(-1);
       }
     },
 }

@@ -23,7 +23,6 @@ import java.util.List;
 @Api(tags = "채팅 메세지")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/chatapi")
 public class ChatController {
 
     private final SimpMessageSendingOperations messagingTemplate;
@@ -32,11 +31,11 @@ public class ChatController {
     @Value("${userinfo.url}")
     private String userInfoUrl;
 
-    @MessageMapping("/message") // 메세지 보낼때 컨트롤러가 받아줌.
+    @MessageMapping("/chatapi/message") // 메세지 보낼때 컨트롤러가 받아줌.
     public void message(ChatMessageDto message) {
 //        System.out.println(message);
         chatMessageRepository.save(message.toEntity());
-        messagingTemplate.convertAndSend("/sub/chatapi/room/" + message.getRoomId(), message);
+        messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 
 //    @GetMapping("/chatapi/messages/{roomId}")
@@ -46,19 +45,19 @@ public class ChatController {
 //        return chatMessageRepository.findByRoomIdOrderByCreatedAtDesc(roomId);
 //    }
 
-    @GetMapping("/messages/{roomId}")
+    @GetMapping("/chatapi/messages/{roomId}")
     @ResponseBody
     @ApiOperation(value = "채팅방 채팅내역 전체 조회")
     public List<ChatMessage> roomInfo(@PathVariable String roomId, @RequestParam(value="pageNo")int pageNo) {
-//        System.out.println("roomId =" + roomId + " - page =" + pageNo);
+        System.out.println("roomId =" + roomId + " - page =" + pageNo);
         PageRequest pageRequest = PageRequest.of(pageNo, 25);
         Page<ChatMessage> page = chatMessageRepository.findByRoomIdOrderByCreatedAtDesc(roomId, pageRequest);
         List<ChatMessage> rep = page.getContent();
-//        System.out.println(rep);
+        System.out.println(rep);
         return rep;
     }
 
-    @GetMapping("/info")
+    @GetMapping("/chatapi/info")
     public ResponseEntity<UserInfoDto> getUserInfo(@RequestParam String token){
 
         HttpHeaders headers=new HttpHeaders();

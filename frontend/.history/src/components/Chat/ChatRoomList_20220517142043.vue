@@ -81,7 +81,9 @@ export default {
     },
     enterRoom: function (roomId) {
       var sender = this.myinfomation.userNickname;
+      var profile = this.myinfomation.userProfileUrl;
       localStorage.setItem("wschat.sender", sender);
+      localStorage.setItem("wschat.profile", profile);
       localStorage.setItem("wschat.roomId", roomId);
       this.$router.push("/chat/chatroom");
       this.$router.go();

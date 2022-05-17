@@ -33,7 +33,7 @@ public class ChatController {
 
     @MessageMapping("/chatapi/message") // 메세지 보낼때 컨트롤러가 받아줌.
     public void message(ChatMessageDto message) {
-        System.out.println(message);
+//        System.out.println(message);
         chatMessageRepository.save(message.toEntity());
         messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }

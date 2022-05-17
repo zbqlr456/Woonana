@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import HomeOne from "../views/HomeOne.vue";
 import LoginCallback from "../components/Login/MemberLoginCallback.vue";
 import ChatRoomList from "../components/Chat/ChatRoomList.vue";
 import ChatRoom from "../views/ChatRoom.vue";
@@ -22,7 +23,7 @@ const routes = [
   {
     path: "/",
     name: "AllBlogs",
-    component: AllBlogs,
+    component: HomeOne,
   },
   {
     path: "/oauth/callback",
@@ -102,6 +103,11 @@ const routes = [
     path: "/showblog",
     name: "ShowBlog",
     component: ShowBlog,
+  },
+  {
+    path: "/allblogs",
+    name: "AllBlogs",
+    component: AllBlogs,
   },
   // {
   //   path: '/about',

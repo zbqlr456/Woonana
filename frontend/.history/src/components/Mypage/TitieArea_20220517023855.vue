@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!--====== APPIE PAGE TITLE PART START ======-->
+
     <div class="appie-page-title-area">
       <div class="container">
         <div class="row">
@@ -11,6 +13,8 @@
         </div>
       </div>
     </div>
+
+    <!--====== APPIE PAGE TITLE PART ENDS ======-->
   </div>
 </template>
 

@@ -1,5 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import HomeOne from "../views/HomeOne.vue";
+import News from "../views/News.vue";
+import SingleNews from "../views/SingleNews.vue";
+
 import LoginCallback from "../components/Login/MemberLoginCallback.vue";
 import ChatRoomList from "../components/Chat/ChatRoomList.vue";
 import ChatRoom from "../views/ChatRoom.vue";
@@ -14,15 +18,24 @@ import MyJoinLog from "../components/Mypage/MyJoinLog.vue";
 import MyPosts from "../components/Mypage/MyPosts.vue";
 import MyWorkoutLog from "../components/Mypage/MyWorkoutLog.vue";
 import NewPost from "../components/Blogs/NewPost.vue";
-import AllBlogs from "../components/Blogs/index.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "AllBlogs",
-    component: AllBlogs,
+    name: "HomeOne",
+    component: HomeOne,
+  },
+  {
+    path: "/news",
+    name: "News",
+    component: News,
+  },
+  {
+    path: "/single-news/",
+    name: "SingleNews",
+    component: SingleNews,
   },
   {
     path: "/oauth/callback",

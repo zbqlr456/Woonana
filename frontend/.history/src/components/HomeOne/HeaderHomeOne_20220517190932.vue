@@ -7,7 +7,10 @@
           <div class="col-lg-2 col-md-4 col-sm-5 col-6 order-1 order-sm-1">
             <div class="appie-logo-box">
               <a href="/">
-                <img src="@/assets/images/logo/Woonana_small-removebg.png" alt="Woonana" />
+                <img
+                  src="C:\SSAFY\자율프로젝트\S06P31B104\frontend\src\assets\images\logo\Woonana-removebg.png"
+                  alt="Woonana"
+                />
               </a>
             </div>
           </div>

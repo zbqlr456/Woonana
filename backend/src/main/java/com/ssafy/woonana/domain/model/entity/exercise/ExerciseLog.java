@@ -5,11 +5,15 @@ import com.ssafy.woonana.domain.model.entity.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "exercise_log")
 public class ExerciseLog {
@@ -18,9 +22,6 @@ public class ExerciseLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exercise_log_id")
     private Long exercise_log_id;
-
-    @Column(name = "exercise_count")
-    private int exercise_count;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
@@ -33,4 +34,13 @@ public class ExerciseLog {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
+
+    public ExerciseLog(Board board, Exercise exercise, User user) {
+        this.board = board;
+        board.addExerciseLogs(this);
+        this.exercise = exercise;
+        exercise.addExerciseLogs(this);
+        this.user = user;
+        user.addExerciseLogs(this);
+    }
 }

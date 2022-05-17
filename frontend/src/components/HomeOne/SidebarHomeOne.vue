@@ -21,7 +21,7 @@
                 ></a>
               </div>
               <div class="offcanvas-brand text-center mb-40">
-                <img src="@/assets/images/logo.png" alt="appie" />
+                <img src="@/assets/images/logo/Woonana_small.png" alt="appie" />
               </div>
               <div id="menu" :style="heightPro" class="text-left">
                 <ul class="offcanvas_main_menu">
@@ -65,22 +65,6 @@
                   </li>
                 </ul>
               </div>
-              <div class="offcanvas-social">
-                <ul class="text-center">
-                  <li>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fab fa-dribbble"></i></a>
-                  </li>
-                </ul>
-              </div>
               <div class="footer-widget-info">
                 <ul>
                   <li>
@@ -95,8 +79,7 @@
                   </li>
                   <li>
                     <a href="#"
-                      ><i class="fal fa-map-marker-alt"></i> 442 Belle Terre St
-                      Floor 7, San Francisco, AV 4206</a
+                      ><i class="fal fa-map-marker-alt"></i> 대전광역시 유성 삼성화재연수원</a
                     >
                   </li>
                 </ul>

@@ -26,8 +26,16 @@ public class Exercise {
     @OneToMany(mappedBy = "exercise")
     private List<Board> boards = new ArrayList<>();
 
+    @OneToMany(mappedBy = "exercise")
+    private List<ExerciseLog> exerciseLogs = new ArrayList<>();
+
     public Exercise(String name, String imageUrl) {
         this.name = name;
         this.imageUrl = imageUrl;
+    }
+
+    public void addExerciseLogs(ExerciseLog exerciseLog){
+        exerciseLogs.add(exerciseLog);
+        exerciseLog.setExercise(this);
     }
 }

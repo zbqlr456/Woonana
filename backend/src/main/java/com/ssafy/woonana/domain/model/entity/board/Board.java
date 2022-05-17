@@ -67,7 +67,7 @@ public class Board extends BaseTimeEntity {
     @OneToMany(mappedBy = "board")
     private List<Participation> participations = new ArrayList<>();
 
-    @OneToMany(mappedBy="board")
+    @OneToMany(mappedBy="exercise")
     private List<ExerciseLog> exerciseLogs = new ArrayList<>();
 
     @OneToMany(mappedBy="board")
@@ -118,6 +118,11 @@ public class Board extends BaseTimeEntity {
         this.allowedNumber -= 1;
         if (this.getStatus().equals("CLOSE"))
             this.changeStatus("OPEN");
+    }
+
+    public void addExerciseLogs(ExerciseLog exerciseLog){
+        exerciseLogs.add(exerciseLog);
+        exerciseLog.setBoard(this);
     }
 
 }

@@ -29,7 +29,7 @@
 
     <!--====== APPIE PAGE TITLE PART START ======-->
     <!-- use TitleArea component with props -->
-    <div class="appie-page-title-area">
+    <!-- <div class="appie-page-title-area">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!--====== APPIE PAGE TITLE PART ENDS ======-->
 
@@ -58,9 +58,6 @@
         <div class="row">
           <div class="col-lg-8 col-md-7">
             <single-blog />
-          </div>
-          <div class="col-lg-4 col-md-5">
-            <blog-sidebar />
           </div>
         </div>
       </div>
@@ -82,7 +79,6 @@
 
 <script>
 import SingleBlog from "../Blogs/SingleBlog.vue";
-import BlogSidebar from "../BlogSidebar.vue";
 import FooterHomeOne from "../HomeOne/FooterHomeOne.vue";
 import SidebarHomeOne from "../HomeOne/SidebarHomeOne.vue";
 import HeaderNews from "../News/HeaderNews.vue";
@@ -92,7 +88,6 @@ export default {
     HeaderNews,
     FooterHomeOne,
     SingleBlog,
-    BlogSidebar,
   },
   data() {
     return {
@@ -105,64 +100,6 @@ export default {
               name: "Home 1",
               path: "/",
             },
-            {
-              name: "Home 2",
-              path: "/home-two",
-            },
-            {
-              name: "Home 3",
-              path: "/home-three",
-            },
-            {
-              name: "Home 4",
-              path: "/home-four",
-            },
-            {
-              name: "Home 5",
-              path: "/home-five",
-            },
-            {
-              name: "Home 6",
-              path: "/home-six",
-            },
-            {
-              name: "Home 7",
-              path: "/home-seven",
-            },
-            {
-              name: "Home 8",
-              path: "/home-eight",
-            },
-            {
-              name: "Home Dark",
-              path: "/home-dark",
-            },
-            {
-              name: "Home Rtl",
-              path: "/home-rtl",
-            },
-          ],
-        },
-        {
-          name: "service",
-          path: "/service-details",
-        },
-        {
-          name: "pages",
-          childrens: [
-            {
-              name: "About us",
-              path: "/about-us",
-            },
-            {
-              name: "About us 2",
-              path: "/about-two",
-            },
-
-            {
-              name: "Error",
-              path: "/error",
-            },
           ],
         },
         {
@@ -172,15 +109,7 @@ export default {
               name: "News",
               path: "/news",
             },
-            {
-              name: "Single news",
-              path: "/single-news",
-            },
           ],
-        },
-        {
-          name: "contact",
-          path: "/contact",
         },
       ],
     };

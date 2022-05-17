@@ -99,4 +99,12 @@ public class UserController {
 
         return ResponseEntity.ok().body(result);
     }
+
+    @GetMapping("/evalue/person")
+    @ApiOperation(value="평가할 사람", notes="아직 평가하지 않은 사람들의 목록을 보여준다.")
+    public ResponseEntity<List<NotEvaluatedPerson>> notEvaluatedPeople(@AuthenticationPrincipal Long userId) {
+
+        List<NotEvaluatedPerson> result=userService.notEvaluatedPeople(userId);
+        return ResponseEntity.ok().body(result);
+    }
 }

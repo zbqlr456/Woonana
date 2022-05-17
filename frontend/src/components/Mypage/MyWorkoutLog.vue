@@ -1,6 +1,5 @@
 <template>
   <div>
-    MyWorkoutLog 운동선호도 그래프 위치
     <Pie
       :chart-options="chartOptions"
       :chart-data="mychartData"
@@ -12,20 +11,99 @@
       :width="width"
       :height="height"
     />
-    <br />
-    횟수 출력 위치 총운동횟수 : {{ mymonthlog.excAll }} 이번달운동횟수 :
-    {{ mymonthlog.excMonthCnt }}
-    <ul>
-      <!-- <li v-for="(element, index) in mymonthlog.monthLogs" :key="index">
-        <i class="{{ selectIcons(element.exerciseId) }}" style="font-size: 36px"></i>운동종목 :
-        {{ selectIcons(element.exerciseId) }} 운동횟수 : {{ element.exerciseCount }}
-      </li> -->
-    </ul>
-    <br />
-    데일리 운동로그
-    <br />
-    데일리 운동로그 플러그인 위치
-    <vuejs-heatmap></vuejs-heatmap>
+    <table id="customers">
+      <tr>
+        <th>총 운동 횟수 :</th>
+        <td>
+          <b-img
+            rounded="circle"
+            src="https://static.thenounproject.com/png/118627-200.png"
+            alt="Image 3"
+            fluid
+            height="75"
+            width="75"
+          ></b-img>
+          {{ mymonthlog.excAll }}
+        </td>
+      </tr>
+      <tr>
+        <th>이번달 운동횟수 :</th>
+
+        <td>
+          <b-img
+            rounded="circle"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT38P7qYHj1016Ca6O06FwKHontRCtgHsAhIg&usqp=CAU"
+            alt="Image 3"
+            fluid
+            height="75"
+            width="75"
+          ></b-img
+          >{{ mymonthlog.excMonthCnt }}
+        </td>
+      </tr>
+      <tr>
+        <th>이번달 탁구 :</th>
+
+        <td>
+          <b-img
+            rounded="circle"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcunkaZrK-ae4UsHmK4QaCNfZ1Up3To2sOsQ&usqp=CAU"
+            alt="Image 3"
+            fluid
+            height="75"
+            width="75"
+          ></b-img>
+
+          {{ mymonthlog.monthLogs.length >= 1 ? mymonthlog.monthLogs[0].exerciseCount : 0 }}
+        </td>
+      </tr>
+      <tr>
+        <th>이번달 배드민턴 :</th>
+
+        <td>
+          <b-img
+            rounded="circle"
+            src="https://previews.123rf.com/images/redlinevector/redlinevector1703/redlinevector170311550/74527882-%EB%B0%B0%EB%93%9C%EB%AF%BC%ED%84%B4-%EC%95%84%EC%9D%B4%EC%BD%98.jpg"
+            alt="Image 3"
+            fluid
+            height="75"
+            width="75"
+          ></b-img
+          >{{ mymonthlog.monthLogs.length >= 3 ? mymonthlog.monthLogs[2].exerciseCount : 0 }}
+        </td>
+      </tr>
+      <tr>
+        <th>이번달 캐치볼 :</th>
+
+        <td>
+          <b-img
+            rounded="circle"
+            src="https://static.thenounproject.com/png/1188406-200.png"
+            alt="Image 3"
+            fluid
+            height="75"
+            width="75"
+          ></b-img
+          >{{ mymonthlog.monthLogs.length >= 2 ? mymonthlog.monthLogs[1].exerciseCount : 0 }}
+        </td>
+      </tr>
+      <tr>
+        <th>이번달 산책 :</th>
+
+        <td>
+          <b-img
+            rounded="circle"
+            src="https://cdn-icons-png.flaticon.com/512/10/10869.png"
+            alt="Image 3"
+            fluid
+            height="75"
+            width="75"
+          ></b-img
+          >{{ mymonthlog.monthLogs.length >= 4 ? mymonthlog.monthLogs[4].exerciseCount : 0 }}
+        </td>
+      </tr>
+    </table>
+    <vuejs-heatmap :entries="this.myheatmapData" :color-range="this.colorRangeData"></vuejs-heatmap>
     <br />
   </div>
 </template>
@@ -95,6 +173,8 @@ export default {
         maintainAspectRatio: false,
       },
       exerciseData: [],
+      heatmapData: [],
+      colorRangeData: ["#c9ecec", "#09b3af"],
     };
   },
   methods: {
@@ -115,27 +195,39 @@ export default {
       // console.log(this.chartData.datasets[0].data);
       // console.log(this.chartData.labels);
     },
-    selectIcons: function (id) {
-      if (id == 1) {
-        return "fas fa-table-tennis";
-      } else if (id == 2) {
-        return "fa-solid fa-badminton";
-      } else if (id == 3) {
-        return "fa-solid fa-baseball";
-      } else if (id == 4) {
-        return "fa-solid fa-person-running";
+    setWorkoutData: function () {
+      // 한달 운동기록 데이터 수정
+      this.workoutlogs[0].count = mymonthlog.excAll;
+      this.workoutlogs[1].count = mymonthlog.excMonthCnt;
+      for (let i = 0; i < mymonthlog.monthLogs.length; i++) {
+        let index = mymonthlog.monthLogs[i].exerciseId + 1;
+        this.workoutlogs[index].count = mymonthlog.monthLogs[i].exerciseCount;
+        console.log(this.workoutlogs[index]);
       }
+    },
+    getHeatmapData: async function () {
+      http.get("/api/accounts/myexercise/likes/");
     },
   },
   async mounted() {
+    //유저 아이디 호출
     let tmp = await this.$store.dispatch("getUserId");
     console.log(tmp);
+
     await this.$store.dispatch("getUserInfo");
     await this.$store.dispatch("getAllExerciseInfo", tmp.userId); // userid에 해당하는 모든 운동로그 가져옴
-    await this.$store.dispatch("getMonthExerciseInfo", tmp.userId); // userid에 해당하는 한달정보 가져옴
+    await this.$store.dispatch("getMonthExerciseInfo", tmp.userId); // userid에
+    await this.$store.dispatch("getHeatmapInfo", tmp.userId); // userid에 해당하는 운동기록 가져옴
+
     console.log(this.myinfomation);
     console.log(this.mymonthlog);
-    this.setExercisedata(); // 차트에 예제값을 서버에 얻어온 값으로 교체
+    console.log(this.myheatmapData);
+    this.setExercisedata();
+    this.setWorkoutData(); //한달 운동기록을 서버에 얻어온 값으로 대체
+    console.log(this.myheatmapData);
+  },
+  created() {
+    console.log(this.myheatmapData);
   },
   computed: {
     myinfomation: function () {
@@ -147,8 +239,67 @@ export default {
     mychartData: function () {
       return this.chartData;
     },
+    myheatmapData: function () {
+      let result = this.$store.getters.GET_HEATMAP_INFO;
+      console.log(result);
+      for (let i = 0; i < result.length; i++) {
+        Object.defineProperty(
+          result[i],
+          "counting",
+          Object.getOwnPropertyDescriptor(result[i], "exerciseId")
+        );
+        Object.defineProperty(
+          result[i],
+          "created_at",
+          Object.getOwnPropertyDescriptor(result[i], "endDate")
+        );
+
+        delete result[i].exerciseId;
+        delete result[i].endDate;
+        console.log(result);
+      }
+      return result;
+    },
   },
 };
 </script>
 
-<style></style>
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+}
+
+#customers td,
+#customers th {
+  border: 1px solid #ddd;
+  padding-left: 20px;
+  margin: 1%;
+}
+#customers td:first-child,
+#customers th:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+#customers td:last-child,
+#customers th:last-child {
+  border-radius: 0 10px 10px 0;
+}
+#customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+  background-color: #ddd;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #0dcaf0;
+  color: white;
+  width: 10%;
+}
+</style>

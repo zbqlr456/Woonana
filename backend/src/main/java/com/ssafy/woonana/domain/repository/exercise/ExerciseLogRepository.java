@@ -27,7 +27,7 @@ public interface ExerciseLogRepository extends JpaRepository<com.ssafy.woonana.d
             "join Exercise e on el.exercise.id = e.id where el.user.userId = :userId group by el.exercise.id ")
     List<ExerciseLog> findExerciseLogByUserId(@Param("userId")Long userId);
 
-    @Query("select el.exercise.id as exerciseId, function('date_format', b.meetEndDate, '%y-%m-%d') as endDate from ExerciseLog el " +
+    @Query("select el.exercise.id as exerciseId, function('date_format', b.meetEndDate, '%Y-%m-%d') as endDate from ExerciseLog el " +
             "join Board b on el.user.userId = b.user.userId where el.user.userId = :userId ")
     List<ExerciseLogDate> findExerciseLogByLikes(@Param("userId")Long userId);
 

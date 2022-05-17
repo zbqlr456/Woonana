@@ -5,6 +5,7 @@ import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLog;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogDate;
 import com.ssafy.woonana.domain.model.dto.exercise.response.ExerciseLogResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -36,4 +37,7 @@ public interface ExerciseLogRepository extends JpaRepository<com.ssafy.woonana.d
             "group by el.exercise_id", nativeQuery = true)
     List<ExerciseLogCountResponse> findExerciseCountByUser(@Param("exerciseId") Long exerciseId, @Param("userId") Long userId);
 
+    @Modifying(clearAutomatically = true)
+    @Query("delete from ExerciseLog e where e.board.id = :boardId")
+    void deleteLogByBoardId(@Param("boardId") Long boardId);
 }

@@ -1,6 +1,7 @@
 package com.ssafy.woonana.domain.service.board;
 
 import com.ssafy.woonana.domain.model.dto.board.request.BoardRequest;
+import com.ssafy.woonana.domain.model.dto.board.request.BoardUpdateRequest;
 import com.ssafy.woonana.domain.model.dto.board.response.*;
 import com.ssafy.woonana.domain.model.dto.user.response.UserParticipatedCheck;
 import com.ssafy.woonana.domain.model.entity.board.Board;
@@ -9,27 +10,37 @@ import com.ssafy.woonana.domain.model.entity.participation.Participation;
 import com.ssafy.woonana.domain.model.entity.user.User;
 import com.ssafy.woonana.domain.repository.board.BoardRepository;
 import com.ssafy.woonana.domain.repository.board.ExerciseRepository;
+import com.ssafy.woonana.domain.repository.evaluation.EvaluationRepository;
+import com.ssafy.woonana.domain.repository.exercise.ExerciseLogRepository;
 import com.ssafy.woonana.domain.repository.participation.ParticipationRepository;
 import com.ssafy.woonana.domain.repository.user.UserRepository;
 import com.ssafy.woonana.error.exception.custom.ParticipationDuplicateException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class BoardService {
-
+    @PersistenceContext EntityManager em;
     private final BoardRepository boardRepository;
     private final ExerciseRepository exerciseRepository;
+    private final ExerciseLogRepository exerciseLogRepository;
     private final UserRepository userRepository;
     private final ParticipationRepository participationRepository;
+    private final EvaluationRepository evaluationRepository;
     private final AwsS3Service awsS3Service;
 
     @Transactional
@@ -87,14 +98,18 @@ public class BoardService {
 
         return list;
     }
-    public List<BoardByExerciseListResponse> getBoardsByExercise(Long exerciseId) {
+    public List<BoardListResponse> getBoardsByExercise(Long exerciseId) {
         List<Board> findBoards = boardRepository.findBoardsByExerciseId(exerciseId);
-        List<BoardByExerciseListResponse> list = new ArrayList<>();
+        List<BoardListResponse> list = new ArrayList<>();
         for (Board b : findBoards) {
-            list.add(new BoardByExerciseListResponse(b.getExercise().getId(), b.getId(), b.getPlace()));
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
         }
 
         return list;
+    }
+
+    public Long getBoardsCountByExercise(Long exerciseId) {
+        return boardRepository.getCountByExercise(exerciseId);
     }
 
     public BoardDetailResponse getOneBoard(Long boardId) {
@@ -103,10 +118,20 @@ public class BoardService {
         return new BoardDetailResponse(findBoard, findBoardUser);
     }
     @Transactional
-    public void deleteBoard(Long boardId) {
-        // TODO: 참여하기로한 멤버가 있는 경우
-        // TODO: 완료하지 않은 운동인 경우 운동 기록, 참여 등에도 삭제가 반영 되는지 확인 필요
-        boardRepository.deleteById(boardId);
+    public void deleteBoard(Long boardId, Long userId) {
+        Board findBoard = boardRepository.findById(boardId).get();
+        if (findBoard.getUser().getUserId() == userId) {
+            // TODO: 참여하기로한 멤버가 있는 경우
+            // TODO: 완료하지 않은 운동인 경우 운동 기록, 참여 등에도 삭제가 반영 되는지 확인 필요
+            exerciseLogRepository.deleteLogByBoardId(boardId);
+
+            participationRepository.deleteParticipationByBoardId(boardId);
+
+            evaluationRepository.deleteEvaluationByBoardId(boardId);
+
+            boardRepository.deleteById(boardId);
+        }
+
     }
 
     private void isTimeOverlapped(Long userId, LocalDateTime meetStartDate, LocalDateTime meetEndDate) {
@@ -126,4 +151,14 @@ public class BoardService {
         return list;
     }
 
+    @Transactional
+    public void update(BoardUpdateRequest boardUpdateRequest, Long userId, Long boardId) throws Exception {
+        User findUser = userRepository.findById(userId).get();
+        User boardUser = boardRepository.findById(boardId).get().getUser();
+        if (findUser != boardUser) {
+            throw new RuntimeException("글 작성자가 아님");
+        }
+        boardRepository.updateOneBoard(boardUpdateRequest.getTitle(), boardUpdateRequest.getContent(), boardUpdateRequest.getMaxNumber(), boardId);
+
+    }
 }

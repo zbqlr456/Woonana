@@ -58,7 +58,7 @@ export default {
     boardDetail: function (data) {
       this.$router.push({
         name: "ShowBlog",
-        params: { data: data },
+        query: { data: data },
       });
     },
   },

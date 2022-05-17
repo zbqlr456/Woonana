@@ -1,11 +1,21 @@
 <template>
   <div>
-    <div v-if="message.sender === this.sender" class="my-message">
+    <div
+      v-if="message.sender === this.sender"
+      class="my-message"
+    >
       <p class="my-message-paragraph">{{ message.message }}</p>
     </div>
-    <div v-else class="others-message">
+    <div
+      v-else
+      class="others-message"
+    >
       <div class="others-avartar">
-        <img :src="avatar" alt="" class="others-img" />
+        <img
+          :src="avatar"
+          alt=""
+          class="others-img"
+        />
       </div>
       <div>
         <p class="others-name">
@@ -26,7 +36,7 @@ export default {
   props: ["message"],
   data() {
     return {
-      sender: "",
+      sender:"",
       avatar: require("@/assets/avatar.svg"),
     };
   },
@@ -37,7 +47,7 @@ export default {
 </script>
 
 <style>
-.my-message {
+.my-message{
   display: flex;
   justify-content: right;
   align-items: flex-end;
@@ -56,7 +66,7 @@ export default {
   font-size: 14px;
 }
 
-.others-message {
+.others-message{
   display: flex;
   justify-content: left;
   align-items: flex-start;
@@ -65,8 +75,8 @@ export default {
   line-break: anywhere;
 }
 
-.others-name {
-  font-size: 12px;
+.others-name{
+    font-size: 12px;
 }
 
 .others-message-paragraph {
@@ -79,9 +89,10 @@ export default {
   font-size: 14px;
 }
 
-.others-avartar {
+.others-avartar{
   width: 40px;
   height: 70px;
   margin-right: 0.5rem;
 }
+
 </style>

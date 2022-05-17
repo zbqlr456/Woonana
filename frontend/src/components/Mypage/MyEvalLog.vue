@@ -18,10 +18,10 @@
         </div></b-tab
       >
       <b-tab title="평가하기">
-        <div v-for="(item, index) in evalLists" :key="index">
+        <div v-for="(item, index) in evaledLists" :key="index">
           <b-card
-            v-bind:title="item.userId + '님은 어떠셨나요?'"
-            sub-title="22/2/22 호수공원모임 "
+            v-bind:title="item.userNickname + '님은 어떠셨나요?'"
+            :sub-title="getBoardTitle(item.boardId)"
             style="max-width: 25rem"
             class="mb-3"
           >
@@ -40,7 +40,9 @@ export default {
   data() {
     return {
       evalLists: [],
+      evaledLists: [],
       evalpostList: [],
+      boardTitle: "",
       rating: 0,
     };
   },
@@ -58,6 +60,32 @@ export default {
 
       console.log("result", res);
       this.evalLists = res.data;
+    },
+    getevaledlist: async function () {
+      let data = localStorage.getItem("vuex");
+      let parsedata = JSON.parse(data);
+      let token = parsedata.loginStore.jwtToken;
+
+      http.defaults.withCredentials = false;
+      http.defaults.headers.common["Authorization"] = "Bearer " + token;
+      http.defaults.headers.common["withCredentials"] = false;
+      let res = await http.get("/api/accounts/evalue/person");
+
+      console.log("result", res);
+      this.evaledLists = res.data;
+    },
+    getBoardTitle: async function (boardId) {
+      let data = localStorage.getItem("vuex");
+      let parsedata = JSON.parse(data);
+      let token = parsedata.loginStore.jwtToken;
+
+      http.defaults.withCredentials = false;
+      http.defaults.headers.common["Authorization"] = "Bearer " + token;
+      http.defaults.headers.common["withCredentials"] = false;
+      let res = await http.get("/api/main/" + boardId);
+
+      console.log("result", res);
+      return res.data.title;
     },
     postRating: async function (rate, userId) {
       let data = localStorage.getItem("vuex");
@@ -80,6 +108,7 @@ export default {
   },
   mounted: function () {
     this.getevallist();
+    this.getevaledlist();
     // this.postRating(6, 2);
   },
 };

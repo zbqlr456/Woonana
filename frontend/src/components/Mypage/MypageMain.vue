@@ -13,7 +13,12 @@
           <p>{{ myinfomation.userNickname }}</p>
         </div>
         <div class="col-md-2">
-          <star-rating :show-rating="false" @rating-selected="setRating"></star-rating>
+          <star-rating
+            :show-rating="false"
+            @rating-selected="setRating"
+            :read-only="true"
+            :rating="3"
+          ></star-rating>
         </div>
       </div>
 
@@ -50,7 +55,6 @@ export default {
     //userStore에서 백에 요청해서 가져오는데 현재 http로 요청하면 헤더셋팅에 withCredentials가 안들어감
     getUserInfo: async function () {
       this.myinfo = await this.$store.dispatch("getUserInfo");
-      console.log("test");
     },
     components: { StarRating, Mypagenav },
     //axios로 해야 withcredentials가 셋팅되서 잘됨,,, 현재 이걸루 하는중

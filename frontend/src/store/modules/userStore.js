@@ -16,6 +16,9 @@ const userStore = {
   getters: {
     GET_USER_INFO: (state) => {
       return state.userInfo;
+    },
+    GET_USERID_DATA: (state) => {
+      return state.userIdData;
     }
     
 

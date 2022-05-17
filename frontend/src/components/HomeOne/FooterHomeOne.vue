@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <!-- <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class="footer-about-widget">
@@ -11,20 +12,33 @@
           <div class="footer-widget-info">
             <h4 class="title">Get In Touch</h4>
             <ul>
+=======
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="footer-copyright">
+          <div class="apps-download-btn">
+            <ul class="bottomBar">
+>>>>>>> 442b05121010bac29836b151564b0752857a7bd4
               <li>
-                <a href="#"><i class="fal fa-envelope"></i>woonana@woonana.com</a>
+                <a class="button" href="/AllBlogs"><i class="fas fa-home"></i></a>
               </li>
               <li>
-                <a href="#"><i class="fal fa-phone"></i> +(82)02-1234-5678</a>
+                <a><i class="fas fa-location"></i></a>
               </li>
               <li>
-                <a href="#"
-                  ><i class="fal fa-map-marker-alt"></i> 대전광역시 유성 삼성화재연수원</a
-                >
+                <a href="/newpost"><i class="fas fa-plus"></i></a>
+              </li>
+              <li>
+                <a href="/chat/chatroomlist"><i class="fas fa-comment"></i></a>
+              </li>
+              <li>
+                <a href="/mypage"><i class="fas fa-user"></i></a>
               </li>
             </ul>
           </div>
         </div>
+<<<<<<< HEAD
       </div> -->
   <div class="row">
     <div class="footer-copyright">
@@ -46,6 +60,8 @@
             <a href="/mypage"><i class="fas fa-user"></i></a>
           </li>
         </ul>
+=======
+>>>>>>> 442b05121010bac29836b151564b0752857a7bd4
       </div>
     </div>
   </div>

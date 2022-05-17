@@ -9,7 +9,7 @@
 export default {
   methods: {
     kakaoLogin: function () {
-      window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=76d85e088d5bb875d6e4493b8eda78fd&response_type=code&redirect_uri=${process.env.VUE_APP_KAKAO_URI}oauth/callback`;
+      window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=76d85e088d5bb875d6e4493b8eda78fd&response_type=code&redirect_uri=${process.env.VUE_APP_LOCAL_URI}oauth/callback`;
     },
     logout: function () {
       this.$store.dispatch("doLogout");

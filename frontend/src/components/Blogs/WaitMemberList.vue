@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-7">
-            <single-blog />
+            <wait-member />
           </div>
         </div>
       </div>
@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import SingleBlog from "./SingleBlog.vue";
+import WaitMember from "./WaitMemberView.vue";
 import FooterHomeOne from "../HomeOne/FooterHomeOne.vue";
 export default {
   components: {
     FooterHomeOne,
-    SingleBlog,
+    WaitMember,
   },
 };
 </script>

@@ -36,9 +36,22 @@
                 </div>
                 <hr>
                     <div class="post-tags">
-                    <h5 class="Jua">참여하기 => </h5>
-                    <a v-if="this.board.userNickname != myinfomation.userNickname " @click="join()">신청하기</a>
-                    <a href="">멤버조회</a>
+                        <h5 class="Jua">참여하기 => </h5>
+                        <a v-if="(this.board.userNickname != myinfomation.userNickname) || (this.board.allowedNumber < this.board.maxNumber)" @click="join()">신청하기</a>
+                        <a @click="viewMember()">멤버조회</a>
+                    </div>
+                    <br>
+                    <div class="post-tags">
+                        <h5 class="Jua">멤버 목록 => </h5>
+                        <a v-if="this.board.userNickname == myinfomation.userNickname" @click="viewParticipatedMember()">신청자 조회</a>
+                        <a @click="viewMember()">멤버조회</a>
+                    </div>
+                    
+                    <br>
+                    <div v-if="this.board.userNickname == myinfomation.userNickname" class="post-tags">
+                        <br>
+                        <h5 class="Jua">글 삭제하기 => </h5>
+                        <a @click="blogdelete()">삭제하기</a>
                     </div>
             </div>
         </div>
@@ -53,13 +66,16 @@ export default {
             boardId: ""
         }
     },
+    watch(){
+        this.checkStatus();
+    },
     mounted(){
         this.$store.dispatch("getUserInfo");
         this.boardId = this.$route.params.data;
-        console.log(this.boardId);
+        console.log("여긴 게시글번호",this.boardId);
         http.get(`/api/main/${this.boardId}`).then((response) => {
             this.board = response.data;
-            console.log(this.board);
+            console.log("여긴 상세내용 : ", this.board);
         })
     },
     computed: {
@@ -72,21 +88,43 @@ export default {
         console.log(this.boardId);
         http.post(`/api/participate/${this.boardId}`).then((response) => {
             console.log(response);
-            let msg = "";
-            if(response.status === 200){
-                msg = "참여 신청을 성공하였습니다.";
-                alert(msg);
-            }else{
-                msg = "이미 신청하셨습니다.";
-                alert(msg);
-            }
+            let msg = "신청이 완료되었습니다."
+            alert(msg);
+            this.board.allowedNumber++;
+        }).catch(err=>{
+            let msg = "이미 신청하셨거나, 신청이 불가한 상태입니다. 다시 확인해 주세요";
+            console.log(err);
+            alert(msg);
         })
         },
-        delete(){
-            
+        blogdelete(){
+            http.delete(`/api/main/${this.boardId}`).then((response) => {
+                console.log(response);
+                let msg = "삭제가 완료되었습니다."
+                alert(msg);
+                this.$router.push("/allblogs");
+            })
+        },
+        checkStatus(){
+            if(this.board.allowedNumber == this.board.maxNumber){
+                this.board.status = "closed";
+            }
+        },
+        viewMember: function(){
+            this.$router.push({
+                name: "MemberList",
+                params: {data: this.boardId},
+            });
+        },
+        viewParticipatedMember: function(){
+            this.$router.push({
+                name: "WaitMemberList",
+                params: {data: this.boardId},
+            });
+        }
+
         }
     }
-}
 </script>
 
 <style>

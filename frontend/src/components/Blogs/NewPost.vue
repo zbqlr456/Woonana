@@ -66,6 +66,7 @@
                 <div class="col-md-6 text-right">
                   <br>
                     <button type="button" class="btn btn-light" style="background-color: skyblue" @click="join()">등록하기</button>
+                    <button type="button" class="btn btn-light" style="background-color: #FF0000" @click="goback()">뒤로가기</button>
                 </div>
             </form>
         </div>
@@ -173,6 +174,9 @@ export default {
         alert(err);
       })
 
+    },
+    goback(){
+      this.$router.push("/allblogs");
     }
 
   },

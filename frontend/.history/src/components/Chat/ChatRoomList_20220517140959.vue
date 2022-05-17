@@ -37,14 +37,10 @@ export default {
       chatrooms: [],
     };
   },
-  computed: {
-    myinfomation: function () {
-      return this.$store.getters.GET_USER_INFO;
-    },
-  },
   created() {
     this.findAllRoom();
-    this.getUserInfo();
+    // this.getUserInfo();
+    console.log("getUserInfo", this.$store.getters.GET_USER_INFO);
   },
   methods: {
     findAllRoom: function () {
@@ -76,12 +72,16 @@ export default {
           });
       }
     },
-    getUserInfo: async function () {
-      await this.$store.dispatch("getUserInfo");
-    },
+    // getUserInfo: async function () {
+    //   await this.$store.dispatch("getUserInfo");
+    // },
     enterRoom: function (roomId) {
-      var sender = this.myinfomation.userNickname;
+      var sender = this.$store.getters.GET_USER_INFO.userNickname;
+      console.log(sender);
+      var profile = this.$store.getters.GET_USER_INFO.userProfileUrl;
+      console.log(profile);
       localStorage.setItem("wschat.sender", sender);
+      localStorage.setItem("wschat.profile", profile);
       localStorage.setItem("wschat.roomId", roomId);
       this.$router.push("/chat/chatroom");
       this.$router.go();

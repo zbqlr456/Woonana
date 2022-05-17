@@ -7,9 +7,10 @@
             <cite>{{user.userNickname}}님의 날씨 : </cite>
         </blockquote> -->
         <h4 class="article-title Jua">신청자 목록</h4>
-        <div class="post-admin" v-for="user in users" :key="user.participationId">
+        <div class="post-admin" v-for="user in users" :key="user.userId">
+            <div>
             <img
-            v-bind:src="user.userProfileUrl"
+            v-bind:src="user.profileUrl"
             >
             <a>이름 : {{user.userNickname}}</a>
             <p>
@@ -22,6 +23,7 @@
             </p>
             <button type="button" class="btn btn-light Jua" style="background-color: #2E9AFE" @click="approve(user.participationId)">승인</button>
             <button type="button" class="btn btn-light Jua" style="background-color: #FF0000" @click="refuse(user.participationId)">거절</button>
+            </div>
         </div>
       </div>
       <button type="button" class="btn btn-light Jua" style="background-color: #FF0000" @click="gohome()">홈으로</button>
@@ -35,13 +37,13 @@ export default {
         return{
             users:[],
             boardId: "",
-            
         }
     },
     mounted(){
         this.boardId = this.$route.params.data;
-        http.get(`api/participate/pick/${this.boardId}`).then((response) =>{
-            this.users = response.data;
+        http.get(`/api/participate/pick/${this.boardId}`).then((response) =>{
+            console.log(response.data.allAppliedUsers);
+            this.users = response.data.allAppliedUsers;
             console.log(this.users);
         })
         .catch((err) => {
@@ -49,10 +51,21 @@ export default {
       });
     },
     methods:{
-      approve: function(){
-
+      approve: function(data){
+          console.log(data);
+          http.patch(`/api/participate/pick/approve/${data}`).then((response)=>{
+              console.log(response);
+          }).catch((err) => {
+              alert(err);
+          })
       },
-      
+      refuse: function(data){
+          http.delete(`/api/participate/pick/refuse/${data}`).then((response)=>{
+              console.log(response);
+          }).catch((err)=>{
+              alert(err);
+          })
+      },
       gohome(){
           this.$router.push("/allblogs");
       },

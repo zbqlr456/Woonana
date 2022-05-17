@@ -4,12 +4,17 @@
                 <div class="post-thumb">
                     <img :src="board.imageUrl" alt="">
                 </div>
-                <h4 class="article-title">{{board.title}}</h4>
+                
                 <blockquote>
+                    <h4 class="article-title Jua">{{board.title}}</h4>
                     <p>
-                        {{board.content}}
+                        작성자 : {{board.userNickname}}
                     </p>
-                    <cite>{{board.userNickname}}</cite>
+                    <p>
+                        내용 : {{board.content}}
+                    </p>
+                    <cite v-if="board.participationOption == 0">모집형태 => 신청제</cite>
+                    <cite v-if="board.participationOption == 1">모집형태 => 선착순</cite>
                 </blockquote>
                 <div class="post-admin">
                     <!-- <img src="@/assets/images/single-post/author.png" alt=""> -->
@@ -31,18 +36,16 @@
                     <a v-if="board.exerciseId==2">배드민턴</a>
                     <a v-if="board.exerciseId==3">캐치볼</a>
                     <a v-if="board.exerciseId==4">산책</a>
-                    <h5 class="Jua">모집상태 => </h5>
-                    <a>{{board.status}} </a>
                 </div>
                 <hr>
-                    <div class="post-tags">
+                    <br>
+                    <div v-if="(this.board.userNickname != myinfomation.userNickname) || (this.board.allowedNumber < this.board.maxNumber)" class="post-tags">
                         <h5 class="Jua">참여하기 => </h5>
-                        <a v-if="(this.board.userNickname != myinfomation.userNickname) || (this.board.allowedNumber < this.board.maxNumber)" @click="join()">신청하기</a>
-                        <a @click="viewMember()">멤버조회</a>
+                        <a @click="join()">신청하기</a>
                     </div>
                     <br>
                     <div class="post-tags">
-                        <h5 class="Jua">멤버 목록 => </h5>
+                        <h5 class="Jua">멤버목록 => </h5>
                         <a v-if="this.board.userNickname == myinfomation.userNickname" @click="viewParticipatedMember()">신청자 조회</a>
                         <a @click="viewMember()">멤버조회</a>
                     </div>
@@ -90,7 +93,6 @@ export default {
             console.log(response);
             let msg = "신청이 완료되었습니다."
             alert(msg);
-            this.board.allowedNumber++;
         }).catch(err=>{
             let msg = "이미 신청하셨거나, 신청이 불가한 상태입니다. 다시 확인해 주세요";
             console.log(err);

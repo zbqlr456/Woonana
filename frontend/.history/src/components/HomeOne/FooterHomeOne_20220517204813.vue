@@ -26,7 +26,7 @@
           </div>
         </div>
       </div> -->
-  <div class="row">
+  <div>
     <div class="footer-copyright">
       <div class="apps-download-btn">
         <ul class="bottomBar">

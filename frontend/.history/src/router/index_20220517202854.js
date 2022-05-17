@@ -103,6 +103,11 @@ const routes = [
     name: "ShowBlog",
     component: ShowBlog,
   },
+  {
+    path: "/allblogs",
+    name: "AllBlogs",
+    component: AllBlogs,
+  },
   // {
   //   path: '/about',
   //   name: 'About',

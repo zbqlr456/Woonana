@@ -1,5 +1,6 @@
 <template>
-  <!-- <div class="row">
+  <div class="container">
+    <!-- <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class="footer-about-widget">
             <div class="logo">
@@ -26,8 +27,7 @@
           </div>
         </div>
       </div> -->
-  <div class="row">
-    <div class="footer-copyright">
+    <div class="row">
       <div class="apps-download-btn">
         <ul class="bottomBar">
           <li>

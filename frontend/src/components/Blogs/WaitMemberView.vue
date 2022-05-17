@@ -7,6 +7,7 @@
             <cite>{{user.userNickname}}님의 날씨 : </cite>
         </blockquote> -->
         <h4 class="article-title Jua">신청자 목록</h4>
+        <h5 v-if="this.users.length == 0" class="article-content Jua">신청자 목록이 없습니다.</h5>
         <div class="post-admin" v-for="user in users" :key="user.userId">
             <div>
             <img
@@ -26,7 +27,7 @@
             </div>
         </div>
       </div>
-      <button type="button" class="btn btn-light Jua" style="background-color: #FF0000" @click="gohome()">홈으로</button>
+      <button type="button" class="btn btn-light Jua" style="background-color: #FF0000" @click="goback()">뒤로가기</button>
   </div>
 </template>
 
@@ -40,11 +41,11 @@ export default {
         }
     },
     mounted(){
-        this.boardId = this.$route.params.data;
+        this.boardId = this.$route.query.data;
         http.get(`/api/participate/pick/${this.boardId}`).then((response) =>{
             console.log(response.data.allAppliedUsers);
             this.users = response.data.allAppliedUsers;
-            console.log(this.users);
+            console.log("여기다",this.users);
         })
         .catch((err) => {
           alert(err);
@@ -55,6 +56,10 @@ export default {
           console.log(data);
           http.patch(`/api/participate/pick/approve/${data}`).then((response)=>{
               console.log(response);
+              let msg = "승인되었습니다.";
+              alert(msg);
+              this.$router.go(-1);
+              
           }).catch((err) => {
               alert(err);
           })
@@ -66,8 +71,9 @@ export default {
               alert(err);
           })
       },
-      gohome(){
-          this.$router.push("/allblogs");
+      goback(){
+        //   this.$router.push("/allblogs");
+        this.$router.go(-1);
       },
 
     },

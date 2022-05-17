@@ -274,8 +274,7 @@ export default {
 #customers td,
 #customers th {
   border: 1px solid #ddd;
-  padding-left: 20px;
-  margin: 1%;
+  padding: 2%;
 }
 #customers td:first-child,
 #customers th:first-child {
@@ -295,11 +294,13 @@ export default {
 }
 
 #customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
+  text-align: center;
   background-color: #0dcaf0;
   color: white;
-  width: 10%;
+  width: 55%;
+}
+#customers td {
+  text-align: center;
+  width: 60%;
 }
 </style>

@@ -25,7 +25,7 @@ import java.util.List;
 public class Board extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "board_id")
     private Long id;
     @Column(name = "board_title")

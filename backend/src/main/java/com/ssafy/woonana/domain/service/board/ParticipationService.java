@@ -51,7 +51,7 @@ public class ParticipationService {
     public PickListResponse getAppliedList(Long boardId) {
 
         // boardId에 연관된 participateId 모든 목록 출력
-        List<Participation> findAppliedList = participationRepository.findParticipationByBoardId(boardId);
+        List<Participation> findAppliedList = participationRepository.findListByBoardId(boardId);
         PickListResponse response = new PickListResponse();
         for (Participation p : findAppliedList) {
             PickListDetail detail = new PickListDetail();
@@ -61,7 +61,6 @@ public class ParticipationService {
             detail.setUserNickname(findUser.getUserNickname());
             detail.setProfileUrl(findUser.getUserProfileUrl());
             detail.setParticipationAllowed(p.isAllowed());
-            detail.setUserRatingScore(findUser.getUserRatingScore());
             response.addPickListDetail(detail);
         }
 

@@ -7,7 +7,7 @@
           <div class="col-lg-2 col-md-4 col-sm-5 col-6 order-1 order-sm-1">
             <div class="appie-logo-box">
               <a href="/">
-                <img src="@/assets/images/logo/Woonana_small-removebg.png" alt="Woonana" />
+                <img src="src\assets\images\logo\Woonana-removebg.png" alt="Woonana" />
               </a>
             </div>
           </div>

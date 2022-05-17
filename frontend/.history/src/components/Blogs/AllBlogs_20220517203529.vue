@@ -24,6 +24,15 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="bisylms-pagination">
+            <span class="current">01</span>
+            <a href="#">02</a>
+            <a class="next" href="#">next<i class="fal fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

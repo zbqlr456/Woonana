@@ -65,7 +65,6 @@ import http from "@/util/indexChat.js";
 import SockJS from "sockjs-client";
 import Stomp from "stomp-websocket";
 
-// var sock = new SockJS("http://k6b104.p.ssafy.io:80/ws"); // endpoint로 sockJS 연결
 var sock = new SockJS(`${process.env.VUE_APP_CHAT_WS_URI}`); // endpoint로 sockJS 연결
 var ws = Stomp.over(sock); // sockJS 위에서 돌아간다.
 export default {
@@ -91,14 +90,14 @@ export default {
   },
   methods: {
     findRoom: function () {
-      http.get("/chatapi/room/" + this.roomId).then((response) => {
+      http.get("/chat/room/" + this.roomId).then((response) => {
         this.room = response.data;
       });
     },
     sendMessage: function () {
       // ChatController에 메세지를 보냄.
       ws.send(
-        "/pub/chatapi/message",
+        "/pub/chat/message",
         {},
         JSON.stringify({ roomId: this.roomId, sender: this.sender, message: this.message })
       );

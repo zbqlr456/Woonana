@@ -31,10 +31,9 @@
                 >
               </div>
               <h3>
-                <a href="/singleblog">{{ board.title }}</a>
+                <a @click="boardDetail(board.boardId)">{{ board.title }}</a>
               </h3>
-              <a class="read-more" href="/singleblog"
-                >Read More<i class="fal fa-arrow-right"></i
+              <a class="read-more" @click="boardDetail(board.boardId)">Read More<i class="fal fa-arrow-right"></i
               ></a>
             </div>
           </div>
@@ -79,7 +78,14 @@ export default {
         alert(err);
       });
   },
-  methods: {},
+  methods: {
+    boardDetail: function (data) {
+      this.$router.push({
+        name: "SingleNews",
+        params: {data: data},
+      })
+    }
+  },
 };
 </script>
 

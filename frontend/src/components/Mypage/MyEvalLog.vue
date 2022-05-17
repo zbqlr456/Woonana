@@ -21,15 +21,17 @@
         <div v-for="(item, index) in evaledLists" :key="index">
           <b-card
             v-bind:title="item.userNickname + '님은 어떠셨나요?'"
-            :sub-title="getBoardTitle(item.boardId)"
+            :sub-title="item.boardDate.slice(0, 10)"
             style="max-width: 25rem"
             class="mb-3"
           >
             <b-card-text>
               <star-rating v-bind:rating="3" @rating-selected="setRating" :increment="1" />
             </b-card-text>
-          </b-card></div
-      ></b-tab>
+            <b-button>평가하기</b-button>
+          </b-card>
+        </div></b-tab
+      >
     </b-tabs>
   </div>
 </template>
@@ -110,6 +112,11 @@ export default {
     this.getevallist();
     this.getevaledlist();
     // this.postRating(6, 2);
+  },
+  computed: {
+    dateEdit: function (date) {
+      return date.slice(0, 10);
+    },
   },
 };
 </script>

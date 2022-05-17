@@ -1,14 +1,10 @@
 <template>
   <div class="chat">
     <div id="room-name">
-      <div>
-        <router-link to="/chat/chatroomlist">
-          <span>
-            <img src="@/assets/images/icon/arrow-left-short.svg" class="back-icon" />
-          </span>
-        </router-link>
-        <span>{{ room.name }}</span>
-      </div>
+      <span>
+        <img src="@/assets/images/icon/arrow-left-short.svg" class="back-icon" />
+      </span>
+      <span>{{ room.name }}</span>
     </div>
 
     <infinite-loading
@@ -177,7 +173,6 @@ export default {
 #room-name {
   position: fixed;
   display: flex;
-  justify-content: flex-start;
   top: 0;
   background: #ffffff;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
@@ -186,12 +181,12 @@ export default {
   font-weight: 700;
   width: 100%;
   z-index: 10;
+  text-align: center;
 }
 
 .back-icon {
   width: 30px;
   height: 30px;
-  margin-right: 104px;
 }
 
 #chat-list {

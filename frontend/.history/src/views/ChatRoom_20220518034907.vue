@@ -2,7 +2,7 @@
   <div class="chat">
     <div id="room-name">
       <div>
-        <router-link to="/chat/chatroomlist">
+        <router-link to="/chat/chat/chatroomlist">
           <span>
             <img src="@/assets/images/icon/arrow-left-short.svg" class="back-icon" />
           </span>

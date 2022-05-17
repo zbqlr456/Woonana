@@ -83,7 +83,6 @@ export default {};
 }
 .nav-item-name {
   font-size: 11px;
-  font-family: solid !important;
   margin-bottom: -8px;
 }
 </style>

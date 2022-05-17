@@ -16,6 +16,7 @@ import TitleArea from "./TitieArea.vue";
 
 export default {
   components: {
+    HeaderHomeOne,
     FooterHomeOne,
     // MypageQna,
     TitleArea,

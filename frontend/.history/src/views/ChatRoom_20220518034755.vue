@@ -1,12 +1,10 @@
 <template>
   <div class="chat">
     <div id="room-name">
-      <div>
-        <router-link to="/chat/chatroomlist">
-          <span>
-            <img src="@/assets/images/icon/arrow-left-short.svg" class="back-icon" />
-          </span>
-        </router-link>
+          <router-link to="/chat/chatroomlist">
+          <img src="@/assets/images/icon/arrow-left-short.svg" class="back-icon" />
+          </router-link>
+
         <span>{{ room.name }}</span>
       </div>
     </div>

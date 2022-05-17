@@ -67,7 +67,8 @@ export default {};
   border-top: 1px solid;
   border-color: rgb(213, 213, 213);
   background-color: #ffffff;
-  width: 100%;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
   height: 8%;
   justify-content: space-around;
 }
@@ -83,7 +84,6 @@ export default {};
 }
 .nav-item-name {
   font-size: 11px;
-  font-family: solid !important;
   margin-bottom: -8px;
 }
 </style>

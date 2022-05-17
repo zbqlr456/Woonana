@@ -32,7 +32,7 @@
           <input type="number" name="maxNumber" min="1" max="6" v-model="board.maxNumber" />
         </div>
         <div class="col-md-12">
-          <label style="font-family: sans; font-size: 18px">운동 종류 설정</label><br />
+          <label>[운동 종류 설정]</label><br />
           <input type="radio" id="산책" name="exerciseId" value="4" v-model="board.exerciseId" />
           <label for="산책">&nbsp;산책</label><br />
           <input type="radio" id="캐치볼" name="exerciseId" value="3" v-model="board.exerciseId" />
@@ -51,7 +51,7 @@
         <br />
         <div class="col-md-12">
           <br />
-          <label style="font-family: sans; font-size: 18px">모집 형태</label><br />
+          <label>[모집 형태]</label><br />
           <input
             type="radio"
             id="신청제"

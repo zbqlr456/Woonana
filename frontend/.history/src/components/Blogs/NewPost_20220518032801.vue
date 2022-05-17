@@ -32,13 +32,13 @@
           <input type="number" name="maxNumber" min="1" max="6" v-model="board.maxNumber" />
         </div>
         <div class="col-md-12">
-          <label style="font-family: sans; font-size: 18px">운동 종류 설정</label><br />
+          <label>[운동 종류 설정]</label><br />
           <input type="radio" id="산책" name="exerciseId" value="4" v-model="board.exerciseId" />
-          <label for="산책">&nbsp;산책</label><br />
+          <label for="산책"> 산책</label><br />
           <input type="radio" id="캐치볼" name="exerciseId" value="3" v-model="board.exerciseId" />
-          <label for="캐치볼">&nbsp;캐치볼</label><br />
+          <label for="캐치볼"> 캐치볼 </label><br />
           <input type="radio" id="탁구" name="exerciseId" value="1" v-model="board.exerciseId" />
-          <label for="탁구">&nbsp;탁구</label><br />
+          <label for="탁구"> 탁구 </label><br />
           <input
             type="radio"
             id="배드민턴"
@@ -46,12 +46,12 @@
             value="2"
             v-model="board.exerciseId"
           />
-          <label for="배드민턴">&nbsp;배드민턴</label><br />
+          <label for="배드민턴">배드민턴 </label><br />
         </div>
         <br />
         <div class="col-md-12">
           <br />
-          <label style="font-family: sans; font-size: 18px">모집 형태</label><br />
+          <label>모집 형태</label><br />
           <input
             type="radio"
             id="신청제"
@@ -59,7 +59,7 @@
             value="0"
             v-model="board.participationOption"
           />
-          <label for="신청제">&nbsp;신청제 </label><br />
+          <label for="신청제">신청제 </label><br />
           <input
             type="radio"
             id="선착순"
@@ -67,7 +67,7 @@
             value="1"
             v-model="board.participationOption"
           />
-          <label for="선착순">&nbsp;선착순 </label><br />
+          <label for="선착순">선착순 </label><br />
         </div>
         <div>
           <br />

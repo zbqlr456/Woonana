@@ -1,14 +1,7 @@
 <template>
   <div class="chat">
     <div id="room-name">
-      <div>
-        <router-link to="/chat/chatroomlist">
-          <span>
-            <img src="@/assets/images/icon/arrow-left-short.svg" class="back-icon" />
-          </span>
-        </router-link>
-        <span>{{ room.name }}</span>
-      </div>
+      <span>{{ room.name }}</span>
     </div>
 
     <infinite-loading
@@ -73,7 +66,7 @@ import SockJS from "sockjs-client";
 import Stomp from "stomp-websocket";
 
 // var sock = new SockJS("http://k6b104.p.ssafy.io:80/ws"); // endpoint로 sockJS 연결
-var sock = new SockJS(`${process.env.VUE_APP_CHAT_WS_URI}`); // endpoint로 sockJS 연결
+var sock = new SockJS(`${process.env.VUE_APP_CHAT_URI}`); // endpoint로 sockJS 연결
 var ws = Stomp.over(sock); // sockJS 위에서 돌아간다.
 export default {
   data() {
@@ -176,8 +169,6 @@ export default {
 
 #room-name {
   position: fixed;
-  display: flex;
-  justify-content: flex-start;
   top: 0;
   background: #ffffff;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
@@ -186,12 +177,6 @@ export default {
   font-weight: 700;
   width: 100%;
   z-index: 10;
-}
-
-.back-icon {
-  width: 30px;
-  height: 30px;
-  margin-right: 104px;
 }
 
 #chat-list {

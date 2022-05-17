@@ -29,7 +29,7 @@
     <!--Chatting-->
     <div class="nav-item">
       <router-link to="/chat/chatroomlist">
-        <div v-if="this.$route.path === `/chat/chatroomlist`">
+        <div v-if="this.$route.path === `/ChatRoomList`">
           <img src="@/assets/images/icon/chat-dots-fill.svg" class="nav-item-img" />
         </div>
         <div v-else>
@@ -42,12 +42,7 @@
     <!--My Page-->
     <div class="nav-item">
       <router-link to="/mypage">
-        <div v-if="this.$route.path === `/mypage`">
-          <img src="@/assets/images/icon/person-fill.svg" class="nav-item-img" />
-        </div>
-        <div v-else>
-          <img src="@/assets/images/icon/person.svg" class="nav-item-img" />
-        </div>
+        <img src="@/assets/images/icon/person-fill.svg" class="nav-item-img" />
         <p class="nav-item-name">마이</p>
       </router-link>
     </div>
@@ -83,7 +78,6 @@ export default {};
 }
 .nav-item-name {
   font-size: 11px;
-  font-family: solid !important;
   margin-bottom: -8px;
 }
 </style>

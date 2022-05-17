@@ -1,53 +1,28 @@
 <template>
   <div class="bottom-nav">
-    <!--All Blogs-->
     <div class="nav-item">
       <router-link to="/AllBlogs">
-        <div v-if="this.$route.path === `/AllBlogs`">
+        <div>
           <img src="@/assets/images/icon/house-fill.svg" class="nav-item-img" />
-        </div>
-        <div v-else>
-          <img src="@/assets/images/icon/house.svg" class="nav-item-img" />
         </div>
         <p class="nav-item-name">홈</p>
       </router-link>
     </div>
-
-    <!--New Post-->
     <div class="nav-item">
       <router-link to="/newpost">
-        <div v-if="this.$route.path === `/newpost`">
-          <img src="@/assets/images/icon/plus-square-fill.svg" class="nav-item-img" />
-        </div>
-        <div v-else>
-          <img src="@/assets/images/icon/plus-square.svg" class="nav-item-img" />
-        </div>
+        <img src="@/assets/images/icon/plus-square-fill.svg" class="nav-item-img" />
         <p class="nav-item-name">글 작성</p>
       </router-link>
     </div>
-
-    <!--Chatting-->
     <div class="nav-item">
       <router-link to="/chat/chatroomlist">
-        <div v-if="this.$route.path === `/chat/chatroomlist`">
-          <img src="@/assets/images/icon/chat-dots-fill.svg" class="nav-item-img" />
-        </div>
-        <div v-else>
-          <img src="@/assets/images/icon/chat-dots.svg" class="nav-item-img" />
-        </div>
+        <img src="@/assets/images/icon/chat-dots-fill.svg" class="nav-item-img" />
         <p class="nav-item-name">채팅</p>
       </router-link>
     </div>
-
-    <!--My Page-->
     <div class="nav-item">
       <router-link to="/mypage">
-        <div v-if="this.$route.path === `/mypage`">
-          <img src="@/assets/images/icon/person-fill.svg" class="nav-item-img" />
-        </div>
-        <div v-else>
-          <img src="@/assets/images/icon/person.svg" class="nav-item-img" />
-        </div>
+        <img src="@/assets/images/icon/person-fill.svg" class="nav-item-img" />
         <p class="nav-item-name">마이</p>
       </router-link>
     </div>
@@ -55,7 +30,20 @@
 </template>
 
 <script>
-export default {};
+export default {
+  created() {
+    this.test();
+  },
+  methods: {
+    test: function () {
+      if (this.$route.path === `/AllBlogs`) {
+        console.log("true");
+      } else {
+        console.log("false");
+      }
+    },
+  },
+};
 </script>
 
 <style>
@@ -83,7 +71,6 @@ export default {};
 }
 .nav-item-name {
   font-size: 11px;
-  font-family: solid !important;
   margin-bottom: -8px;
 }
 </style>

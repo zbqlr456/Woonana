@@ -61,6 +61,7 @@ public class ParticipationService {
             detail.setUserNickname(findUser.getUserNickname());
             detail.setProfileUrl(findUser.getUserProfileUrl());
             detail.setParticipationAllowed(p.isAllowed());
+            detail.setUserRatingScore(findUser.getUserRatingScore());
             response.addPickListDetail(detail);
         }
 

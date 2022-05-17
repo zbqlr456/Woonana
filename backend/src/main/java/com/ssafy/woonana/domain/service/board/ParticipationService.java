@@ -51,7 +51,7 @@ public class ParticipationService {
     public PickListResponse getAppliedList(Long boardId) {
 
         // boardId에 연관된 participateId 모든 목록 출력
-        List<Participation> findAppliedList = participationRepository.findListByBoardId(boardId);
+        List<Participation> findAppliedList = participationRepository.findParticipationByBoardId(boardId);
         PickListResponse response = new PickListResponse();
         for (Participation p : findAppliedList) {
             PickListDetail detail = new PickListDetail();

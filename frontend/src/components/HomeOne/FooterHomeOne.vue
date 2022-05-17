@@ -4,33 +4,6 @@
   <section class="appie-footer-area">
     <div class="container">
       <div class="row">
-        <div class="col-lg-4 col-md-6">
-          <div class="footer-about-widget">
-            <div class="logo">
-              <a href="#"><img src="@/assets/images/logo/Woonana-removebg.png" alt="" /></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <div class="footer-widget-info">
-            <h4 class="title">Get In Touch</h4>
-            <ul>
-              <li>
-                <a href="#"><i class="fal fa-envelope"></i>woonana@woonana.com</a>
-              </li>
-              <li>
-                <a href="#"><i class="fal fa-phone"></i> +(82)02-1234-5678</a>
-              </li>
-              <li>
-                <a href="#"
-                  ><i class="fal fa-map-marker-alt"></i> 대전광역시 유성 삼성화재연수원</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="row">
         <div class="col-lg-12">
           <div class="footer-copyright">
             <div class="apps-download-btn">

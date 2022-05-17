@@ -11,4 +11,5 @@ public class ParticipatedMemberResponse {
     private String userProfileUrl;
     private String userSex;
     private int userRatingScore;
+
 }

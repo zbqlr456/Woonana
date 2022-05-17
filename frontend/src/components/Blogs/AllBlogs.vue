@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="blogs-row">
     <div class="col-lg-12">
       <div class="row">
         <div class="col-lg-6" v-for="board in boards" :key="board.id">
@@ -65,4 +65,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.blogs-row {
+  overflow-x: hidden;
+}
+</style>

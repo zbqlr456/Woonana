@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class Participation extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "participation_id")
     private Long id;
     @Column(name = "participation_participated_check")

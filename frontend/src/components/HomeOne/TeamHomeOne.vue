@@ -26,11 +26,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
-                    <div class="team-btn text-center mt-50">
-                        <a class="main-btn" href="#"> View all Members <i class="fal fa-arrow-right"></i></a>
-                    </div>
-                </div>
             </div>
         </div>
     </section>

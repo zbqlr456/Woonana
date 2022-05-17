@@ -144,6 +144,9 @@ export default {
     join(){
       this.board.place = this.address + " " + this.extra;
       const formData = new FormData();
+      if(this.board.file == null){
+        this.board.file = "";
+      }
       formData.append('title', this.board.title);
       formData.append('content', this.board.content);
       formData.append('place', this.board.place);

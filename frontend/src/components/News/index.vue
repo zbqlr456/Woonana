@@ -13,7 +13,11 @@
 
     <!--====== OFFCANVAS MENU PART START ======-->
 
-    <sidebar-home-one :sidebar="sidebar" @toggleSidebar="toggleSidebar" :menuItems="navs" />
+    <sidebar-home-one
+      :sidebar="sidebar"
+      @toggleSidebar="toggleSidebar"
+      :menuItems="navs"
+    />
 
     <!--====== OFFCANVAS MENU PART ENDS ======-->
 
@@ -35,9 +39,6 @@
         <div class="row">
           <div class="col-lg-8 col-md-7">
             <all-blogs />
-          </div>
-          <div class="col-lg-4 col-md-5">
-            <blog-sidebar />
           </div>
         </div>
       </div>
@@ -65,7 +66,6 @@ import HeaderNews from "../News/HeaderNews.vue";
 import TitleArea from "../News/TitleArea.vue";
 import FooterHomeOne from "../HomeOne/FooterHomeOne.vue";
 import AllBlogs from "../Blogs/AllBlogs.vue";
-import BlogSidebar from "../BlogSidebar.vue";
 export default {
   components: {
     SidebarHomeOne,
@@ -73,7 +73,6 @@ export default {
     TitleArea,
     FooterHomeOne,
     AllBlogs,
-    BlogSidebar,
   },
   data() {
     return {
@@ -83,51 +82,17 @@ export default {
           name: "home",
           childrens: [
             {
-              name: "Home",
+              name: "Home 1",
               path: "/",
             },
-            {
-              name: "Home Dark",
-              path: "/home-dark",
-            },
           ],
         },
         {
-          name: "운동목록",
+          name: "news",
           childrens: [
             {
-              name: "운동목록",
+              name: "News",
               path: "/news",
-            },
-          ],
-        },
-        {
-          name: "마이페이지",
-          path: "/mypage",
-          childrens: [
-            {
-              name: "내정보",
-              path: "/mypage/main",
-            },
-            {
-              name: "내 글",
-              path: "/mypage/myposts",
-            },
-            {
-              name: "참여내역",
-              path: "/mypage/myjoinlog",
-            },
-            {
-              name: "운동기록",
-              path: "/mypage/myworkoutlog",
-            },
-            {
-              name: "평가페이지",
-              path: "/mypage/myevallog",
-            },
-            {
-              name: "자주묻는질문",
-              path: "/mypage/qna",
             },
           ],
         },
@@ -156,4 +121,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>

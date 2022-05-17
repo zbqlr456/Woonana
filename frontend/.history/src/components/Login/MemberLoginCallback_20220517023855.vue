@@ -17,7 +17,7 @@ export default {
       code = URLSearch.get("code");
       // alert(code);
       this.$store.dispatch("doLogin", code);
-      this.$router.push("/AllBlogs");
+      this.$router.push("/");
 
       // window.location.href = "http://localhost:8080";
 

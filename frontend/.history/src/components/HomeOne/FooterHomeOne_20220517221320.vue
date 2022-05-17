@@ -6,7 +6,7 @@
           <div class="apps-download-btn">
             <ul class="bottomBar">
               <li>
-                <a class="button" href="/AllBlogs"><i class="fas fa-home"></i></a>
+                <a class="button" href="/"><i class="fas fa-home"></i></a>
               </li>
               <li>
                 <a><i class="fas fa-location"></i></a>

@@ -37,14 +37,14 @@ export default {
       chatrooms: [],
     };
   },
+  created() {
+    this.findAllRoom();
+    // this.getUserInfo();
+  },
   computed: {
     myinfomation: function () {
       return this.$store.getters.GET_USER_INFO;
     },
-  },
-  created() {
-    this.findAllRoom();
-    this.getUserInfo();
   },
   methods: {
     findAllRoom: function () {
@@ -76,12 +76,17 @@ export default {
           });
       }
     },
-    getUserInfo: async function () {
-      await this.$store.dispatch("getUserInfo");
-    },
+    // getUserInfo: async function () {
+    //   await this.$store.dispatch("getUserInfo");
+    // },
     enterRoom: function (roomId) {
+      // var sender = prompt("대화명을 입력해 주세요.");
       var sender = this.myinfomation.userNickname;
+      console.log(sender);
+      var profile = this.myinfomation.userProfileUrl;
+      console.log(profile);
       localStorage.setItem("wschat.sender", sender);
+      localStorage.setItem("wschat.profile", profile);
       localStorage.setItem("wschat.roomId", roomId);
       this.$router.push("/chat/chatroom");
       this.$router.go();

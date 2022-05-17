@@ -75,6 +75,7 @@ export default {
       roomId: "",
       room: {},
       sender: "",
+      profile: "",
       message: "",
       messages: [],
     };
@@ -103,6 +104,7 @@ export default {
         JSON.stringify({
           roomId: this.roomId,
           sender: this.sender,
+          profile: this.profile,
           message: this.message,
         })
       );
@@ -111,6 +113,7 @@ export default {
     recvMessage: function (recv) {
       this.messages.unshift({
         sender: recv.sender,
+        profile: recv.profile,
         message: recv.message,
       });
     },

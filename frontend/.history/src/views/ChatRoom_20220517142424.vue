@@ -75,6 +75,7 @@ export default {
       roomId: "",
       room: {},
       sender: "",
+      profile: "",
       message: "",
       messages: [],
     };
@@ -86,6 +87,7 @@ export default {
   created() {
     this.roomId = localStorage.getItem("wschat.roomId");
     this.sender = localStorage.getItem("wschat.sender");
+    this.profile = localStorage.getItem("wschat.profile");
     this.findRoom();
     this.connect();
   },
@@ -103,6 +105,7 @@ export default {
         JSON.stringify({
           roomId: this.roomId,
           sender: this.sender,
+          profile: this.profile,
           message: this.message,
         })
       );
@@ -111,6 +114,7 @@ export default {
     recvMessage: function (recv) {
       this.messages.unshift({
         sender: recv.sender,
+        profile: recv.profile,
         message: recv.message,
       });
     },

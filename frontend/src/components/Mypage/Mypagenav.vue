@@ -2,7 +2,9 @@
   <div class="mypage">
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#"
-        ><router-link to="/mypage/main">김싸피님의 마이페이지</router-link></b-navbar-brand
+        ><router-link to="/mypage/main"
+          >{{ myinfomation.userNickname }}의 마이페이지</router-link
+        ></b-navbar-brand
       >
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -27,7 +29,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    myinfomation: function () {
+      return this.$store.getters.GET_USER_INFO;
+    },
+  },
+};
 </script>
 
 <style></style>

@@ -4,6 +4,7 @@ const exerciseStore = {
   state: {
     allExercise: [],
     monthExercise: [],
+    heatmapInfo: [],
   },
   getters: {
     get_month_Exercise(state) {
@@ -11,6 +12,9 @@ const exerciseStore = {
     },
     get_all_exercise(state) {
       return state.allExercise;
+    },
+    GET_HEATMAP_INFO(state) {
+      return state.heatmapInfo;
     },
   },
   mutations: {
@@ -63,7 +67,6 @@ const exerciseStore = {
         
         if (res.status === 200) {
           console.log('한달운동 정보를 가져왔습니다');
-         
           state.monthExercise = res.data;
           console.log(state.monthExercise);
         } else {
@@ -75,7 +78,34 @@ const exerciseStore = {
       
 
       
-    }
+    },
+    async getHeatmapInfo({state} ,payload) {
+      try {
+        let data = localStorage.getItem('vuex');
+        let parsedata = JSON.parse(data);
+        let token = parsedata.loginStore.jwtToken;
+        
+        http.defaults.withCredentials = false;
+        http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        http.defaults.headers.common['withCredentials'] = false;
+        console.log(http.defaults.headers.common['Authorization']);
+        const res = await http.get('api/accounts/myexercise/likes/' + payload);
+        // let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaXNzIjoid29vbmFuYSIsImlhdCI6MTY1MjE2NDk4NywiZXhwIjoxNjUyMjUxMzg3fQ.VfPXbqMxqR2Y0rIiBfxSH3byym1lTV7QNrtSosZVteQsLDzXKxAtGY-WiY8ieibO7KkzZz6tmxZlAHaDi0IgMA";
+        
+        if (res.status === 200) {
+          console.log('히트맵운동 정보를 가져왔습니다');
+          state.heatmapInfo = res.data;
+          console.log(state.heatmapInfo);
+        } else {
+          console.log('히트맵운동정보 에러발생');
+        }
+      } catch (e) {
+        console.log(e);
+      }
+      
+
+      
+    },
     
 
   }

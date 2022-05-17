@@ -9,4 +9,5 @@ public class PickListDetail {
     private String userNickname;
     private String profileUrl;
     private Boolean participationAllowed;
+    private int userRatingScore;
 }

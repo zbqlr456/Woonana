@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import http from "@/util/indexChat.js";
+import http from "@/util/index";
 export default {
   data() {
     return {
@@ -48,7 +48,7 @@ export default {
   // },
   methods: {
     findAllRoom: function () {
-      http.get("/chatapi/rooms").then((response) => {
+      http.get("/chat/rooms").then((response) => {
         this.chatrooms = response.data;
       });
     },
@@ -63,7 +63,7 @@ export default {
           name: this.room_name,
         };
         http
-          .post("/chatapi/room", JSON.stringify(formData))
+          .post("/chat/room", JSON.stringify(formData))
           .then((response) => {
             console.log(response);
             alert(formData.name + "방 개설에 성공하였습니다.");

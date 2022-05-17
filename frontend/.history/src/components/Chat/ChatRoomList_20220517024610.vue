@@ -48,7 +48,7 @@ export default {
   // },
   methods: {
     findAllRoom: function () {
-      http.get("/chatapi/rooms").then((response) => {
+      http.get("chatapi/rooms").then((response) => {
         this.chatrooms = response.data;
       });
     },
@@ -63,7 +63,7 @@ export default {
           name: this.room_name,
         };
         http
-          .post("/chatapi/room", JSON.stringify(formData))
+          .post("chatapi/room", JSON.stringify(formData))
           .then((response) => {
             console.log(response);
             alert(formData.name + "방 개설에 성공하였습니다.");

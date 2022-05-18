@@ -123,6 +123,7 @@
 
 <script>
 import http from "@/util/index";
+// import http2 from "@/util/indexChat"
 import FooterHomeOne from "../HomeOne/FooterHomeOne.vue";
 export default {
   components: {
@@ -145,6 +146,7 @@ export default {
       address: "",
       extraAddress: "",
       extra: "",
+      boardId: "",
     };
   },
   methods: {
@@ -217,12 +219,14 @@ export default {
         .then(({ response }) => {
           let msg = "게시글 등록을 완료하였습니다.";
           console.log(response);
+          this.boardId = response;
           alert(msg);
           this.$router.push("/allblogs");
         })
         .catch((err) => {
           alert(err);
         });
+        
     },
   },
 };

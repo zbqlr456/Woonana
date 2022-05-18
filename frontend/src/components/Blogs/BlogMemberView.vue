@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="single-post-area Jua">
       <!-- <blockquote v-for="user in users" :key="user.id">
             <p>{{user.userNickname}}</p>
@@ -26,83 +25,105 @@
           <i v-if="user.userRatingScore <= 5 && user.userRatingScore > 4" class="fas fa-sun"></i>
         </p>
       </div>
-    </div>
-    <button
-      type="button"
-      class="btn btn-light Jua"
-      style="background-color: #ff0000"
-      @click="gohome()"
-    >
-      뒤로가기
-    </button>
-    <button
-      v-if="this.memberstatus"
-      type="button"
-      class="btn btn-light Jua"
-      style="background-color: #ffbf00"
-      @click="gochat()"
-    >
-      채팅하기
-    </button>
+      <button type="button" class="btn btn-light Jua" style="background-color: #FF0000" @click="gohome()">뒤로가기</button>
+      <button type="button" class="btn btn-light Jua" style="background-color: #FFBF00" @click="makeChatRoom()">채팅방 개설</button>
+      <button v-if="this.memberstatus" type="button" class="btn btn-light Jua" style="background-color: #FFBF00" @click="getRoomId()">채팅하기</button>
   </div>
 </template>
 
 <script>
-import http from "@/util/index";
+import http from "@/util/index"
+import http2 from "@/util/indexChat"
 export default {
-  data() {
-    return {
-      users: [],
-      boardId: "",
-      // storeduser:{
-      //   userNickname: ""
-      // },
-      // storedusers: [],
-      memberstatus: false,
-    };
-  },
-  mounted() {
-    this.getuserinfo();
-  },
-  computed: {
+    data(){
+        return{
+            users:[],
+            boardId: "",
+            boardTitle: "",
+            roomId: "",
+            // storeduser:{
+            //   userNickname: ""
+            // },
+            // storedusers: [],
+            memberstatus : false,
+            userCheck: false,
+        }
+    },
+    mounted(){
+        this.getuserinfo();
+
+    },
+    computed: {
     myinfomation: function () {
       return this.$store.getters.GET_USER_INFO;
     },
-  },
-  methods: {
-    gohome() {
-      //   this.$router.push("/allblogs");
-      this.$router.go(-1);
-    },
-    gochat() {},
-    getuserinfo() {
-      this.$store.dispatch("getUserInfo");
-      this.boardId = this.$route.query.data;
-      http
-        .get(`api/main/${this.boardId}/members`)
-        .then((response) => {
-          this.users = response.data;
-          // console.log("여기는 users 내용",this.users);
-          // console.log("여기는 유저닉네임 내용", this.users[0].userNickname);
-          // console.log("여기는 로그인한 사람 이름", this.myinfomation.userNickname);
-          this.membercheck();
+    methods:{
+      gohome(){
+        //   this.$router.push("/allblogs");
+        this.$router.go(-1);
+      },
+      makeChatRoom(){
+        this.boardId = this.$route.query.data;
+        this.boardTitle = this.$route.query.title;
+        const chatFormData = {
+        name: this.boardTitle, 
+        boardId : this.boardId
+        }
+        http2
+          .post("/chatapi/room", JSON.stringify(chatFormData))
+          .then((response) => {
+            console.log(response);
+            alert("채팅방 개설이 완료되었습니다.")
+            this.userCheck = false;
+          })
+          .catch((response) => {
+            console.log(response);
+          });
+      },
+      getRoomId(){
+        this.boardId = this.$route.query.data;
+        console.log(this.boardId);
+        http2.get("/chatapi/board/"+this.boardId).then((response)=>{
+          console.log("룸아이디:", response);
+          this.roomId = response.data;
+          this.gochat(this.roomId);
+        })
+      },
+      gochat: function(roomId){
+        var sender = this.myinfomation.userNickname;
+        localStorage.setItem("wschat.sender", sender);
+        localStorage.setItem("wschat.roomId", roomId);
+        this.$router.push("/chat/chatroom");
+        this.$router.go();
+      },
+      getuserinfo(){
+        this.$store.dispatch("getUserInfo");
+        this.boardId = this.$route.query.data;
+        console.log("다른곳 boardId", this.boardId);
+        http.get(`api/main/${this.boardId}/members`).then((response) =>{
+            this.users = response.data;
+            // console.log("여기는 users 내용",this.users);
+            // console.log("여기는 유저닉네임 내용", this.users[0].userNickname);
+            // console.log("여기는 로그인한 사람 이름", this.myinfomation.userNickname);
+            this.membercheck();
         })
         .catch((err) => {
           alert(err);
-        });
-    },
-    membercheck() {
-      for (var i = 0; i < this.users.length; i++) {
-        // this.storeduser.userNickname = this.users[i].userNickname;
-        // this.storedusers.push(this.storeduser);
-        // this.storeduser = {};
-        if (this.myinfomation.userNickname == this.users[i].userNickname) {
-          this.memberstatus = true;
-        } else {
-          this.memberstatus = false;
+      });
+      },
+      membercheck(){
+        for(var i=0; i<this.users.length; i++){
+          // this.storeduser.userNickname = this.users[i].userNickname;
+          // this.storedusers.push(this.storeduser);
+          // this.storeduser = {};
+          if(this.myinfomation.userNickname == this.users[i].userNickname){
+            this.memberstatus = true;
+            console.log("내가 멤버다!");
+          }
         }
-      }
-      console.log("여긴 created 바깥의 유저내용", this.users);
+        console.log("여긴 created 바깥의 유저내용",this.users)
+      },
+      
     },
   },
 };

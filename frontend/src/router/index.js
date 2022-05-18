@@ -16,7 +16,8 @@ import MyPosts from "../components/Mypage/MyPosts.vue";
 import MyWorkoutLog from "../components/Mypage/MyWorkoutLog.vue";
 import NewPost from "../components/Blogs/NewPost.vue";
 import AllBlogs from "../components/Blogs/index.vue";
-
+import MemberList from "../components/Blogs/MemberList.vue";
+import WaitMemberList from "../components/Blogs/WaitMemberList.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -108,6 +109,16 @@ const routes = [
     path: "/allblogs",
     name: "AllBlogs",
     component: AllBlogs,
+  },
+  {
+    path: "/memberlist",
+    name: "MemberList",
+    component: MemberList,
+  },
+  {
+    path: "/waitmemberlist",
+    name: "WaitMemberList",
+    component: WaitMemberList,
   },
   // {
   //   path: '/about',

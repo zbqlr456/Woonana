@@ -30,7 +30,7 @@
         </div>
       </div>
       <div id="promise-list">
-        <div style="margin-bottom: 5px">모집 진행 중인 모임</div>
+        <div style="margin-bottom: 2px">모집 진행 중인 모임</div>
         <!-- 버튼 모임 유무에따라 활성화, 비활성화 할것!!! -->
         <b-button v-show="checkBoardid" @click="movepost()"
           >바로가기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></b-button

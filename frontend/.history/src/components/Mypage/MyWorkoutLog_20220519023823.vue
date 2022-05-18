@@ -10,6 +10,7 @@
       :styles="styles"
       :width="width"
       :height="height"
+      id="pie"
     />
     <table id="customers">
       <tr>
@@ -266,7 +267,6 @@ export default {
 
 <style>
 #myworkoutlog-container {
-  width: 200px;
 }
 #customers {
   font-family: Arial, Helvetica, sans-serif;

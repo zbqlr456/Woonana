@@ -57,6 +57,10 @@ export default {
     myinfomation: function () {
       return this.$store.getters.GET_USER_INFO;
     },
+    checkButtonStatus: function(){
+      return this.$store.getters.check_buttonClicked;
+    }
+    },
     methods:{
       gohome(){
         //   this.$router.push("/allblogs");
@@ -79,6 +83,7 @@ export default {
           .catch((response) => {
             console.log(response);
           });
+          this.$store.commit("buttonClick", true);
       },
       getRoomId(){
         this.boardId = this.$route.query.data;
@@ -123,9 +128,10 @@ export default {
         }
         console.log("여긴 created 바깥의 유저내용",this.users)
       },
-      
+      chatCaution(){
+        alert("이미 채팅방이 개설되었습니다.");
+      }
     },
-  },
 };
 </script>
 

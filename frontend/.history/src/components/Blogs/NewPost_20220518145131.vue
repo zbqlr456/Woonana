@@ -229,20 +229,17 @@ export default {
 </script>
 
 <style>
-.contact-form {
-  margin-top: 50px;
-}
 #newpost-title {
   position: fixed;
   top: 0;
   background: #ffffff;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
-  padding: 1rem;
+  padding: 1.8rem;
   font-size: 16px;
   font-weight: 700;
   z-index: 10;
+
   text-align: center;
-  margin-left: 13px;
 }
 .img {
   display: none;

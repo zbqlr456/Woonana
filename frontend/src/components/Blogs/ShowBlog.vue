@@ -23,30 +23,6 @@ export default {
     FooterHomeOne,
     SingleBlog,
   },
-  data() {
-    return {
-      navs: [
-        {
-          name: "home",
-          childrens: [
-            {
-              name: "Home 1",
-              path: "/",
-            },
-          ],
-        },
-        {
-          name: "news",
-          childrens: [
-            {
-              name: "News",
-              path: "/news",
-            },
-          ],
-        },
-      ],
-    };
-  },
 };
 </script>
 

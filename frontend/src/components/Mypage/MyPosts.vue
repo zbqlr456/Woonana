@@ -13,7 +13,8 @@
                 >
               </div>
               <h3>
-                <a href="/singleblog">{{ board.title }}</a>
+                <!-- <a href="http://localhost:8080/api/main/4">{{ board.title }}</a> -->
+                <a @click="movePost(board.boardId)">{{ board.title }}</a>
               </h3>
               <a class="read-more" href="/singleblog"
                 >자세히 보기<i class="fal fa-arrow-right"></i
@@ -54,7 +55,15 @@ export default {
         alert(err);
       });
   },
-  methods: {},
+  methods: {
+    movePost: function (data) {
+      this.$router.push({
+        name: "ShowBlog",
+        params: { data: data },
+      });
+    },
+  },
+  computed: {},
 };
 </script>
 

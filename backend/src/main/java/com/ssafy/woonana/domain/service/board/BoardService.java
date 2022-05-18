@@ -146,7 +146,8 @@ public class BoardService {
         List<ParticipatedMemberResponse> list = new ArrayList<>();
         for (Participation p : findList) {
             User oneUser = p.getUser();
-            list.add(new ParticipatedMemberResponse(oneUser.getUserId(), oneUser.getUserNickname(), oneUser.getUserProfileUrl(), oneUser.getUserSex(), oneUser.getUserRatingScore()));
+            if (p.isAllowed() == true)
+                list.add(new ParticipatedMemberResponse(oneUser.getUserId(), oneUser.getUserNickname(), oneUser.getUserProfileUrl(), oneUser.getUserSex(), oneUser.getUserRatingScore()));
         }
         return list;
     }

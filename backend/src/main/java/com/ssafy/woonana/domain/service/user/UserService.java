@@ -69,11 +69,10 @@ public class UserService {
         log.info("userAccess에서 access token check: ", accessToken);
         String apiUrl = "https://kapi.kakao.com/v2/user/me";
         String headerStr = "Bearer "+accessToken;
-        String res = requestToServer(apiUrl, headerStr, "GET");
+        String res = requestToServer(apiUrl, headerStr, "GET", true);
         log.info("res: ", res);
 
         if(res==null){ // 서버로 사용자 정보를 요청했는데 null이 온 경우
-            log.warn("res: ", res);
             throw new Exception("카카오 로그인 에러가 발생했습니다.");
         }
 
@@ -112,6 +111,7 @@ public class UserService {
         User newUser = null;
 
         if (user.isEmpty()) { // 가입하지 않은 경우, 가입시켜준다.
+            log.info("가입하지 않은 회원");
 
             newUser = User.builder()
                     .kakaoId(kakaoId)
@@ -127,6 +127,7 @@ public class UserService {
             user = userRepository.findByKakaoId(kakaoId); // user 객체 가져오기
         }
         else { // 가입한 경우, 회원 정보 중 바뀐 정보가 있으면 갱신해준다.
+            log.info("가입한 회원");
 
             // access 토큰 갱신
             user.get().setAccessToken(accessToken);
@@ -138,6 +139,7 @@ public class UserService {
 
             // 사용자 프로필 사진이 바뀐 경우
             if(!kakaoProfileImg.equals(user.get().getUserProfileUrl())){
+                log.info("사용자 프로필 사진 변경됨");
                 user.get().setUserProfileUrl(kakaoProfileImg);
             }
 
@@ -155,6 +157,7 @@ public class UserService {
             if(kakaoBirthday!=null && !kakaoBirthday.equals(user.get().getUserBirthday())){
                 user.get().setUserBirthday(kakaoBirthday);
             }
+            userRepository.save(user.get());
         }
 
         // 토큰 생성
@@ -219,7 +222,11 @@ public class UserService {
     }
 
     // 인자로 들어오는 apiUrl을 통해 카카오와 통신하는 메소드
-    private String requestToServer(String apiURL, String headerStr, String requestMethod) throws IOException {
+    private String requestToServer(String apiURL, String headerStr, String requestMethod, boolean secureResource) throws IOException {
+
+        if(secureResource){ // 이미지를 https로 받아오기 위해서 설정. 이미지 받아오는 요청을 위한 requestToServer()에는 secureResource를 true로 요청한다.
+            apiURL+="?secure_resource=true";
+        }
         URL url = new URL(apiURL);
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
 //        con.setRequestMethod("GET");
@@ -280,7 +287,7 @@ public class UserService {
     public void deleteKakaoInfo(String accessToken) throws IOException {
         String apiUrl = "https://kapi.kakao.com/v1/user/unlink";
         String headerStr = "Bearer "+accessToken;
-        requestToServer(apiUrl, headerStr, "POST");
+        requestToServer(apiUrl, headerStr, "POST", false);
     }
 
     // 인자로 들어온 회원의 회원 정보 리턴하기

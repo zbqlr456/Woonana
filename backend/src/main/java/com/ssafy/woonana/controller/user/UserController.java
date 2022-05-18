@@ -105,6 +105,16 @@ public class UserController {
     public ResponseEntity<List<NotEvaluatedPerson>> notEvaluatedPeople(@AuthenticationPrincipal Long userId) {
 
         List<NotEvaluatedPerson> result=userService.notEvaluatedPeople(userId);
+
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/evalue/me")
+    @ApiOperation(value="내 평점 평균", notes="내가 받은 평점 평균")
+    public ResponseEntity<HashMap<String, Integer>> myEvalueAvg(@AuthenticationPrincipal Long userId){
+
+        HashMap<String, Integer> result = userService.avgUserRatingScore(userId);
+
         return ResponseEntity.ok().body(result);
     }
 }

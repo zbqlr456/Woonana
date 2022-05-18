@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="single-post-area Jua">
       <!-- <blockquote v-for="user in users" :key="user.id">
             <p>{{user.userNickname}}</p>

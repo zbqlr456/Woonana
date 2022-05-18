@@ -30,7 +30,7 @@
         </div>
       </div>
       <div id="promise-list">
-        <div style="margin-bottom: 5px">모집 진행 중인 모임</div>
+        <div>모집 진행 중인 모임</div>
         <!-- 버튼 모임 유무에따라 활성화, 비활성화 할것!!! -->
         <b-button v-show="checkBoardid" @click="movepost()"
           >바로가기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></b-button
@@ -209,19 +209,10 @@ export default {
   font-size: 18px;
 }
 .fas {
-  font-size: 40px;
+  font-size: 36px;
 }
-.fa-bolt {
-  color: rgb(240, 240, 0);
-}
-.fa-cloud {
-  color: aqua;
-}
-.fa-cloud-sun {
-  color: rgb(225, 150, 0);
-}
-.fa-sun {
-  color: orange;
+.fas fa-bolt {
+  color: yellow;
 }
 #my-promise {
   font-weight: bold;

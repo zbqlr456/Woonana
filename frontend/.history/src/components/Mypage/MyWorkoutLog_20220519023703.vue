@@ -266,7 +266,7 @@ export default {
 
 <style>
 #myworkoutlog-container {
-  width: 200px;
+  width: 100%;
 }
 #customers {
   font-family: Arial, Helvetica, sans-serif;

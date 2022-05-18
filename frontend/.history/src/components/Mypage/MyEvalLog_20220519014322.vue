@@ -1,47 +1,40 @@
 <template>
   <div class="eveldiv">
-    <div v-if="evalLists.length">
-      <b-tabs content-class="mt-3" fill>
-        <b-tab title="평가내역" active>
-          <div class="card_div m-3" v-for="(item, index) in evalListscomput" :key="index">
-            <b-card
-              v-bind:title="item.userNickname + ' 모임 ' + item.userId + '님에게 준 평점'"
-              :sub-title="item.boardDate.slice(0, 10)"
-              style="max-width: 25rem"
-              class="mb-3"
-            >
-              <b-card-text>
-                <star-rating v-bind:rating="item.rating" :read-only="true" :increment="1" />
-              </b-card-text>
+    <b-tabs content-class="mt-3" fill>
+      <b-tab title="평가내역" active>
+        <div class="card_div m-3" v-for="(item, index) in evalListscomput" :key="index">
+          <b-card
+            v-bind:title="item.userNickname + ' 모임 ' + item.userId + '님에게 준 평점'"
+            :sub-title="item.boardDate.slice(0, 10)"
+            style="max-width: 25rem"
+            class="mb-3"
+          >
+            <b-card-text>
+              <star-rating v-bind:rating="item.rating" :read-only="true" :increment="1" />
+            </b-card-text>
 
-              <!-- <b-button href="#" variant="primary">평가확정</b-button> -->
-            </b-card>
-          </div></b-tab
-        >
-        <b-tab title="평가하기">
-          <div v-for="(item, index) in evaledListscomput" :key="index">
-            <b-card
-              v-bind:title="item.userNickname + '님은 어떠셨나요?'"
-              :sub-title="item.boardDate.slice(0, 10)"
-              style="max-width: 25rem"
-              class="mb-3"
+            <!-- <b-button href="#" variant="primary">평가확정</b-button> -->
+          </b-card>
+        </div></b-tab
+      >
+      <b-tab title="평가하기">
+        <div v-for="(item, index) in evaledListscomput" :key="index">
+          <b-card
+            v-bind:title="item.userNickname + '님은 어떠셨나요?'"
+            :sub-title="item.boardDate.slice(0, 10)"
+            style="max-width: 25rem"
+            class="mb-3"
+          >
+            <b-card-text>
+              <star-rating v-bind:rating="3" @rating-selected="setRating" :increment="1" />
+            </b-card-text>
+            <b-button @click="postRating(rating, item.userId, item.boardId, index)"
+              >평가하기</b-button
             >
-              <b-card-text>
-                <star-rating v-bind:rating="3" @rating-selected="setRating" :increment="1" />
-              </b-card-text>
-              <b-button @click="postRating(rating, item.userId, item.boardId, index)"
-                >평가하기</b-button
-              >
-            </b-card>
-          </div></b-tab
-        >
-      </b-tabs>
-    </div>
-    <div v-else>
-      <div class="appie-single-service-2 wow animated fadeInUp" style="margin-top: 78px">
-        아직 평가 내역이 없습니다.
-      </div>
-    </div>
+          </b-card>
+        </div></b-tab
+      >
+    </b-tabs>
   </div>
 </template>
 

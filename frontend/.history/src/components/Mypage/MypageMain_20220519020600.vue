@@ -29,7 +29,7 @@
           }}</span>
         </div>
       </div>
-      <div id="promise-list">
+      <div>
         <div>모집 진행 중인 모임</div>
         <!-- 버튼 모임 유무에따라 활성화, 비활성화 할것!!! -->
         <b-button v-show="checkBoardid" @click="movepost()"

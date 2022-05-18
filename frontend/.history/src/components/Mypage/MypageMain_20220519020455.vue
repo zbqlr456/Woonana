@@ -29,16 +29,14 @@
           }}</span>
         </div>
       </div>
-      <div id="promise-list">
-        <div>모집 진행 중인 모임</div>
-        <!-- 버튼 모임 유무에따라 활성화, 비활성화 할것!!! -->
-        <b-button v-show="checkBoardid" @click="movepost()"
-          >바로가기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></b-button
-        >
-        <b-button v-show="!checkBoardid" disabled
-          >바로가기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></b-button
-        >
-      </div>
+      <div>모집 진행 중인 모임</div>
+      <!-- 버튼 모임 유무에따라 활성화, 비활성화 할것!!! -->
+      <b-button v-show="checkBoardid" @click="movepost()"
+        >바로가기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></b-button
+      >
+      <b-button v-show="!checkBoardid" disabled
+        >바로가기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></b-button
+      >
     </div>
     <ul class="list-group list-group-flush">
       <li class="my-page-list list-group-item">

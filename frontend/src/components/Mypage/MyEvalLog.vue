@@ -5,7 +5,7 @@
         <div class="card_div m-3" v-for="(item, index) in evalLists" :key="index">
           <b-card
             v-bind:title="item.boardTitle + ' 모임 ' + item.userId + '님에게 준 평점'"
-            :sub-title="item.boardDate"
+            :sub-title="item.boardDate.slice(0, 10)"
             style="max-width: 25rem"
             class="mb-3"
           >
@@ -21,7 +21,7 @@
         <div v-for="(item, index) in evaledLists" :key="index">
           <b-card
             v-bind:title="item.userNickname + '님은 어떠셨나요?'"
-            :sub-title="getBoardTitle(item.boardId)"
+            :sub-title="item.boardDate.slice(0, 10)"
             style="max-width: 25rem"
             class="mb-3"
           >
@@ -111,6 +111,7 @@ export default {
     this.getevaledlist();
     // this.postRating(6, 2);
   },
+  computed: {},
 };
 </script>
 

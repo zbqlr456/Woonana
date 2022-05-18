@@ -32,7 +32,7 @@ export default {
   font-size: 16px;
   font-weight: 700;
   z-index: 10;
-  margin-left: 12px;
+  margin-left: 11px;
   text-align: center;
 }
 </style>

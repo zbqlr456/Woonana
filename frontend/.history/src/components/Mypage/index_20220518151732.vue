@@ -5,15 +5,17 @@
         <span>마이 페이지</span>
       </div>
     </div>
-    <router-view />
+    <mypage-main />
     <footer-home-one />
   </div>
 </template>
 
 <script>
 import FooterHomeOne from "../HomeOne/FooterHomeOne.vue";
+import MypageMain from "../components/Mypage/MypageMain.vue";
 export default {
   components: {
+    MypageMain,
     FooterHomeOne,
   },
   data() {
@@ -32,7 +34,7 @@ export default {
   font-size: 16px;
   font-weight: 700;
   z-index: 10;
-  margin-left: 12px;
+  margin-left: 4px;
   text-align: center;
 }
 </style>

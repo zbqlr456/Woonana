@@ -5,8 +5,8 @@
         <div class="col-md-1" id="profile-img-box">
           <b-img id="profile-img" v-bind:src="myinfomation.userProfileUrl"></b-img>
         </div>
-        <div class="col-md-1">
-          <p id="profile-nickname">{{ myinfomation.userNickname }}</p>
+        <div class="col-md-1" id="profile-nickname">
+          <p>{{ myinfomation.userNickname }}</p>
         </div>
       </div>
       <div>나의 약속</div>

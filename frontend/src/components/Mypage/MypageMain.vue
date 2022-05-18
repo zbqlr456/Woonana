@@ -41,6 +41,7 @@ export default {
       //약속 뿌려줄때 넣을것!!!
       appointment: [],
       boardId: 0,
+      myrating: -1,
     };
   },
   methods: {
@@ -81,10 +82,23 @@ export default {
       return boardId;
     },
     movepost: function () {
+      //게시글 상세로 이동
       this.$router.push({
         name: "ShowBlog",
         params: { data: this.boardId },
       });
+    },
+    getMyRating: async function () {
+      //내 평점정보 가져옴
+      let data = localStorage.getItem("vuex");
+      let parsedata = JSON.parse(data);
+      let token = parsedata.loginStore.jwtToken;
+      http.defaults.headers.common["Authorization"] = "Bearer " + token;
+      http.defaults.headers.common["withCredentials"] = false;
+      let res = await http.get("/api/accounts/evalue/me");
+      console.log(res);
+      this.myrating = await res.data.userRatingScore;
+      // console.log(this.myrating);
     },
     //axios로 해야 withcredentials가 셋팅되서 잘됨,,, 현재 이걸루 하는중
   },
@@ -95,6 +109,7 @@ export default {
     console.log(this.myinfo);
     console.log("userinfo", this.$store.getters.GET_USER_INFO);
     this.getBoardId();
+    this.getMyRating();
 
     // this.getUserInfoaxios();
   },

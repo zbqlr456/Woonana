@@ -2,10 +2,10 @@
   <div class="mainpageCon">
     <div class="mainpage">
       <!-- <img src="@/assets/images/logo/Penguin.png" class="penguin" /> -->
-      <div class="mainpage-img">
+      <div class="mainpage-box">
         <img src="@/assets/images/logo/Woonana-removebg.png" class="penguin" />
       </div>
-      <div class="mainpage-btn">
+      <div class="mainpage-box">
         <button type="button" class="btn btn-outline-warning" @click="kakaoLogin">
           카카오 로그인하기
         </button>
@@ -52,13 +52,10 @@ body {
   justify-content: center;
   align-items: center;
 }
-.mainpage-img {
+.mainpage-box {
   display: flex;
   justify-content: center;
 }
-.mainpage-btn {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 112px;
+.penguin {
 }
 </style>

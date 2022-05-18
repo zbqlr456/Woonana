@@ -38,7 +38,7 @@
       </b-tabs>
     </div>
     <div v-else>
-      <div class="appie-single-service-2 wow animated fadeInUp" style="margin-top: 78px">
+      <div class="appie-single-service-2 wow animated fadeInUp" style="margin-top: 40px">
         아직 평가 내역이 없습니다.
       </div>
     </div>

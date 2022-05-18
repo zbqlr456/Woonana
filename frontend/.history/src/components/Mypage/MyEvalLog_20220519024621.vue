@@ -37,10 +37,8 @@
         >
       </b-tabs>
     </div>
-    <div v-else>
-      <div class="appie-single-service-2 wow animated fadeInUp" style="margin-top: 78px">
-        아직 평가 내역이 없습니다.
-      </div>
+    <div class="row" v-else>
+      <div class="appie-single-service-2 wow animated fadeInUp">아직 참여 내역이 없습니다.</div>
     </div>
   </div>
 </template>

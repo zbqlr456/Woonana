@@ -1,5 +1,5 @@
 <template>
-  <div id="myworkoutlog-container">
+  <div id="workoutlog-container">
     <Pie
       :chart-options="chartOptions"
       :chart-data="mychartData"
@@ -265,8 +265,7 @@ export default {
 </script>
 
 <style>
-#myworkoutlog-container {
-  width: 200px;
+#workoutlog-container {
 }
 #customers {
   font-family: Arial, Helvetica, sans-serif;

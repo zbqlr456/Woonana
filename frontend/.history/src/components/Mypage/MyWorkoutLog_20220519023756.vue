@@ -20,7 +20,7 @@
             src="https://static.thenounproject.com/png/118627-200.png"
             alt="Image 3"
             fluid
-            height="75"
+            height="70"
             width="75"
           ></b-img>
           {{ mymonthlog.excAll }}
@@ -266,7 +266,6 @@ export default {
 
 <style>
 #myworkoutlog-container {
-  width: 200px;
 }
 #customers {
   font-family: Arial, Helvetica, sans-serif;

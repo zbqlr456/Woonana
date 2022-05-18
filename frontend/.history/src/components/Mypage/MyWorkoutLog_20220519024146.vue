@@ -104,7 +104,6 @@
       </tr>
     </table>
     <vuejs-heatmap :entries="this.myheatmapData" :color-range="this.colorRangeData"></vuejs-heatmap>
-    <br />
   </div>
 </template>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

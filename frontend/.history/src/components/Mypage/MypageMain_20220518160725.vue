@@ -5,8 +5,8 @@
         <div class="col-md-1" id="profile-img-box">
           <b-img id="profile-img" v-bind:src="myinfomation.userProfileUrl"></b-img>
         </div>
-        <div class="col-md-1">
-          <p id="profile-nickname">{{ myinfomation.userNickname }}</p>
+        <div class="col-md-1" id="profile-nickname">
+          <p>{{ myinfomation.userNickname }}</p>
         </div>
       </div>
       <div>나의 약속</div>
@@ -21,11 +21,11 @@
       <b-button disabled size="lg">바로가기</b-button>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="my-page-list list-group-item">내 글</li>
-      <li class="my-page-list list-group-item">참여 내역</li>
-      <li class="my-page-list list-group-item">운동 기록</li>
-      <li class="my-page-list list-group-item">평가 페이지</li>
-      <li class="my-page-list list-group-item">고객 센터</li>
+      <li class="list-group-item">An item</li>
+      <li class="list-group-item">A second item</li>
+      <li class="list-group-item">A third item</li>
+      <li class="list-group-item">A fourth item</li>
+      <li class="list-group-item">And a fifth one</li>
     </ul>
   </div>
 </template>
@@ -91,9 +91,5 @@ export default {
   object-fit: cover;
 }
 #profile-nickname {
-  font-weight: bold;
-}
-.my-page-list {
-  font-weight: bold;
 }
 </style>

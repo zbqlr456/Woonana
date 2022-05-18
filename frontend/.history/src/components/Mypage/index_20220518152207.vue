@@ -5,7 +5,6 @@
         <span>마이 페이지</span>
       </div>
     </div>
-    <router-view />
     <footer-home-one />
   </div>
 </template>
@@ -32,7 +31,7 @@ export default {
   font-size: 16px;
   font-weight: 700;
   z-index: 10;
-  margin-left: 12px;
+  margin-left: 4px;
   text-align: center;
 }
 </style>

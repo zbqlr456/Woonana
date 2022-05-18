@@ -191,7 +191,7 @@ export default {
 .back-icon {
   width: 30px;
   height: 30px;
-  margin-right: 118px;
+  margin-right: 104px;
 }
 
 #chat-list {

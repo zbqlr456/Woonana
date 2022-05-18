@@ -3,6 +3,11 @@
     <div v-if="showloading">
       <loader-appie />
     </div>
+    <div class="row">
+      <div class="col-md-12" id="blog-list-title">
+        <span>게시판</span>
+      </div>
+    </div>
     <!-- Blog Start -->
     <section class="blogpage-section">
       <div class="container">
@@ -50,4 +55,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#blog-list-title {
+  position: fixed;
+  top: 0;
+  background: #ffffff;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
+  padding: 1.8rem;
+  font-size: 16px;
+  font-weight: 700;
+  z-index: 10;
+}
+</style>

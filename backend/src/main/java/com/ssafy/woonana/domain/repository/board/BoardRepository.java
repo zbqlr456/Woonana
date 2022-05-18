@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    List<Board> findAllByOrderByIdDesc();
+    List<Board> findAllByOrderByCreatedDateDesc();
 
     @Query("select b from Board b where b.user.userId = :userId order by b.createdDate desc")
     List<Board> findBoardsByUserId(@Param("userId") Long userId);

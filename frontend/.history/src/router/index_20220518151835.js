@@ -70,7 +70,7 @@ const routes = [
       },
       {
         // /mypage/qna 과 일치 할 때
-        // mypageqna가 mypage <router-view /> 내에 렌더링 됩니다.
+        // mypageqna가 mypage <router-view> 내에 렌더링 됩니다.
         path: "qna",
         component: MypageQna,
       },

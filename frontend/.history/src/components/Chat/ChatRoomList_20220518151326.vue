@@ -112,7 +112,7 @@ export default {
 }
 
 #chat-room-list {
-  margin-top: 20%;
+  margin-top: 25%;
 }
 
 #chat-room {

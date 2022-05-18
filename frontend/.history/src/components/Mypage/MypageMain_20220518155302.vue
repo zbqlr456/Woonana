@@ -1,12 +1,22 @@
 <template>
   <div>
     <div class="mypage_content">
-      <div class="profile" id="profile">
-        <div class="col-md-1" id="profile-img-box">
-          <b-img id="profile-img" v-bind:src="myinfomation.userProfileUrl"></b-img>
+      <div id="profile-and-rating">
+        <div class="profile" id="profile">
+          <div class="col-md-1" id="profile-img-box">
+            <b-img id="profile-img" v-bind:src="myinfomation.userProfileUrl"></b-img>
+          </div>
+          <div class="col-md-1" id="profile-nickname">
+            <p>{{ myinfomation.userNickname }}</p>
+          </div>
         </div>
-        <div class="col-md-1">
-          <p id="profile-nickname">{{ myinfomation.userNickname }}</p>
+        <div class="star col-md-2">
+          <star-rating
+            :show-rating="false"
+            @rating-selected="setRating"
+            :read-only="true"
+            :rating="3"
+          ></star-rating>
         </div>
       </div>
       <div>나의 약속</div>
@@ -20,16 +30,15 @@
       <b-button size="lg">바로가기</b-button>
       <b-button disabled size="lg">바로가기</b-button>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="my-page-list list-group-item">내 글</li>
-      <li class="my-page-list list-group-item">참여 내역</li>
-      <li class="my-page-list list-group-item">운동 기록</li>
-      <li class="my-page-list list-group-item">평가 페이지</li>
-      <li class="my-page-list list-group-item">고객 센터</li>
-    </ul>
+
+    <div style="margin-top: 10px; font-weight: bold">{{ rating }}</div>
+    <mypagenav />
   </div>
 </template>
 <script>
+import StarRating from "vue-star-rating";
+import Mypagenav from "./Mypagenav.vue";
+
 export default {
   data() {
     return {
@@ -44,6 +53,7 @@ export default {
     getUserInfo: async function () {
       this.myinfo = await this.$store.dispatch("getUserInfo");
     },
+    components: { StarRating, Mypagenav },
     //axios로 해야 withcredentials가 셋팅되서 잘됨,,, 현재 이걸루 하는중
   },
   beforemount: function () {},
@@ -91,9 +101,8 @@ export default {
   object-fit: cover;
 }
 #profile-nickname {
-  font-weight: bold;
 }
-.my-page-list {
-  font-weight: bold;
+.star {
+  margin-left: 5px;
 }
 </style>

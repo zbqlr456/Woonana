@@ -67,6 +67,7 @@ export default {
       refuse: function(data){
           http.delete(`/api/participate/pick/refuse/${data}`).then((response)=>{
               console.log(response);
+              this.$router.go(-1);
           }).catch((err)=>{
               alert(err);
           })

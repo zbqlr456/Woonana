@@ -59,6 +59,6 @@ body {
 .mainpage-btn {
   display: flex;
   justify-content: center;
-  margin-bottom: 112px;
+  margin-bottom: 20px;
 }
 </style>

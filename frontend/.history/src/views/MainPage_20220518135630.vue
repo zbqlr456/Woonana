@@ -2,14 +2,8 @@
   <div class="mainpageCon">
     <div class="mainpage">
       <!-- <img src="@/assets/images/logo/Penguin.png" class="penguin" /> -->
-      <div class="mainpage-img">
-        <img src="@/assets/images/logo/Woonana-removebg.png" class="penguin" />
-      </div>
-      <div class="mainpage-btn">
-        <button type="button" class="btn btn-outline-warning" @click="kakaoLogin">
-          카카오 로그인하기
-        </button>
-      </div>
+      <img src="@/assets/images/logo/Woonana-removebg.png" class="penguin" />
+      <button type="button" class="btn btn-warning" @click="kakaoLogin">카카오 로그인하기</button>
     </div>
   </div>
 </template>
@@ -38,27 +32,14 @@ export default {
 </script>
 
 <style>
-html,
-body {
-  height: 100%;
-}
-#app {
-  height: 100%;
-}
 .mainpageCon {
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
-.mainpage-img {
-  display: flex;
-  justify-content: center;
+.mainpage {
 }
-.mainpage-btn {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 112px;
+.penguin {
 }
 </style>

@@ -2,7 +2,7 @@
   <!-- <div class="col-md-8 Jua"> -->
   <div>
     <div class="row">
-      <div class="col-md-12" id="newpost-title">
+      <div class="col-md-12" id="blog-list-title">
         <span>게시글 등록</span>
       </div>
     </div>
@@ -229,7 +229,7 @@ export default {
 </script>
 
 <style>
-#newpost-title {
+#blog-list-title {
   position: fixed;
   top: 0;
   background: #ffffff;

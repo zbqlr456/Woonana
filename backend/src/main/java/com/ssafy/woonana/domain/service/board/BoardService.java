@@ -67,7 +67,7 @@ public class BoardService {
     }
 
     public List<BoardListResponse> getAllBoards() {
-        List<Board> boardList = boardRepository.findAllByOrderByIdDesc();
+        List<Board> boardList = boardRepository.findAllByOrderByCreatedDateDesc();
         List<BoardListResponse> list = new ArrayList<>();
 
         for (Board b : boardList) {

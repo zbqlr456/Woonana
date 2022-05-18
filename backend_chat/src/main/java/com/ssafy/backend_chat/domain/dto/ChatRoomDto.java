@@ -1,6 +1,5 @@
 package com.ssafy.backend_chat.domain.dto;
 
-
 import com.ssafy.backend_chat.domain.entity.ChatRoom;
 import lombok.Data;
 

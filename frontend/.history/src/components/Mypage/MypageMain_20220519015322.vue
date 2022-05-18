@@ -1,18 +1,16 @@
 <template>
   <div class="mypage-container">
     <div class="mypage_content">
-      <div id="profile-weather">
-        <div id="profile">
-          <div class="col-md-1" id="profile-img-box">
-            <b-img id="profile-img" v-bind:src="myinfomation.userProfileUrl"></b-img>
-          </div>
-          <div class="col-md-1">
-            <p id="profile-nickname">{{ myinfomation.userNickname }}</p>
-          </div>
+      <div class="profile" id="profile">
+        <div class="col-md-1" id="profile-img-box">
+          <b-img id="profile-img" v-bind:src="myinfomation.userProfileUrl"></b-img>
         </div>
-        <div id="my-weather">
-          <p id="weather-list">
-            {{ myinfomation.userNickname }}님의 현재 날씨 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="col-md-1">
+          <p id="profile-nickname">{{ myinfomation.userNickname }}</p>
+        </div>
+        <div class="my-weather">
+          <p>
+            {{ myinfomation.userNickname }}님의 날씨 :
             <i v-if="this.myrating <= 1" class="fas fa-bolt"></i>
             <i v-if="this.myrating <= 2 && this.myrating > 1" class="fas fa-cloud-rain"></i>
             <i v-if="this.myrating <= 3 && this.myrating > 2" class="fas fa-cloud"></i>
@@ -21,6 +19,7 @@
           </p>
         </div>
       </div>
+
       <div id="my-promise">
         <div>나의 약속</div>
         <div>
@@ -29,16 +28,14 @@
           }}</span>
         </div>
       </div>
-      <div id="promise-list">
-        <div>모집 진행 중인 모임</div>
-        <!-- 버튼 모임 유무에따라 활성화, 비활성화 할것!!! -->
-        <b-button v-show="checkBoardid" @click="movepost()"
-          >바로가기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></b-button
-        >
-        <b-button v-show="!checkBoardid" disabled
-          >바로가기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></b-button
-        >
-      </div>
+      <div>모집 진행 중인 모임</div>
+      <!-- 버튼 모임 유무에따라 활성화, 비활성화 할것!!! -->
+      <b-button v-show="checkBoardid" @click="movepost()"
+        >바로가기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></b-button
+      >
+      <b-button v-show="!checkBoardid" disabled
+        >바로가기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></b-button
+      >
     </div>
     <ul class="list-group list-group-flush">
       <li class="my-page-list list-group-item">
@@ -166,17 +163,13 @@ export default {
 .mypage_content {
   margin: 1%;
 }
-#profile-weather {
-  margin-top: 60px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
+
 #profile {
   height: 100%;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  margin-top: 60px;
   margin-bottom: 10px;
 }
 #profile-img-box {
@@ -193,23 +186,11 @@ export default {
   object-fit: cover;
 }
 #profile-nickname {
-  font-weight: 900;
-  font-size: 12px;
+  font-weight: bold;
   margin-top: 3px;
-  margin-left: 20px;
+  margin-left: 14px;
 }
-#my-weather {
-  margin-left: 6%;
-  margin-bottom: 8%;
-}
-#weather-list {
-  display: flex;
-  align-items: center;
-  font-weight: 900;
-  font-size: 18px;
-}
-.fas {
-  font-size: 36px;
+.my-rating {
 }
 #my-promise {
   font-weight: bold;

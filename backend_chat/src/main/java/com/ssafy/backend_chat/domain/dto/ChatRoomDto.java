@@ -10,10 +10,12 @@ import java.time.LocalDateTime;
 public class ChatRoomDto {
 
     private String name;
+    private Long boardId;
 
     public ChatRoom toEntity(){
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setName(name);
+        chatRoom.setBoardId(boardId);
         chatRoom.setCreatedAt(LocalDateTime.now());
         return chatRoom;
     }

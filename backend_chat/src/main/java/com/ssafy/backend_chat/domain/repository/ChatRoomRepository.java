@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ChatRoomRepository extends MongoRepository<ChatRoom,String> {
 
-    List<ChatRoom> findAllBy();
+    ChatRoom findTopByBoardIdOrderByCreatedAt(Long boardId);
 
     List<ChatRoom> findAllBy(Sort createdAt);
 

@@ -218,7 +218,7 @@ export default {
           let msg = "게시글 등록을 완료하였습니다.";
           console.log(response);
           alert(msg);
-          this.$router.push("/news");
+          this.$router.push("/allblogs");
         })
         .catch((err) => {
           alert(err);

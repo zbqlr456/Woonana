@@ -2,7 +2,7 @@
   <div class="blogs-row">
     <div class="col-lg-12">
       <div class="row">
-        <div class="col-lg-6" v-for="board in boards" :key="board.id">
+        <div class="col-lg-6" v-for="board in boards" :key="board.boardId">
           <div class="post-item-1">
             <img :src="board.imageUrl" alt="" />
             <div class="b-post-details">

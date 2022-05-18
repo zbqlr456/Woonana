@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-12" id="mypage-title">
+      <div class="col-md-12" id="nav-title">
         <span>마이 페이지</span>
       </div>
     </div>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style>
-#mypage-title {
+#nav-title {
   position: fixed;
   top: 0;
   background: #ffffff;

@@ -1,7 +1,16 @@
 <template>
-  <div>
-    <p>카카오톡 로그인</p>
-    <button @click="kakaoLogin">로그인하기</button>
+  <div class="mainpageCon">
+    <div class="mainpage">
+      <!-- <img src="@/assets/images/logo/Penguin.png" class="penguin" /> -->
+      <div class="mainpage-img">
+        <img src="@/assets/images/logo/Woonana-removebg.png" class="penguin" />
+      </div>
+      <div class="mainpage-btn">
+        <button type="button" class="btn btn-outline-warning" @click="kakaoLogin">
+          카카오 로그인하기
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,4 +37,28 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+html,
+body {
+  height: 100%;
+}
+#app {
+  height: 100%;
+}
+.mainpageCon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mainpage-img {
+  display: flex;
+  justify-content: center;
+}
+.mainpage-btn {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 112px;
+}
+</style>

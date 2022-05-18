@@ -1,8 +1,12 @@
 <template>
   <!-- <div class="col-md-8 Jua"> -->
   <div>
-    <div class="contact-form Jua">
-      <h4>게시글 등록</h4>
+    <div class="row">
+      <div class="col-md-12" id="newpost-title">
+        <span>게시글 등록</span>
+      </div>
+    </div>
+    <div class="contact-form">
       <p>함께 운동할 사람을 찾아보세요.</p>
       <form action="#" method="post" class="row">
         <div class="col-md-6">
@@ -225,6 +229,16 @@ export default {
 </script>
 
 <style>
+#newpost-title {
+  position: fixed;
+  top: 0;
+  background: #ffffff;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
+  padding: 1.8rem;
+  font-size: 16px;
+  font-weight: 700;
+  z-index: 10;
+}
 .img {
   display: none;
 }

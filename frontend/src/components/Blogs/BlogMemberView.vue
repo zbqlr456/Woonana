@@ -80,8 +80,7 @@ export default {
           // this.storeduser = {};
           if(this.myinfomation.userNickname == this.users[i].userNickname){
             this.memberstatus = true;
-          }else{
-            this.memberstatus = false;
+            console.log("내가 멤버다!");
           }
         }
         console.log("여긴 created 바깥의 유저내용",this.users)

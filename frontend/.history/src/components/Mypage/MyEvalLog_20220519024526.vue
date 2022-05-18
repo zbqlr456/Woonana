@@ -1,6 +1,6 @@
 <template>
   <div class="eveldiv">
-    <div v-if="evalLists.length">
+    <div v-if="evalLists">
       <b-tabs content-class="mt-3" fill>
         <b-tab title="평가내역" active>
           <div class="card_div m-3" v-for="(item, index) in evalListscomput" :key="index">
@@ -37,10 +37,8 @@
         >
       </b-tabs>
     </div>
-    <div v-else>
-      <div class="appie-single-service-2 wow animated fadeInUp" style="margin-top: 78px">
-        아직 평가 내역이 없습니다.
-      </div>
+    <div class="row" v-else>
+      <div class="appie-single-service-2 wow animated fadeInUp">아직 평가 내역이 없습니다.</div>
     </div>
   </div>
 </template>

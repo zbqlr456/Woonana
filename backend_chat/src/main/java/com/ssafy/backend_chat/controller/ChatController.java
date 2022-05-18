@@ -11,9 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Value;
 
-import java.net.URI;
 import java.util.List;
 
 @Api(tags = "채팅 메세지")
@@ -23,9 +21,6 @@ public class ChatController {
 
     private final SimpMessageSendingOperations messagingTemplate;
     private final ChatMessageRepository chatMessageRepository;
-
-    @Value("${userinfo.url}")
-    private String userInfoUrl;
 
     @MessageMapping("/chatapi/message") // 메세지 보낼때 컨트롤러가 받아줌.
     public void message(ChatMessageDto message) {

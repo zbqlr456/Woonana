@@ -342,7 +342,8 @@ public class UserService {
 
         // 사용자 리스트를 dto 형태로 바꿔준다
         for(Evaluation eval: evaluations){
-            result.add(new UserEvaluateResponse(eval));
+            String targetNickname=userRepository.findById(eval.getEvaluationTarget().getUserId()).get().getUserNickname();
+            result.add(new UserEvaluateResponse(eval, targetNickname));
         }
 
         return result;

@@ -7,6 +7,14 @@
         </div>
         <div class="col-md-1">
           <p id="profile-nickname">{{ myinfomation.userNickname }}</p>
+          <p>
+            {{ myinfomation.userNickname }}님의 날씨 :
+            <i v-if="this.myrating <= 1" class="fas fa-bolt"></i>
+            <i v-if="this.myrating <= 2 && this.myrating > 1" class="fas fa-cloud-rain"></i>
+            <i v-if="this.myrating <= 3 && this.myrating > 2" class="fas fa-cloud"></i>
+            <i v-if="this.myrating <= 4 && this.myrating > 3" class="fas fa-cloud-sun"></i>
+            <i v-if="this.myrating <= 5 && this.myrating > 4" class="fas fa-sun"></i>
+          </p>
         </div>
       </div>
       <div>나의 약속</div>

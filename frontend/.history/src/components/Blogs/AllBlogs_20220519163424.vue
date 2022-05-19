@@ -15,7 +15,7 @@
                 >
               </div>
               <h3>
-                {{ board.title }}
+                <a>{{ board.title }}</a>
               </h3>
             </div>
           </div>

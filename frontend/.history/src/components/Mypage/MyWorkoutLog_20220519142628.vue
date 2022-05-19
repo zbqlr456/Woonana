@@ -12,7 +12,7 @@
       :height="height"
     />
     <!--뷰차트 화면보이게 해주는거-->
-    <table id="customers">
+    <!-- <table id="customers">
       <tr>
         <th>총 운동 횟수 :</th>
         <td>
@@ -97,8 +97,8 @@
           >{{ mymonthlog.monthLogs.length >= 4 ? mymonthlog.monthLogs[4].exerciseCount : 0 }}
         </td>
       </tr>
-    </table>
-    <!-- <vuejs-heatmap :entries="this.myheatmapData" :color-range="this.colorRangeData"></vuejs-heatmap> -->
+    </table> -->
+    <vuejs-heatmap :entries="this.myheatmapData" :color-range="this.colorRangeData"></vuejs-heatmap>
     <!--엔트리스가 색범위 넣어주는거-->
     <br />
   </div>

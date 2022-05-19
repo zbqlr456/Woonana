@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-md-12" id="blog-title">
-        <span>게시글</span>
+        <span>게시판</span>
       </div>
     </div>
     <!-- Blog Start -->

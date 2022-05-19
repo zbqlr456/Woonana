@@ -23,7 +23,7 @@
         v-on:click="enterRoom(item.roomId)"
       >
         <img :src="item.image" id="item-image" />
-        &nbsp;&nbsp;&nbsp;{{ item.name }}
+        &nbsp;&nbsp;&nbsp;&nbsp;{{ item.name }}
       </li>
     </ul>
     <footer-home-one />
@@ -118,7 +118,6 @@ export default {
   margin: 10px 0px 10px 0px;
   padding-bottom: 12px;
 }
-
 #item-image {
   width: 40px;
   height: 40px;

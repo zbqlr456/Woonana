@@ -17,4 +17,5 @@ public class BoardListResponse {
     private int maxNumber;
     private String status;
     private String imageUrl;
+    private String place;
 }

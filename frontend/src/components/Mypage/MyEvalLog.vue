@@ -29,7 +29,8 @@
               <b-card-text>
                 <star-rating v-bind:rating="3" @rating-selected="setRating" :increment="1" />
               </b-card-text>
-              <b-button @click="postRating(rating, item.userId, item.boardId, index)"
+              <b-button
+                @click="postRating(rating, item.userId, item.boardId, item.exerciseId, index)"
                 >평가하기</b-button
               >
             </b-card>
@@ -98,7 +99,7 @@ export default {
       console.log("result", res);
       return res.data.title;
     },
-    postRating: async function (rate, userId, boardId, index) {
+    postRating: async function (rate, userId, boardId, exerciseId, index) {
       let data = localStorage.getItem("vuex");
       let parsedata = JSON.parse(data);
       let token = parsedata.loginStore.jwtToken;
@@ -117,6 +118,13 @@ export default {
         this.getevallist();
         alert("평가완료");
       }
+      res = await http.post("/api/accounts/" + boardId + "/" + exerciseId);
+      if (res.status === 200) {
+        console.log(this.res);
+
+        alert("운동로그 등록완료");
+      }
+
       console.log(res);
     },
     setRating: function (rating) {

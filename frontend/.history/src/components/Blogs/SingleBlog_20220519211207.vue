@@ -75,10 +75,10 @@ export default {
   mounted() {
     this.$store.dispatch("getUserInfo");
     this.boardId = this.$route.query.data;
-    // console.log("여긴 게시글번호", this.boardId);
+    console.log("여긴 게시글번호", this.boardId);
     http.get(`/api/main/${this.boardId}`).then((response) => {
       this.board = response.data;
-      // console.log("여긴 상세내용 : ", this.board);
+      console.log("여긴 상세내용 : ", this.board);
     });
   },
   computed: {
@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     join() {
-      // console.log(this.boardId);
+      console.log(this.boardId);
       http
         .post(`/api/participate/${this.boardId}`)
         .then((response) => {
@@ -104,13 +104,15 @@ export default {
         });
     },
     blogdelete() {
-      http2.patch(`/chatapi/room/${this.boardId}`);
       http.delete(`/api/main/${this.boardId}`).then((response) => {
         console.log(response);
         let msg = "삭제가 완료되었습니다.";
         alert(msg);
         this.$router.push("/allblogs");
       });
+    },
+    chatIsEnd() {
+      http2.isEndTrue(`/room/${this.boardId}`);
     },
     checkStatus() {
       if (this.board.allowedNumber == this.board.maxNumber) {

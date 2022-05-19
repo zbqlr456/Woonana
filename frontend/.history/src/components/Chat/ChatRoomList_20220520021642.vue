@@ -57,6 +57,7 @@ export default {
   methods: {
     findAllRoom: function () {
       http2.get("/api/participate/board").then((response) => {
+        // console.log("boards", response.data);
         for (var i = 0; i < response.data.length; i++) {
           this.boards.push(response.data[i].boardId);
         }
@@ -65,8 +66,7 @@ export default {
       });
     },
     getBoardIds: function () {
-      // Body 보내려고 post 씀
-      http.post("/chatapi/rooms", JSON.stringify({ boards: this.boards })).then((response) => {
+      http.get("/chatapi/rooms", {}, JSON.stringify(this.boards)).then((response) => {
         this.chatrooms = response.data;
       });
     },

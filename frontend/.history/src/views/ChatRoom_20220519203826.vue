@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import LoaderAppie from "@/components/LoaderAppie.vue";
+import LoaderAppie from "../LoaderAppie.vue";
 import InfiniteLoading from "vue-infinite-loading";
 import ChatList from "@/components/Chat/ChatList";
 import http from "@/util/indexChat.js";

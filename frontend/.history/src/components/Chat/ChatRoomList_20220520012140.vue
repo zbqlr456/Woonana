@@ -40,6 +40,7 @@ export default {
       room_name: "",
       chatrooms: [],
       boards: [],
+      final_boards: [],
     };
   },
   components: {
@@ -57,19 +58,28 @@ export default {
   methods: {
     findAllRoom: function () {
       http2.get("/api/participate/board").then((response) => {
+        // console.log("boards", response.data);
         for (var i = 0; i < response.data.length; i++) {
           this.boards.push(response.data[i].boardId);
         }
-        console.log("boards", this.boards);
-        this.getBoardIds();
+        // console.log("boards", this.boards);
+        this.final_boards = JSON.stringify(this.boards);
+        this.test;
+        console.log("final_boards", this.final_boards);
       });
+
     },
-    getBoardIds: function () {
-      // Body 보내려고 post 씀
-      http.post("/chatapi/rooms", JSON.stringify({ boards: this.boards })).then((response) => {
-        this.chatrooms = response.data;
-      });
-    },
+    test: function(){
+      http
+        .get("/chatapi/rooms", {
+          params: {
+            boards: this.final_boards,
+          },
+        })
+        .then((response) => {
+          this.chatrooms = response.data;
+        });
+    }
     // createRoom: function () {
     //   if ("" === this.room_name) {
     //     alert("방 제목을 입력해 주십시요.");

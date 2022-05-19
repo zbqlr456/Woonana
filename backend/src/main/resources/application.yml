@@ -3,7 +3,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://k6b104.p.ssafy.io:3306/woonana
+#    url: jdbc:mysql://k6b104.p.ssafy.io:3306/woonana
+    url: jdbc:mysql://k6b104.p.ssafy.io:3306/woonana?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Seoul
     username: root
     password: woonana123@
     driver-class-name: com.mysql.cj.jdbc.Driver

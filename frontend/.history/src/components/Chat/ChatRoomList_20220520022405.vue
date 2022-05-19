@@ -65,7 +65,6 @@ export default {
       });
     },
     getBoardIds: function () {
-      // Body 보내려고 post 씀
       http.post("/chatapi/rooms", JSON.stringify({ boards: this.boards })).then((response) => {
         this.chatrooms = response.data;
       });

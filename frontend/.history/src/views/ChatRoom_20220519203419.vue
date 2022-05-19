@@ -1,18 +1,15 @@
 <template>
   <div class="chat">
-    <div v-if="showloading">
-      <loader-appie />
+    <div id="chat-room-title">
+      <div id="back-icon-box">
+        <router-link to="/chat/chatroomlist">
+          <img src="@/assets/images/icon/arrow-left-short.svg" class="back-icon" />
+        </router-link>
+      </div>
+      <div id="room-name">
+        <span>{{ room.name }}</span>
+      </div>
     </div>
-    <div id="back-icon-box">
-      <router-link to="/chat/chatroomlist">
-        <img src="@/assets/images/icon/arrow-left-short.svg" class="back-icon" />
-      </router-link>
-    </div>
-
-    <div id="room-name">
-      <span>{{ room.name }}</span>
-    </div>
-
     <infinite-loading
       @infinite="infiniteHandler"
       spinner="waveDots"
@@ -68,7 +65,6 @@
 </template>
 
 <script>
-import LoaderAppie from "@/components/LoaderAppie.vue";
 import InfiniteLoading from "vue-infinite-loading";
 import ChatList from "@/components/Chat/ChatList";
 import http from "@/util/indexChat.js";
@@ -81,7 +77,6 @@ var ws = Stomp.over(sock); // sockJS 위에서 돌아간다.
 export default {
   data() {
     return {
-      showloading: true,
       pageNo: 0,
       roomId: "",
       room: {},
@@ -91,27 +86,16 @@ export default {
     };
   },
   components: {
-    LoaderAppie,
     ChatList,
     InfiniteLoading,
   },
   created() {
-    if (!this.rtl) {
-      this.preLoading();
-    } else {
-      this.showloading = false;
-    }
     this.roomId = localStorage.getItem("wschat.roomId");
     this.sender = localStorage.getItem("wschat.sender");
     this.findRoom();
     this.connect();
   },
   methods: {
-    preLoading() {
-      setTimeout(() => {
-        this.showloading = false;
-      }, 2000);
-    },
     findRoom: function () {
       http.get("/chatapi/room/" + this.roomId).then((response) => {
         this.room = response.data;
@@ -188,7 +172,15 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
-
+#chat-room-title {
+  position: fixed;
+  display: flex;
+  justify-content: flex-start;
+  top: 0;
+  padding: 1rem;
+  width: 100%;
+  z-index: 10;
+}
 #room-name {
   position: fixed;
   display: flex;
@@ -201,12 +193,10 @@ export default {
   font-weight: 700;
   width: 100%;
   justify-content: space-around;
-  z-index: 10;
 }
 #back-icon-box {
   position: fixed;
-  margin-top: 12px;
-  margin-left: 15px;
+  top: 2;
   z-index: 14;
 }
 .back-icon {

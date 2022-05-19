@@ -104,13 +104,15 @@ export default {
         });
     },
     blogdelete() {
-      http2.patch(`/chatapi/room/${this.boardId}`);
       http.delete(`/api/main/${this.boardId}`).then((response) => {
         console.log(response);
         let msg = "삭제가 완료되었습니다.";
         alert(msg);
         this.$router.push("/allblogs");
       });
+    },
+    chatIsEnd() {
+      http2.isEndTrue(`/room/${this.boardId}`);
     },
     checkStatus() {
       if (this.board.allowedNumber == this.board.maxNumber) {

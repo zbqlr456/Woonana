@@ -1,8 +1,12 @@
 <template>
   <div>
-    <h1>카카오맵 테스트</h1>
+    <div class="single-post-area Jua">
+      <blockquote>
+        <p>현재 주변에서 모집 진행중인 모임을 확인할 수 있습니다.</p>
+        <cite>마커를 클릭하면 해당 게시글로 이동됩니다.</cite>
+      </blockquote>
+    </div>
     <div id="map"></div>
-    <button @click="getPlaces()" />
   </div>
 </template>
 
@@ -35,6 +39,7 @@ export default {
       myposition: [],
       curlat: null,
       curlong: null,
+      index: "",
     };
   },
   computed: {
@@ -67,7 +72,8 @@ export default {
       }
       //2. 마커 이미지 커스터마이징 하기
       //javascript 영역에서 assets의 정보 가져오기
-      const imgSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+      const imgSrc =
+        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
       const imgSize = new kakao.maps.Size(24, 35);
       const markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize);
 
@@ -133,7 +139,9 @@ export default {
             // infowindow.open(this.map, marker);
 
             // // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            self.map.setCenter(new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+            self.map.setCenter(
+              new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
+            );
           }
         });
       } //end for
@@ -167,7 +175,10 @@ export default {
           // 변환된 좌표 넣기
           let tmp = {
             title: "test",
-            latlng: new window.kakao.maps.LatLng(result[0].address.y, result[0].address.x),
+            latlng: new window.kakao.maps.LatLng(
+              result[0].address.y,
+              result[0].address.x
+            ),
           };
           console.log(tmp);
           this.markerPositions1.push(tmp);
@@ -200,6 +211,7 @@ export default {
   },
   beforeMount() {},
   mounted() {
+    this.getUserLocation();
     this.$store.dispatch("getPlace");
     if (!window.kakao || !window.kakao.maps) {
       const script = document.createElement("script");
@@ -222,7 +234,7 @@ export default {
 
 <style>
 #map {
-  width: 400px;
-  height: 400px;
+  width: 375px;
+  height: 300px;
 }
 </style>

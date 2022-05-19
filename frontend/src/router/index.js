@@ -18,7 +18,7 @@ import NewPost from "../components/Blogs/NewPost.vue";
 import AllBlogs from "../components/Blogs/index.vue";
 import MemberList from "../components/Blogs/MemberList.vue";
 import WaitMemberList from "../components/Blogs/WaitMemberList.vue";
-import Map from "../views/KaKaoMap.vue";
+import Map from "../components/Mypage/KaKaoMap.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -26,11 +26,6 @@ const routes = [
     path: "/",
     name: "MainPage",
     component: MainPage,
-  },
-  {
-    path: "/map",
-    name: "KakaoMap",
-    component: Map
   },
   {
     path: "/oauth/callback",
@@ -95,6 +90,10 @@ const routes = [
       {
         path: "myworkoutlog",
         component: MyWorkoutLog,
+      },
+      {
+        path: "map",
+        component: Map
       },
     ],
   },

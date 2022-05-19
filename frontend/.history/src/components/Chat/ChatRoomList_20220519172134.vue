@@ -23,7 +23,7 @@
         v-on:click="enterRoom(item.roomId)"
       >
         <img :src="item.image" id="item-image" />
-        &nbsp;&nbsp;&nbsp;{{ item.name }}
+        &nbsp;&nbsp;&nbsp;&nbsp;{{ item.name }}
       </li>
     </ul>
     <footer-home-one />

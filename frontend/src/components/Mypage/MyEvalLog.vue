@@ -1,5 +1,5 @@
 <template>
-  <div class="eveldiv">
+  <div class="eveldiv mt-5 pt-2">
     <div v-if="evalLists.length">
       <b-tabs content-class="mt-3" fill>
         <b-tab title="평가내역" active>

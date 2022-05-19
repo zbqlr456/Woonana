@@ -11,7 +11,6 @@
       :width="width"
       :height="height"
     />
-    <!--뷰차트 화면보이게 해주는거-->
     <table id="customers">
       <tr>
         <th>총 운동 횟수 :</th>
@@ -29,6 +28,7 @@
       </tr>
       <tr>
         <th>이번달 운동횟수 :</th>
+
         <td>
           <b-img
             rounded="circle"
@@ -43,6 +43,7 @@
       </tr>
       <tr>
         <th>이번달 탁구 :</th>
+
         <td>
           <b-img
             rounded="circle"
@@ -52,11 +53,13 @@
             height="75"
             width="75"
           ></b-img>
+
           {{ mymonthlog.monthLogs.length >= 1 ? mymonthlog.monthLogs[0].exerciseCount : 0 }}
         </td>
       </tr>
       <tr>
         <th>이번달 배드민턴 :</th>
+
         <td>
           <b-img
             rounded="circle"
@@ -71,6 +74,7 @@
       </tr>
       <tr>
         <th>이번달 캐치볼 :</th>
+
         <td>
           <b-img
             rounded="circle"
@@ -85,6 +89,7 @@
       </tr>
       <tr>
         <th>이번달 산책 :</th>
+
         <td>
           <b-img
             rounded="circle"
@@ -98,8 +103,7 @@
         </td>
       </tr>
     </table>
-    <!-- <vuejs-heatmap :entries="this.myheatmapData" :color-range="this.colorRangeData"></vuejs-heatmap> -->
-    <!--엔트리스가 색범위 넣어주는거-->
+    <vuejs-heatmap :entries="this.myheatmapData" :color-range="this.colorRangeData"></vuejs-heatmap>
     <br />
   </div>
 </template>
@@ -176,7 +180,6 @@ export default {
   methods: {
     //ChartData를 가져온 값으로 재설정한다.
     setExercisedata: function () {
-      // 원 그래프에서 산책, 탁구, 배드민턴 등 종목을 라벨로 보여준다.
       this.chartData.datasets[0].data = [];
       this.chartData.labels = [];
       for (let i = 0; i < this.myinfomation.length; i++) {
@@ -193,7 +196,6 @@ export default {
       // console.log(this.chartData.labels);
     },
     setWorkoutData: function () {
-      // 한달 운동기록 데이터를 긁어오는거
       // 한달 운동기록 데이터 수정
       this.workoutlogs[0].count = mymonthlog.excAll;
       this.workoutlogs[1].count = mymonthlog.excMonthCnt;
@@ -204,7 +206,6 @@ export default {
       }
     },
     getHeatmapData: async function () {
-      // 운동 아이디와 운동한 날짜를 잔디로 뿌려주고
       http.get("/api/accounts/myexercise/likes/");
     },
   },
@@ -221,9 +222,9 @@ export default {
     console.log(this.myinfomation);
     console.log(this.mymonthlog);
     console.log(this.myheatmapData);
-    console.log(this.myheatmapData);
     this.setExercisedata();
     this.setWorkoutData(); //한달 운동기록을 서버에 얻어온 값으로 대체
+    console.log(this.myheatmapData);
   },
   created() {
     console.log(this.myheatmapData);

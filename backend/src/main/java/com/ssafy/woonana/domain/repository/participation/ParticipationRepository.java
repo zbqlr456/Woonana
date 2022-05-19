@@ -15,7 +15,7 @@ import java.util.List;
 
 public interface ParticipationRepository extends JpaRepository<Participation, Long> {
 
-    @Query(value = "select p from Participation p where p.user.userId=:userId and p.participatedCheck=true order by p.board.meetStartDate desc")
+    @Query(value = "select p from Participation p where p.user.userId=:userId and p.allowed=true order by p.board.meetStartDate desc")
     List<Participation> findParticipationsByUser(Long userId); // user에 해당하는 참여들 리턴
 
     @Query("select p from Participation p where p.board.id = :boardId and p.allowed = false")
@@ -48,4 +48,6 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
     @Query("delete from Participation p where p.board.id = :boardId")
     void deleteParticipationByBoardId(@Param("boardId") Long boardId);
 
+    @Query("select p.board.id from Participation p where p.user.userId=:userId and p.allowed=true")
+    List<Long> participateBoardList(Long userId);
 }

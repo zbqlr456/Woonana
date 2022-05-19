@@ -71,7 +71,7 @@ public class BoardService {
         List<BoardListResponse> list = new ArrayList<>();
 
         for (Board b : boardList) {
-            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl(), b.getPlace()));
         }
 
         return list;
@@ -93,7 +93,7 @@ public class BoardService {
         List<BoardListResponse> list = new ArrayList<>();
 
         for (Board b : boardList) {
-            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl(), b.getPlace()));
         }
 
         return list;
@@ -102,7 +102,7 @@ public class BoardService {
         List<Board> findBoards = boardRepository.findBoardsByExerciseId(exerciseId);
         List<BoardListResponse> list = new ArrayList<>();
         for (Board b : findBoards) {
-            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl()));
+            list.add(new BoardListResponse(b.getId(), b.getUser().getUserNickname(), b.getUser().getUserEmail(), b.getTitle(), b.getAllowedNumber(), b.getMaxNumber(), b.getStatus(), b.getImageUrl(), b.getPlace()));
         }
 
         return list;

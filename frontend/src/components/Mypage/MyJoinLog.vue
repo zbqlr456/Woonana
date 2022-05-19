@@ -31,12 +31,16 @@
               :id="log.exerciseId"
             ></i>
           </div>
-          <h4 class="title">{{ log.boardMeetStartDate }} {{ log.place }} {{ log.exerciseName }}</h4>
+          <h4 class="title">
+            {{ log.boardMeetStartDate }} {{ log.place }} {{ log.exerciseName }}
+          </h4>
         </div>
       </div>
     </div>
     <div class="row" v-else>
-      <div class="appie-single-service-2 wow animated fadeInUp">아직 참여 내역이 없습니다.</div>
+      <div class="appie-single-service-2 wow animated fadeInUp">
+        아직 참여 내역이 없습니다.
+      </div>
     </div>
   </div>
 </template>
@@ -81,8 +85,8 @@ export default {
     isWalking(exerciseId) {
       if (exerciseId == 4) return true;
     },
-    moveDetail(boardId) {
-      this.$router.push({ name: "SingleBlog", params: { data: boardId } });
+    moveDetail: function (data) {
+      this.$router.push({ name: "ShowBlog", query: { data: data } });
     },
   },
 };

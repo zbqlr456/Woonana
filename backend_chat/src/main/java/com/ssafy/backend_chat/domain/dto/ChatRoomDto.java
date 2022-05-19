@@ -12,7 +12,7 @@ public class ChatRoomDto {
     private Long boardId;
     private String image;
 
-    public ChatRoom toEntity(){
+    public ChatRoom toEntity() {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setName(name);
         chatRoom.setBoardId(boardId);

@@ -54,6 +54,7 @@
           ></b-img>
           {{ mymonthlog.monthLogs.length >= 1 ? mymonthlog.monthLogs[0].exerciseCount : 0 }}
         </td>
+        <!--이번달 운동 횟수가 존재 한다면?-->
       </tr>
       <tr>
         <th>이번달 배드민턴 :</th>
@@ -98,7 +99,7 @@
         </td>
       </tr>
     </table>
-    <!-- <vuejs-heatmap :entries="this.myheatmapData" :color-range="this.colorRangeData"></vuejs-heatmap> -->
+    <vuejs-heatmap :entries="this.myheatmapData" :color-range="this.colorRangeData"></vuejs-heatmap>
     <!--엔트리스가 색범위 넣어주는거-->
     <br />
   </div>

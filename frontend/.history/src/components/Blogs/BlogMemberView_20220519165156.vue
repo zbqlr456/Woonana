@@ -63,7 +63,6 @@ export default {
       users: [],
       boardId: "",
       boardTitle: "",
-      boardImg: "",
       roomId: "",
       // storeduser:{
       //   userNickname: ""
@@ -93,11 +92,9 @@ export default {
     makeChatRoom() {
       this.boardId = this.$route.query.data;
       this.boardTitle = this.$route.query.title;
-      this.boardImg = this.$route.query.boardImg;
       const chatFormData = {
         name: this.boardTitle,
         boardId: this.boardId,
-        image: this.boardImg,
       };
       http2
         .post("/chatapi/room", JSON.stringify(chatFormData))

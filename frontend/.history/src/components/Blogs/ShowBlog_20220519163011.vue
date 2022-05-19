@@ -2,11 +2,11 @@
   <div>
     <div class="row">
       <div class="col-md-12" id="blog-title">
-        <span>게시글</span>
+        <span>게시판</span>
       </div>
     </div>
     <!-- Blog Start -->
-    <section class="blogpage-section" id="showblog">
+    <section class="blogpage-section">
       <div class="container">
         <div class="col-lg-8 col-md-7">
           <single-blog />
@@ -40,9 +40,7 @@ export default {
   font-weight: 700;
   z-index: 10;
   margin-left: 13px;
+
   text-align: center;
-}
-#showblog {
-  padding: 40px 0;
 }
 </style>

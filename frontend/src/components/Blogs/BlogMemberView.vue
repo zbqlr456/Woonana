@@ -38,7 +38,7 @@
       class="btn btn-light Jua"
       style="background-color: #ffbf00"
       @click="makeChatRoom()"
-      v-if="!this.checkButtonStatus"
+      v-if="this.masterCheck==1"
     >
       채팅방 개설
     </button>
@@ -69,7 +69,7 @@ export default {
       // },
       // storedusers: [],
       memberstatus: false,
-      userCheck: false,
+      masterCheck: 0,
     };
   },
   mounted() {
@@ -81,7 +81,7 @@ export default {
     },
     checkButtonStatus: function () {
       //채팅방 있으면 true 없으면 false
-      return this.$store.getters.check_activeChatBoardList(this.boardId);
+      return this.$store.getters.check_activeChatBoardList;
     },
   },
   methods: {
@@ -101,8 +101,6 @@ export default {
         .then((response) => {
           console.log(response);
           alert("채팅방 개설이 완료되었습니다.");
-          this.$store.commit("pushChatBoardIdList", this.boardId);
-          this.userCheck = false;
         })
         .catch((response) => {
           console.log(response);
@@ -136,6 +134,7 @@ export default {
           // console.log("여기는 유저닉네임 내용", this.users[0].userNickname);
           // console.log("여기는 로그인한 사람 이름", this.myinfomation.userNickname);
           this.membercheck();
+          this.mastercheck();
         })
         .catch((err) => {
           alert(err);
@@ -156,6 +155,13 @@ export default {
     chatCaution() {
       alert("이미 채팅방이 개설되었습니다.");
     },
+    mastercheck(){
+      if(this.myinfomation.userNickname == this.users[0].userNickname){
+        this.masterCheck = 1;
+        console.log(this.masterCheck);
+      }
+    }
+    
   },
 };
 </script>

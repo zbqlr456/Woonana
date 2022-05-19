@@ -3,11 +3,15 @@ import http from "@/util/index";
 const mapStore = {
     state: {
         places: [],
+        postids: [],
         selectPlace: null,
     },
     getters: {
         get_place(state) {
             return state.places;
+        },
+        get_postids(state) {
+            return state.postids;
         }
     },
     mutations: {
@@ -17,6 +21,13 @@ const mapStore = {
                 state.places.push(place.place);
             });
             // console.log(state.places);
+        },
+        SET_POSTID_LIST(state, payload) {
+            state.postids = [];
+            payload.forEach((ele) => {
+                state.postids.push(ele.boardId);
+            });
+            // console.log(state.postids);
         },
         SET_SELECTPLACE(state, selectPlace) {
             state.selectPlace = selectPlace;
@@ -38,7 +49,7 @@ const mapStore = {
             http.get(`api/main`).then(({ data }) => {
                 
             commit("SET_PLACE_LIST", data)
-                
+            commit("SET_POSTID_LIST", data)      
             }).catch((err) => {
                 console.log(err);
             });

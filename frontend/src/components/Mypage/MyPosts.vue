@@ -6,14 +6,17 @@
           <div class="bp-meta">
             <a href="#"><i class="fal fa-clock"></i>{{ board.status }}</a>
             <a href="#"
-              ><i class="fal fa-comments"></i>{{ board.allowedNumber }} / {{ board.maxNumber }}</a
+              ><i class="fal fa-comments"></i>{{ board.allowedNumber }} /
+              {{ board.maxNumber }}</a
             >
           </div>
           <h3>
             <!-- <a href="http://localhost:8080/api/main/4">{{ board.title }}</a> -->
             <a @click="movePost(board.boardId)">{{ board.title }}</a>
           </h3>
-          <a class="read-more" href="/singleblog">자세히 보기<i class="fal fa-arrow-right"></i></a>
+          <a class="read-more" @click="movePost(board.boardId)"
+            >자세히 보기<i class="fal fa-arrow-right"></i
+          ></a>
         </div>
       </div>
     </div>
@@ -52,7 +55,7 @@ export default {
     movePost: function (data) {
       this.$router.push({
         name: "ShowBlog",
-        params: { data: data },
+        query: { data: data },
       });
     },
   },

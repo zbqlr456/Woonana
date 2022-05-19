@@ -15,5 +15,5 @@ public interface ChatRoomRepository extends MongoRepository<ChatRoom,String> {
 
     ChatRoom findByRoomId(String roomId);
 
-    List<ChatRoom> findByRoomIdOrderByCreatedAtDesc();
+    List<ChatRoom> findByBoardIdInOrderByCreatedAtDesc(List<Long> boards);
 }

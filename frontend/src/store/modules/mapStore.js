@@ -5,12 +5,19 @@ const mapStore = {
         places: [],
         selectPlace: null,
     },
+    getters: {
+        getPlaces( state ) {
+            return state.places;
+        }
+    },
 
     mutations: {
         SET_PLACE_LIST(state, places) {
+            state.places = []; 
             places.forEach((place) => {
-                state.places.push(place);
+                state.places.push(place.place);
             });
+            // console.log(state.places);
         },
         SET_SELECTPLACE(state, selectPlace) {
             state.selectPlace = selectPlace;
@@ -20,16 +27,27 @@ const mapStore = {
         }
     },
     actions: {
+        
         getPlace({ commit }) {
+            let data = localStorage.getItem('vuex');
+            let parsedata = JSON.parse(data);
+            let token = parsedata.loginStore.jwtToken;
+        
+            http.defaults.withCredentials = false;
+            http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            http.defaults.headers.common['withCredentials'] = false;
             http.get(`api/main`).then(({ data }) => {
-                commit("SET_PLACE_LIST", data.place);
+                // console.log(data);
+                commit("SET_PLACE_LIST", data);
             }).catch((err) => {
                 console.log(err);
             });
         },
         getSelectPlace({ commit }, selectPlace) {
             commit("SET_SELECTPLACE", selectPlace);
+        },
+        
         }
-    }
 }
+
 export default mapStore;

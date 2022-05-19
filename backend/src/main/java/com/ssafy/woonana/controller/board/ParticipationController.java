@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @Api(value = "참가 API", tags = {"Participation"})
 @RestController
 @RequestMapping("api/participate")
@@ -91,4 +94,18 @@ public class ParticipationController {
         participationService.cancel(participationId);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping("/board")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "참여 취소 성공(신청 목록에서 삭제)"),
+            @ApiResponse(code = 401, message = "토큰 만료 || 토큰 없음 || 토큰 오류 => 권한 인증 오류", response = ErrorResponse.class),
+            @ApiResponse(code = 404, message = "해당 참여 관련 정보 없음", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "서버 에러", response = ErrorResponse.class)
+    })
+    public ResponseEntity<List<Map<String, Long>>> participateBoardList(@AuthenticationPrincipal Long userId){
+
+        List<Map<String, Long>> result = participationService.participateBoardList(userId);
+        return ResponseEntity.ok().body(result);
+    }
+
 }

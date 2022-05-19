@@ -16,7 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)
@@ -117,5 +120,19 @@ public class ParticipationService {
         Board findBoard = boardRepository.findById(boardId).get();
         if (findBoard.getStatus().equals("CLOSE"))
             throw new ParticipationIsFullException();
+    }
+
+    // userId가 참여한 게시글 목록
+    public List<Map<String, Long>> participateBoardList(Long userId){
+        List<Long> boardIdList=participationRepository.participateBoardList(userId);
+        List<Map<String, Long>> result = new ArrayList<>();
+
+        for(Long boardId: boardIdList){
+            Map<String, Long> board=new HashMap<>();
+            board.put("boardId", boardId);
+            result.add(board);
+        }
+
+        return result;
     }
 }

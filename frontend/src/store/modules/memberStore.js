@@ -13,7 +13,7 @@ const memberStore = {
         check_buttonClicked(state) {
             return state.buttonClicked;
         },
-        check_activeChatBoardList(state,boardId) {
+        check_activeChatBoardList: (state) => (boardId) => {
             for (var i = 0; i < state.chatBoardIdList.length; i++) {
                 if (state.chatBoardIdList[i] == boardId) {//해당하는 아이디가있다면
                     return true;

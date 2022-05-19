@@ -81,7 +81,7 @@ export default {
     },
     checkButtonStatus: function () {
       //채팅방 있으면 true 없으면 false
-      return this.$store.getters.check_activeChatBoardList;
+      return this.$store.getters.check_activeChatBoardList(this.boardId);
     },
   },
   methods: {

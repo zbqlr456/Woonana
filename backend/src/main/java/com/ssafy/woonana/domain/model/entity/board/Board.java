@@ -125,4 +125,7 @@ public class Board extends BaseTimeEntity {
         exerciseLog.setBoard(this);
     }
 
+    public void setBoardStatus(String status){
+        this.status=status;
+    }
 }

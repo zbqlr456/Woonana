@@ -5,7 +5,7 @@
         <b-tab title="평가내역" active>
           <div class="card_div m-3" v-for="(item, index) in evalListscomput" :key="index">
             <b-card
-              v-bind:title="item.userNickname + ' 모임 ' + item.userId + '님에게 준 평점'"
+              v-bind:title="item.userNickname + '님에게 준 평점'"
               :sub-title="item.boardDate.slice(0, 10)"
               style="max-width: 25rem"
               class="mb-3"

@@ -29,6 +29,7 @@ public class ChatRoomController {
     @PostMapping("/room")
     @ApiOperation(value = "채팅방 개설")
     public void createRoom(@RequestBody ChatRoomDto chatRoomDto) {
+        System.out.println(chatRoomDto);
         chatRoomRepository.save(chatRoomDto.toEntity());
     }
 

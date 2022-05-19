@@ -62,6 +62,6 @@ export default {
 
 <style>
 #myposts-container {
-  margin-top: 80px;
+  margin-top: 60px;
 }
 </style>

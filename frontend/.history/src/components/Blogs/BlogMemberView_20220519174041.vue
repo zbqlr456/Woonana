@@ -38,7 +38,11 @@
       class="btn btn-light Jua"
       style="background-color: #ffbf00"
       @click="makeChatRoom()"
+<<<<<<< HEAD
       v-if="this.masterCheck == 1"
+=======
+      v-if="this.masterCheck==1"
+>>>>>>> 9f00b80e135ff1a4e1db6c2c0101cc909c83f86a
     >
       채팅방 개설
     </button>
@@ -158,12 +162,13 @@ export default {
     chatCaution() {
       alert("이미 채팅방이 개설되었습니다.");
     },
-    mastercheck() {
-      if (this.myinfomation.userNickname == this.users[0].userNickname) {
+    mastercheck(){
+      if(this.myinfomation.userNickname == this.users[0].userNickname){
         this.masterCheck = 1;
         console.log(this.masterCheck);
       }
-    },
+    }
+    
   },
 };
 </script>

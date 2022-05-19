@@ -317,13 +317,14 @@ public class UserService {
 
         User loginUser=userRepository.findById(loginId).get(); // 평가한 사람
         User user = userRepository.findById(userId).get(); // 평가받은 사람
+        Board board = boardRepository.findById(boardId).get(); // 평가 게시글
 
         // 평가 테이블에 추가하기
         Evaluation eval = Evaluation.builder()
                 .evaluationRatingScore(rating)
                 .evaluationUser(loginUser)
                 .evaluationTarget(user)
-                .board(boardRepository.findById(boardId).get()) // 참여한 게시글
+                .board(board) // 참여한 게시글
                 .build();
         evaluationRepository.save(eval);
 
@@ -333,6 +334,8 @@ public class UserService {
         user.setUserRatingScore(avg); // 평가 컨셉이 안 잡혀서 일단은 평균값으로 업데이트 하도록 함
 //        System.out.println("updated: "+user.getUserRatingScore()); // 디버깅
         userRepository.save(user);
+        board.setBoardStatus("DONE"); // 게시글 종료
+        boardRepository.save(board); // 수정 반영
     }
 
     // 특정 유저가 평가한 모든 사용자를 보여준다

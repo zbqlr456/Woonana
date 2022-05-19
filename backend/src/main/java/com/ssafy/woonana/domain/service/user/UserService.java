@@ -28,6 +28,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -331,6 +332,7 @@ public class UserService {
 //        System.out.println("avg: "+avg); // 디버깅
         user.setUserRatingScore(avg); // 평가 컨셉이 안 잡혀서 일단은 평균값으로 업데이트 하도록 함
 //        System.out.println("updated: "+user.getUserRatingScore()); // 디버깅
+        userRepository.save(user);
     }
 
     // 특정 유저가 평가한 모든 사용자를 보여준다
@@ -395,6 +397,16 @@ public class UserService {
                 }
             }
         }
+
+        return result;
+    }
+
+    // 해당 유저의 평점 평균 가져옴
+    public HashMap<String, Integer> avgUserRatingScore(Long userId){
+
+        int score = userRepository.findById(userId).get().getUserRatingScore();
+        HashMap<String, Integer> result = new HashMap<>();
+        result.put("userRatingScore", score);
 
         return result;
     }

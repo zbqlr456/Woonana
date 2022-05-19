@@ -17,6 +17,8 @@ public class ChatRoom {
 
     private Long boardId;
 
+    private String image;
+
     private LocalDateTime createdAt;
 
     private boolean isEnd;

@@ -15,8 +15,11 @@
                 >
               </div>
               <h3>
-                {{ board.title }}
+                <a @click="boardDetail(board.boardId)">{{ board.title }}</a>
               </h3>
+              <!-- <a class="read-more" "
+                >Read More<i class="fal fa-arrow-right"></i
+              ></a> -->
             </div>
           </div>
         </div>

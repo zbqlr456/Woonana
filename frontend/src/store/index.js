@@ -5,6 +5,7 @@ import loginStore from './modules/loginStore'
 import userStore from './modules/userStore'
 import exerciseStore from './modules/exerciseStore'
 import memberStore from './modules/memberStore'
+import mapStore from './modules/mapStore'
 // import axios from 'axios';
 
 
@@ -18,6 +19,7 @@ export const store = new Vuex.Store({
         userStore: userStore,
         exerciseStore: exerciseStore,
         memberStore: memberStore,
+        mapStore: mapStore,
     },
     plugins: [
         createPersistedState(),

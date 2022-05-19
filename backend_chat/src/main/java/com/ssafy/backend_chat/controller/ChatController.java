@@ -40,11 +40,11 @@ public class ChatController {
     @ResponseBody
     @ApiOperation(value = "채팅방 채팅내역 전체 조회")
     public List<ChatMessage> roomInfo(@PathVariable String roomId, @RequestParam(value="pageNo")int pageNo) {
-        System.out.println("roomId =" + roomId + " - page =" + pageNo);
+//        System.out.println("roomId =" + roomId + " - page =" + pageNo);
         PageRequest pageRequest = PageRequest.of(pageNo, 25);
         Page<ChatMessage> page = chatMessageRepository.findByRoomIdOrderByCreatedAtDesc(roomId, pageRequest);
         List<ChatMessage> rep = page.getContent();
-        System.out.println(rep);
+//        System.out.println(rep);
         return rep;
     }
 }

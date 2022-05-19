@@ -1,18 +1,20 @@
 <template>
   <div id="myworkoutlog-container">
-    <Pie
-      :chart-options="chartOptions"
-      :chart-data="mychartData"
-      :chart-id="chartId"
-      :dataset-id-key="datasetIdKey"
-      :plugins="plugins"
-      :css-classes="cssClasses"
-      :styles="styles"
-      :width="width"
-      :height="height"
-    />
+    <div id="pie-div">
+      <Pie
+        :chart-options="chartOptions"
+        :chart-data="mychartData"
+        :chart-id="chartId"
+        :dataset-id-key="datasetIdKey"
+        :plugins="plugins"
+        :css-classes="cssClasses"
+        :styles="styles"
+        :width="width"
+        :height="height"
+      />
+    </div>
     <!--뷰차트 화면보이게 해주는거-->
-    <table id="customers">
+    <table id="customers" class="">
       <tr>
         <th>총 운동 횟수 :</th>
         <td>
@@ -24,7 +26,7 @@
             height="75"
             width="75"
           ></b-img>
-          {{ mymonthlog.excAll }}
+          {{ mymonthlog.excAll }}회
         </td>
       </tr>
       <tr>
@@ -37,8 +39,8 @@
             fluid
             height="75"
             width="75"
-          ></b-img
-          >{{ mymonthlog.excMonthCnt }}
+          ></b-img>
+          {{ mymonthlog.excMonthCnt }}회
         </td>
       </tr>
       <tr>
@@ -52,7 +54,7 @@
             height="75"
             width="75"
           ></b-img>
-          {{ mymonthlog.monthLogs.length >= 1 ? mymonthlog.monthLogs[0].exerciseCount : 0 }}
+          {{ mymonthlog.monthLogs.length >= 1 ? mymonthlog.monthLogs[0].exerciseCount : 0 }}회
         </td>
       </tr>
       <tr>
@@ -65,8 +67,8 @@
             fluid
             height="75"
             width="75"
-          ></b-img
-          >{{ mymonthlog.monthLogs.length >= 3 ? mymonthlog.monthLogs[2].exerciseCount : 0 }}
+          ></b-img>
+          {{ mymonthlog.monthLogs.length >= 3 ? mymonthlog.monthLogs[2].exerciseCount : 0 }}회
         </td>
       </tr>
       <tr>
@@ -79,8 +81,8 @@
             fluid
             height="75"
             width="75"
-          ></b-img
-          >{{ mymonthlog.monthLogs.length >= 2 ? mymonthlog.monthLogs[1].exerciseCount : 0 }}
+          ></b-img>
+          {{ mymonthlog.monthLogs.length >= 2 ? mymonthlog.monthLogs[1].exerciseCount : 0 }}회
         </td>
       </tr>
       <tr>
@@ -93,8 +95,8 @@
             fluid
             height="75"
             width="75"
-          ></b-img
-          >{{ mymonthlog.monthLogs.length >= 4 ? mymonthlog.monthLogs[4].exerciseCount : 0 }}
+          ></b-img>
+          {{ mymonthlog.monthLogs.length >= 4 ? mymonthlog.monthLogs[4].exerciseCount : 0 }}회
         </td>
       </tr>
     </table>
@@ -264,13 +266,17 @@ export default {
 </script>
 
 <style>
+#pie-chart {
+  /* margin-top: 20%; */
+  /* margin-bottom: 5%; */
+}
 #myworkoutlog-container {
-  width: 300px;
+  width: 400px;
 }
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 70%;
+  width: 90%;
 }
 
 #customers td,
@@ -304,5 +310,10 @@ export default {
 #customers td {
   text-align: center;
   width: 60%;
+  margin-bottom: 70%;
+}
+#pie-div {
+  height: 50%;
+  margin-top: 20%;
 }
 </style>

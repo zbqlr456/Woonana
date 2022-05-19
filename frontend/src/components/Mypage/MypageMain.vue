@@ -4,7 +4,10 @@
       <div id="profile-weather">
         <div id="profile">
           <div class="col-md-1" id="profile-img-box">
-            <b-img id="profile-img" v-bind:src="myinfomation.userProfileUrl"></b-img>
+            <b-img
+              id="profile-img"
+              v-bind:src="myinfomation.userProfileUrl"
+            ></b-img>
           </div>
           <div class="col-md-1">
             <p id="profile-nickname">{{ myinfomation.userNickname }}</p>
@@ -12,21 +15,37 @@
         </div>
         <div id="my-weather">
           <p id="weather-list">
-            {{ myinfomation.userNickname }}님의 현재 날씨 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{ myinfomation.userNickname }}님의 현재 날씨
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <i v-if="this.myrating <= 1" class="fas fa-bolt"></i>
-            <i v-if="this.myrating <= 2 && this.myrating > 1" class="fas fa-cloud-rain"></i>
-            <i v-if="this.myrating <= 3 && this.myrating > 2" class="fas fa-cloud"></i>
-            <i v-if="this.myrating <= 4 && this.myrating > 3" class="fas fa-cloud-sun"></i>
-            <i v-if="this.myrating <= 5 && this.myrating > 4" class="fas fa-sun"></i>
+            <i
+              v-if="this.myrating <= 2 && this.myrating > 1"
+              class="fas fa-cloud-rain"
+            ></i>
+            <i
+              v-if="this.myrating <= 3 && this.myrating > 2"
+              class="fas fa-cloud"
+            ></i>
+            <i
+              v-if="this.myrating <= 4 && this.myrating > 3"
+              class="fas fa-cloud-sun"
+            ></i>
+            <i
+              v-if="this.myrating <= 5 && this.myrating > 4"
+              class="fas fa-sun"
+            ></i>
           </p>
         </div>
       </div>
       <div id="my-promise">
         <div>나의 약속</div>
         <div>
-          <span v-for="(appoint, index) in myappointment" :key="index" class="badge bg-black">{{
-            appoint.boardMeetStartDate
-          }}</span>
+          <span
+            v-for="(appoint, index) in myappointment"
+            :key="index"
+            class="badge bg-black"
+            >{{ appoint.boardMeetStartDate }}</span
+          >
         </div>
       </div>
       <div id="promise-list">
@@ -42,22 +61,34 @@
     </div>
     <ul class="list-group list-group-flush">
       <li class="my-page-list list-group-item">
-        <router-link to="/mypage/myposts" class="mypage-link-name">내 글</router-link>
+        <router-link to="/mypage/myposts" class="mypage-link-name"
+          >내 글</router-link
+        >
       </li>
       <li class="my-page-list list-group-item">
-        <router-link to="/mypage/myjoinlog" class="mypage-link-name">참여 내역</router-link>
+        <router-link to="/mypage/myjoinlog" class="mypage-link-name"
+          >참여 내역</router-link
+        >
       </li>
       <li class="my-page-list list-group-item">
-        <router-link to="/map" class="mypage-link-name">운하나맵</router-link>
+        <router-link to="/mypage/map" class="mypage-link-name"
+          >운하나맵</router-link
+        >
       </li>
       <li class="my-page-list list-group-item">
-        <router-link to="/mypage/myworkoutlog" class="mypage-link-name">운동 기록</router-link>
+        <router-link to="/mypage/myworkoutlog" class="mypage-link-name"
+          >운동 기록</router-link
+        >
       </li>
       <li class="my-page-list list-group-item">
-        <router-link to="/mypage/myevallog" class="mypage-link-name">평가 페이지</router-link>
+        <router-link to="/mypage/myevallog" class="mypage-link-name"
+          >평가 페이지</router-link
+        >
       </li>
       <li class="my-page-list list-group-item">
-        <router-link to="/mypage/qna" class="mypage-link-name">고객 센터</router-link>
+        <router-link to="/mypage/qna" class="mypage-link-name"
+          >고객 센터</router-link
+        >
       </li>
     </ul>
   </div>

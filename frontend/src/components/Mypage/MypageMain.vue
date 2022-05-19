@@ -48,6 +48,9 @@
         <router-link to="/mypage/myjoinlog" class="mypage-link-name">참여 내역</router-link>
       </li>
       <li class="my-page-list list-group-item">
+        <router-link to="/map" class="mypage-link-name">운하나맵</router-link>
+      </li>
+      <li class="my-page-list list-group-item">
         <router-link to="/mypage/myworkoutlog" class="mypage-link-name">운동 기록</router-link>
       </li>
       <li class="my-page-list list-group-item">

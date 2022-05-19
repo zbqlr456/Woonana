@@ -1,19 +1,25 @@
 <template>
   <!-- <div class="col-md-8 Jua"> -->
-  <div>
-    <div class="row">
+  <div class>
+    <div class="row Jua">
       <div class="col-md-12" id="newpost-title">
         <span>게시글 등록</span>
       </div>
     </div>
     <div class="contact-form">
-      <p>함께 운동할 사람을 찾아보세요.</p>
+      <p class="Jua">함께 운동할 사람을 찾아보세요.</p>
       <form action="#" method="post" class="row">
-        <div class="col-md-6">
-          <label>게시글 제목</label>
-          <input type="text" name="title" placeholder="제목을 입력하세요" v-model="board.title" />
+        <div class="col-md-6 Jua">
+          <label class="Jua">게시글 제목</label>
+          <input
+            type="text"
+            name="title"
+            placeholder="제목을 입력하세요"
+            v-model="board.title"
+            class="Jua"
+          />
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 Jua">
           <label>게시글 내용</label>
           <textarea
             name="content"
@@ -21,27 +27,60 @@
             v-model="board.content"
           ></textarea>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 Jua">
           <label>운동 시작 날짜</label><br />
-          <input type="datetime-local" name="meetStartDate" v-model="board.meetStartDate" />
+          <input
+            type="datetime-local"
+            name="meetStartDate"
+            v-model="board.meetStartDate"
+          />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 Jua">
           <label>운동 종료 날짜</label><br />
-          <input type="datetime-local" name="meetEndDate" v-model="board.meetEndDate" />
+          <input
+            type="datetime-local"
+            name="meetEndDate"
+            v-model="board.meetEndDate"
+          />
         </div>
         <br />
-        <div class="col-md-6">
+        <div class="col-md-6 Jua">
           <br />
           <label>최대 인원 설정</label>
-          <input type="number" name="maxNumber" min="1" max="6" v-model="board.maxNumber" />
+          <input
+            type="number"
+            name="maxNumber"
+            min="1"
+            max="6"
+            v-model="board.maxNumber"
+          />
         </div>
-        <div class="col-md-12">
-          <label style="font-family: sans; font-size: 18px">운동 종류 설정</label><br />
-          <input type="radio" id="산책" name="exerciseId" value="4" v-model="board.exerciseId" />
+        <div class="col-md-12 Jua">
+          <label class="Jua" style="font-size: 18px">운동 종류 설정</label
+          ><br />
+          <input
+            type="radio"
+            id="산책"
+            name="exerciseId"
+            value="4"
+            v-model="board.exerciseId"
+          />
           <label for="산책">&nbsp;산책</label><br />
-          <input type="radio" id="캐치볼" name="exerciseId" value="3" v-model="board.exerciseId" />
+          <input
+            type="radio"
+            id="캐치볼"
+            name="exerciseId"
+            value="3"
+            v-model="board.exerciseId"
+          />
           <label for="캐치볼">&nbsp;캐치볼</label><br />
-          <input type="radio" id="탁구" name="exerciseId" value="1" v-model="board.exerciseId" />
+          <input
+            type="radio"
+            id="탁구"
+            name="exerciseId"
+            value="1"
+            v-model="board.exerciseId"
+          />
           <label for="탁구">&nbsp;탁구</label><br />
           <input
             type="radio"
@@ -53,9 +92,9 @@
           <label for="배드민턴">&nbsp;배드민턴</label><br />
         </div>
         <br />
-        <div class="col-md-12">
+        <div class="col-md-12 Jua">
           <br />
-          <label style="font-family: sans; font-size: 18px">모집 형태</label><br />
+          <label style="font-size: 18px">모집 형태</label><br />
           <input
             type="radio"
             id="신청제"
@@ -75,11 +114,26 @@
         </div>
         <div>
           <br />
-          <div class="col-md-12">
+          <div class="col-md-12 Jua">
             <div class="form-group">
-              <input type="text" id="postcode" v-model="postcode" placeholder="우편번호" />
-              <input type="text" id="address" v-model="address" placeholder="주소" /><br />
-              <input type="text" id="extraAddress" v-model="extraAddress" placeholder="상세주소" />
+              <input
+                type="text"
+                id="postcode"
+                v-model="postcode"
+                placeholder="우편번호"
+              />
+              <input
+                type="text"
+                id="address"
+                v-model="address"
+                placeholder="주소"
+              /><br />
+              <input
+                type="text"
+                id="extraAddress"
+                v-model="extraAddress"
+                placeholder="상세주소"
+              />
               <input type="text" v-model="extra" placeholder="추가사항" />
             </div>
             <button
@@ -104,7 +158,7 @@
             accept=".jpg, .png"
           />
         </ul>
-        <div class="col-md-6 text-right">
+        <div class="col-md-6 text-right Jua">
           <br />
           <button
             type="button"
@@ -174,7 +228,9 @@ export default {
             // 건물명이 있고, 공동주택일 경우 추가한다.
             if (data.buildingName !== "" && data.apartment === "Y") {
               this.extraAddress +=
-                this.extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+                this.extraAddress !== ""
+                  ? `, ${data.buildingName}`
+                  : data.buildingName;
             }
             // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
             if (this.extraAddress !== "") {
@@ -224,7 +280,8 @@ export default {
           this.$router.push("/allblogs");
         })
         .catch((err) => {
-          alert(err);
+          console.log(err);
+          alert("입력되지 않은 칸이 있습니다. 다시 한번 확인해 주세요!");
         });
     },
   },

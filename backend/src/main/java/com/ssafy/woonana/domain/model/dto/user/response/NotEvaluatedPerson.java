@@ -14,6 +14,7 @@ public class NotEvaluatedPerson {
     private Long boardId;
     private String boardTitle;
     private LocalDateTime boardDate;
+    private Long exerciseId;
 
     public NotEvaluatedPerson(User user, Board board){
         this.userId=user.getUserId();
@@ -21,5 +22,6 @@ public class NotEvaluatedPerson {
         this.boardId=board.getId();
         this.boardTitle=board.getTitle();
         this.boardDate=board.getMeetEndDate();
+        this.exerciseId=board.getExercise().getId();
     }
 }

@@ -97,7 +97,7 @@ export default {
       const chatFormData = {
         name: this.boardTitle,
         boardId: this.boardId,
-        image: this.boardImg,
+        boardImg: this.boardImg,
       };
       http2
         .post("/chatapi/room", JSON.stringify(chatFormData))

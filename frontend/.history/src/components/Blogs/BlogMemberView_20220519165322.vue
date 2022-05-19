@@ -63,7 +63,6 @@ export default {
       users: [],
       boardId: "",
       boardTitle: "",
-      boardImg: "",
       roomId: "",
       // storeduser:{
       //   userNickname: ""
@@ -97,7 +96,7 @@ export default {
       const chatFormData = {
         name: this.boardTitle,
         boardId: this.boardId,
-        image: this.boardImg,
+        boardImg: this.boardImg,
       };
       http2
         .post("/chatapi/room", JSON.stringify(chatFormData))

@@ -118,7 +118,7 @@ export default {
     viewMember: function () {
       this.$router.push({
         name: "MemberList",
-        query: { data: this.boardId, title: this.board.title, boardImg: this.board.imageUrl },
+        query: { data: this.boardId, title: this.board.title },
       });
     },
     viewParticipatedMember: function () {

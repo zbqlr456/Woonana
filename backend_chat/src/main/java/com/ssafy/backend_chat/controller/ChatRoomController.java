@@ -39,4 +39,11 @@ public class ChatRoomController {
         return chatRoomRepository.findByRoomId(roomId);
     }
 
+    @GetMapping("/board/{boardId}")
+    @ApiOperation(value = "게시판 ID로 채팅방 ID 조회")
+    public String getRoomId(@PathVariable("boardId") Long boardId){
+        ChatRoom chatRoom = chatRoomRepository.findTopByBoardIdOrderByCreatedAt(boardId);
+        return chatRoom.getRoomId();
+    }
+
 }

@@ -48,4 +48,6 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
     @Query("delete from Participation p where p.board.id = :boardId")
     void deleteParticipationByBoardId(@Param("boardId") Long boardId);
 
+    @Query("select p.board.id from Participation p where p.user.userId=:userId and p.allowed=true")
+    List<Long> participateBoardList(Long userId);
 }

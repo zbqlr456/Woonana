@@ -4,11 +4,11 @@ server:
 spring:
   data:
     mongodb:
-      host: k6b104.p.ssafy.io
+      host: example.p.xxx.x
       port: 27017
-      database: chat
+      database: 데이터베이스 이름
       username: root
-      password: woonana123@
+      password: 비밀번호
       authentication-database: admin
   mvc:
     pathmatch:

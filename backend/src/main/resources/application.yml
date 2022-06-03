@@ -3,10 +3,9 @@ server:
 
 spring:
   datasource:
-#    url: jdbc:mysql://k6b104.p.ssafy.io:3306/woonana
-    url: jdbc:mysql://k6b104.p.ssafy.io:3306/woonana?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Seoul
+    url: 데이터베이스 url
     username: root
-    password: woonana123@
+    password: 비밀번호
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     generate-ddl: false
@@ -34,9 +33,8 @@ logging.level:
   org.hibernate.type: trace
 
 kakao.login:
-  client_id: 76d85e088d5bb875d6e4493b8eda78fd
-  redirect_url: https://k6b104.p.ssafy.io/oauth/callback
-#  redirect_url: http://localhost:8080/oauth/callback
+  client_id: 아이디
+  redirect_url: 콜백 주소
 
 cloud:
   aws:

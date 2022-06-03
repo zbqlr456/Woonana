@@ -1,5 +1,5 @@
 cloud:
   aws:
     credentials:
-      accessKey: AKIAYXFHPKUQUBMQY56K
-      secretKey: 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
+      accessKey: 엑세스 키
+      secretKey: 시크릿 키

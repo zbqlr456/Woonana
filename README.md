@@ -17,14 +17,15 @@
 ![기술스택](README.assets/%EA%B8%B0%EC%88%A0%EC%8A%A4%ED%83%9D.png)
 
 
-## 기술 스택
+## 💽시스템 아키텍처
 
 ![서비스흐름도](README.assets/%EC%84%9C%EB%B9%84%EC%8A%A4%ED%9D%90%EB%A6%84%EB%8F%84.png)
 
 
-## ER Diagram
+## 🔑ERD
 
 ![자율플젝ERD](README.assets/ERD%20%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8.png)
 
 
-## 나의 역할
+## 👨‍💻나의 역할
+

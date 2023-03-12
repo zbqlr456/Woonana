@@ -53,44 +53,6 @@
 
 ![서비스흐름도](README.assets/%EC%84%9C%EB%B9%84%EC%8A%A4%ED%9D%90%EB%A6%84%EB%8F%84.png)
 
-### Git Flow 브랜치 전략
-
----
-
-- Git Flow Model을 사용하고, Git 기본 명령어를 사용한다.
-- commit은 git-cz를 사용해서 commit한다.
-- Git Flow 사용 브랜치
-  - feature - 기능
-  - develop - 개발
-  - master - 배포
-- Git Flow 진행 방식
-  1. feature 브랜치가 완성되면 develop 브랜치로 pull request를 요청한다.
-  2. pull request가 요청되면, 모든 팀원이 코드 리뷰를 하고 merge를 진행한다.
-  3. 매주 금요일 develop 브랜치를 master 브랜치로 병합하여 배포를 진행한다.
-
-### Jira
-
----
-
-일정 및 효율적인 개발을 위해 Jira를 사용했습니다. 매주 금요일 미팅을 통해 다음 주에 진행될 주 단위 계획을 짜고 이슈들을 스프린트에 등록했습니다.
-스프린트는 주 단위로 만들어 진행했습니다.
-
-- Epic : 구현할 기능들을 큰 틀로 나누어서 구성하였습니다.
-- Story : 세부 기능들을 작성하여 Epic을 지정하였습니다.
-
-### Notion & Webex
-
----
-
-Notion에서는 모두가 봐야할 공지, 미팅내용, 학습내용, 일정, 필수 링크들을 모아서 정리했습니다.
-
-Webex에서는 항상 모여서 개발을 진행하고, 회의를 진행했습니다.
-
-### Scrum
-
----
-
-매일 반 미팅 이후에 팀원끼리 모여 시간을 가졌습니다. Scrum을 통해 팀원들의 진행 상황을 확인하고 꾸준히 모니터링 했습니다.
 
 ### ER Diagram
 

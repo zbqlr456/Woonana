@@ -1,8 +1,6 @@
 # Woonana
 <img src = "https://user-images.githubusercontent.com/63107888/224536657-ee436bf1-d1e9-4bdd-9586-738993c8085a.png" />
 
-## Overview
-
 운동을 하고 싶지만 친구들과 모이기 힘든가요?<br>
 가볍게 주변에서 운동을 하고 싶은신가요?<br>
 저희 **Woonana** 에서 다양한 사람들과 주변에서 운동을 즐겨보세요!!

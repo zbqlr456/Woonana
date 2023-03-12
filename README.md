@@ -1,5 +1,5 @@
 # Woonana
-### 운동하게 나와!
+<img src = "https://user-images.githubusercontent.com/63107888/224536657-ee436bf1-d1e9-4bdd-9586-738993c8085a.png" />
 
 ## Overview
 
